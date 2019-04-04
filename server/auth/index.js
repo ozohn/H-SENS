@@ -10,7 +10,7 @@ const router = express.Router();
 
 const schema = Joi.object().keys({
     username: Joi.string().regex(/(^[a-zA-Z0-9]+$)/).min(2).max(30).required(),
-    password: Joi.string().min(10).required()
+    password: Joi.string().min(10).trim().required()
 });
  
 
@@ -46,6 +46,7 @@ router.post('/signup', (req, res, next) => {
                     }
 
                     users.insert(newUser).then(insertedUser => {
+                        delete insertedUser.password;
                         res.json(insertedUser);
                     });
                 })

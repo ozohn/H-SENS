@@ -3,7 +3,7 @@ const volleyball = require('volleyball');
 
 const app = express();
 
-const auth = require('./auth/index');
+const auth = require('./auth');
 
 app.use(volleyball);
 app.use(express.json());

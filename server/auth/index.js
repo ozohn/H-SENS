@@ -1,5 +1,6 @@
 const express = require('express');
 const Joi = require('joi');
+const bcrypt = require('bcrypt')
 
 const db = require('../db/connection.js');
 const users = db.get('users');
@@ -30,7 +31,18 @@ router.post('/signup', (req, res, next) => {
         }).then(user => {
             // if user is undefined, username is not in the db, 
             // otherwise, duplicate user
-            res.json({ user });
+            if(user){
+                // there is already a user in the db with this username ...
+                // respond with an error!
+                const error = new Error('Please choose another username.');
+                next(error);
+            } else {
+                // hash the password
+                // insert the user with the hashed password
+                bcrypt.hash(req.body.password, 12).then(hashedPassword => {
+                    res.json({ hashedPassword });
+                })
+            }
         })
     } else {
         // res.json(result);

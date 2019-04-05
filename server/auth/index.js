@@ -22,6 +22,7 @@ router.get('/', (req, res) => {
     });
 });
 
+// localhost/auth/signup
 router.post('/signup', (req, res, next) => { 
     const result = Joi.validate(req.body, schema);
     if(result.error === null) {

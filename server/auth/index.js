@@ -40,7 +40,7 @@ router.post('/signup', (req, res, next) => {
             } else {
                 // hash the password
                 // insert the user with the hashed password
-                bcrypt.hash(req.body.password, 12).then(hashedPassword => {
+                bcrypt.hash(req.body.password.trim(), 12).then(hashedPassword => {
                     const newUser = {
                         username: req.body.username,
                         password: hashedPassword
@@ -56,6 +56,22 @@ router.post('/signup', (req, res, next) => {
     } else {
         // res.json(result);
         next(result.error);
+    }
+})
+
+router.post('/signin', (req, res, next) => { 
+    const result = Joi.validate(req.body, schema);
+    if(result.error !== null){
+        user.findOne({
+            username: req.body.username
+        }).then(user => {
+            if(user){
+                bcrypt.compare(req.body.password, user.password)
+                      .then(res => {
+                        
+                      })
+            }
+        })
     }
 })
 module.exports = router;

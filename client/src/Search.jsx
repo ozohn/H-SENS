@@ -2,48 +2,49 @@ import React from "react";
 import styled from "styled-components";
 
 const SearchWrapper = styled.div`
-  border: 1px solid black;
+`;
+
+const SearchContainer = styled.div`
   display: flex;
-  width: 70rem;
-  height: 3rem;
   margin: auto;
   align-items: center;
 `;
 
-const Selector = styled.div`
-  border: 1px solid black;
-  width: 10rem;
-  height: 2rem;
+const SearchInputer = styled.input`
+	padding: 0;
+	border: 0;
+	border-bottom: 1px solid #bbb;
+  outline: none;
+  width: 50rem;
+  height: 3rem;
+  font-size: 1.6rem;
 `;
 
-const SearchInputer = styled.input`
-  border: 1px solid black;
-  width: 40rem;
+const Selector = styled.div`
+	width: 2rem;
   height: 2rem;
-  padding: 0;
 `;
 
 const SearchBtn = styled.div`
-  border: 1px solid black;
-  width: 2rem;
-  height: 1rem;
+  border: 1px solid #bbb;
+  width: 8.4rem;
+  height: 3rem;
 `;
 
 const FilterWrapper = styled.div`
-  border: 1px solid black;
   display: flex;
-  height:3rem;
+	height:3rem;
 `;
 
 export default function Search() {
   return (
-    <>
-      <SearchWrapper>
+    <SearchWrapper>
+      <SearchContainer>
         <SearchInputer />
         <Selector />
         <SearchBtn />
-      </SearchWrapper>
+      </SearchContainer>
       <FilterWrapper />
-    </>
+    </SearchWrapper>
   );
 }

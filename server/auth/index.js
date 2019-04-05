@@ -34,7 +34,7 @@ function createToken(user, res, next) {
     },
     (err, token) => {
       if (err) {
-        respondError422(res, next);
+        respondError401(res, next);
       } else {
         res.json({
           token
@@ -91,8 +91,8 @@ router.post("/signup", (req, res, next) => {
   }
 });
 
-function respondError422(res, next) {
-  res.status(422);
+function respondError401(res, next) {
+  res.status(401);
   const error = new Error("Unable to login.");
   next(error);
 }
@@ -110,15 +110,15 @@ router.post("/signin", (req, res, next) => {
             if (result) {
               createToken(user, res, next);
             } else {
-              respondError422(res, next);
+              respondError401(res, next);
             }
           });
         } else {
-          respondError422(res, next);
+          respondError401(res, next);
         }
       });
   } else {
-    respondError422(res, next);
+    respondError401(res, next);
   }
 });
 module.exports = router;

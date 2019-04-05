@@ -17,7 +17,7 @@
     "mongodb": "^3.2.2",
     "monk": "^6.0.6",
     "volleyball": "^1.5.1"
-  },
+  }, 
   "devDependencies": {
     "nodemon": "^1.18.10"
   }

@@ -31,7 +31,7 @@ const SearchBtn = styled.div`
   height: 3rem;
 `;
 
-const FilterWrapper = styled.div`
+const Filter = styled.div`
   display: flex;
 	height:3rem;
 `;
@@ -44,7 +44,7 @@ export default function Search() {
         <Selector />
         <SearchBtn />
       </SearchContainer>
-      <FilterWrapper />
+      <Filter />
     </SearchWrapper>
   );
 }

@@ -3,7 +3,8 @@ const volleyball = require("volleyball");
 
 const app = express();
 
-const auth = require("./auth");
+const auth = require('./auth');
+const user = require('./router/user.js');
 
 app.use(volleyball);
 app.use(express.json());
@@ -14,7 +15,8 @@ app.get("/", (req, res) => {
   });
 });
 
-app.use("/auth", auth);
+app.use('/auth', auth);
+app.use('/router', user)
 
 function notFound(req, res, next) {
   res.status(404);

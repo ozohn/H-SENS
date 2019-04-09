@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button, Form, Checkbox } from 'semantic-ui-react';
+import { Button, Form } from 'semantic-ui-react';
 import styled from 'styled-components';
 import { BrowserRouter as Router, Link } from 'react-router-dom';
 
@@ -7,7 +7,7 @@ const ExtBtn = styled(Button)`
   width: 100%;
 `;
 const NavContainer = styled.div`
-  display:flex;
+  display: flex;
   margin-top: 1rem;
 `;
 const ButtonGroup = styled(Button.Group)`
@@ -49,37 +49,24 @@ const SignNav = () => (
 
 const SignInForm = () => (
   <Form>
-    <Form.Field>
-      <input placeholder="아이디" />
-    </Form.Field>
-    <Form.Field>
-      <input type="password" placeholder="비밀번호" />
-    </Form.Field>
+    <Form.Input placeholder="아이디" />
+    <Form.Input type="password" placeholder="비밀번호" />
     <ExtBtn type="submit">로그인</ExtBtn>
   </Form>
 );
 
 const SignUpForm = props => (
   <Form>
-    <Form.Field>
-      <label>아이디</label>
-      <input placeholder="아이디" />
-    </Form.Field>
-    <Form.Field>
-      <label>비밀번호</label>
-      <input type="password" placeholder="비밀번호" />
-    </Form.Field>
-    <Form.Field>
-      <label>비밀번호 재입력</label>
-      <input type="password" placeholder="비밀번호 재입력" />
-    </Form.Field>
-    <Form.Field>
-      <label>이름</label>
-      <input placeholder="이름" />
-    </Form.Field>
-    <Form.Field>
-      <Checkbox label='본 페이지를 포트폴리오 관련으로 사용할 것을 약속합니다.' />
-    </Form.Field>
+    {props.bId ? (
+      <Form.Input fluidlabel="아이디" placeholder="아이디" onChange={props.checkId} />
+    ) : (
+      <Form.Input fluidlabel="아이디" placeholder="아이디" onChange={props.checkId} error />
+    )}
+    <Form.Input fluidlabel="아이디" placeholder="아이디" error />
+    <Form.Input fluidlabel="비밀번호" placeholder="비밀번호" error />
+    <Form.Input placeholder="비밀번호 재입력" error />
+    <Form.Input fluidlabel="이름" placeholder="이름" error />
+    <Form.Checkbox label="본 페이지를 포트폴리오 관련으로 사용할 것을 약속합니다." />
     <ExtBtn type="submit">가입</ExtBtn>
   </Form>
 );

@@ -6,7 +6,6 @@ import { BrowserRouter as Router, Link } from 'react-router-dom';
 const NavContainer = styled.div`
   margin-top: 1rem;
 `;
-
 const ButtonGroup = styled(Button.Group)`
   width:100%;
 `

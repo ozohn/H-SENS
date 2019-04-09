@@ -1,22 +1,32 @@
-import React, { setState } from 'react';
+import React, { useState } from 'react';
 import { BrowserRouter as Router, Link } from 'react-router-dom';
 import { SignLogo, Container, SignUpForm } from './SignForm.jsx';
 
 const SignUp = props => {
-  const [bId, setbId] = setState(false);
+  const [bId, setbId] = useState(true);
+  // const [bPw, setbPw] = useState(true);
 
-  const checkId = (e) => {
-    let curVal = e.value
+  let checkId = (e) => {
+    let curVal = e.target.value
     const idRegExp = /^[A-Za-z0-9]{6,12}$/
     setbId(idRegExp.test(curVal))
     return bId
   }
 
+  // let checkPw = (e) => {
+  //   let curVal = e.target.value
+  //   const pwRegExp = /^.*(?=^.{8,15}$)(?=.*\d)(?=.*[a-zA-Z])(?=.*[!@#$%^&+=]).*$/;
+  //   console.log(curVal);
+  //   console.log(pwRegExp.test(curVal))
+  //   setbPw(pwRegExp.test(curVal));
+  //   return bPw
+  // }
+
   return (
     <>
       <SignLogo as={Link} to="/" />
       <Container>
-        <SignUpForm checkId={checkId} />
+        <SignUpForm Fns={{checkId}} Bs={{bId}}/>
       </Container>
     </>
   );

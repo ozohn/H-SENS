@@ -55,20 +55,26 @@ const SignInForm = () => (
   </Form>
 );
 
-const SignUpForm = props => (
+const SignUpForm = props => {
+  const idLabel = '아이디'
+  const pwLabel = '비밀번호'
+  return (
   <Form>
-    {props.bId ? (
-      <Form.Input fluidlabel="아이디" placeholder="아이디" onChange={props.checkId} />
+    {props.Bs.bId ? (
+      <Form.Input fluid label={idLabel} placeholder="아이디" onChange={props.Fns.checkId} />
     ) : (
-      <Form.Input fluidlabel="아이디" placeholder="아이디" onChange={props.checkId} error />
+      <Form.Input fluid label={`${idLabel}-영어/숫자 조합 6-12글자`} placeholder="아이디" onChange={props.Fns.checkId} error />
     )}
-    <Form.Input fluidlabel="아이디" placeholder="아이디" error />
-    <Form.Input fluidlabel="비밀번호" placeholder="비밀번호" error />
+    {props.Bs.bPw ? (
+      <Form.Input className='pw' fluid label={pwLabel} placeholder="비밀번호" />
+    ) : (
+      <Form.Input className='pw' fluid label={pwLabel} placeholder="비밀번호" error />
+    )}
     <Form.Input placeholder="비밀번호 재입력" error />
-    <Form.Input fluidlabel="이름" placeholder="이름" error />
+    <Form.Input fluid label="이름" placeholder="이름" error />
     <Form.Checkbox label="본 페이지를 포트폴리오 관련으로 사용할 것을 약속합니다." />
     <ExtBtn type="submit">가입</ExtBtn>
   </Form>
-);
+)};
 
 export { SignInForm, SignNav, SignLogo, Container, SignUpForm };

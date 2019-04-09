@@ -1,32 +1,11 @@
 import React from 'react';
-import styled from 'styled-components';
-
-import SignNav from './SignNav.jsx';
-import SignInForm from './SignInForm.jsx';
-
-const SignInLogo = styled.div`
-  display: flex;
-  font-size: 6.1rem;
-  width 20rem;
-  height: 6.3rem;
-  margin: 3rem auto;
-`;
-const Container = styled.div`
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-  height: 100%;
-`;
-const SetCenter = styled.div`
-  display: flex;
-  flex-direction: column;
-  margin: 3rem auto 0 auto;
-`;
+import { BrowserRouter as Router, Link } from 'react-router-dom';
+import { SignInForm, SignNav, SignLogo, Container, SetCenter } from './SignForm.jsx';
 
 const SignIn = props => {
   return (
     <>
-      <SignInLogo>H-Sens</SignInLogo>
+      <SignLogo as={Link} to='/' />
       <Container>
         <SetCenter>
           <SignInForm />

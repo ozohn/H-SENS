@@ -1,7 +1,7 @@
 import React from 'react';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 import SignIn from '../component/user/SignIn.jsx';
-// import SignUp from '../component/user/SignUp.jsx';
+import SignUp from '../component/user/SignUp.jsx';
 import App from '../App.js';
 
 const Path = props => {
@@ -9,7 +9,7 @@ const Path = props => {
     <Router>
       <Route path="/" exact component={App} />
       <Route path="/signin" component={SignIn} />
-      {/* <Route path="/signup" component={SignUp} /> */}
+      <Route path="/signup" component={SignUp} />
     </Router>
   );
 };

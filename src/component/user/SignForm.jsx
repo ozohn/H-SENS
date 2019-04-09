@@ -1,17 +1,18 @@
-import React from 'react'
-import { Button, Form } from 'semantic-ui-react'
+import React from 'react';
+import { Button, Form, Checkbox } from 'semantic-ui-react';
 import styled from 'styled-components';
 import { BrowserRouter as Router, Link } from 'react-router-dom';
 
 const ExtBtn = styled(Button)`
   width: 100%;
-`
+`;
 const NavContainer = styled.div`
+  display:flex;
   margin-top: 1rem;
 `;
 const ButtonGroup = styled(Button.Group)`
-  width:100%;
-`
+  width: 100%;
+`;
 const SignLogo = styled.div`
   display: flex;
   font-size: 6.1rem;
@@ -24,11 +25,7 @@ const SignLogo = styled.div`
 const Container = styled.div`
   display: flex;
   flex-direction: column;
-  width: 100%;
-`;
-const SetCenter = styled.div`
-  display: flex;
-  flex-direction: column;
+  width: 25rem;
   margin: 3rem auto 0 auto;
 `;
 
@@ -53,13 +50,38 @@ const SignNav = () => (
 const SignInForm = () => (
   <Form>
     <Form.Field>
-      <input placeholder='아이디' />
+      <input placeholder="아이디" />
     </Form.Field>
     <Form.Field>
-      <input type='password' placeholder='비밀먼호' />
+      <input type="password" placeholder="비밀번호" />
     </Form.Field>
-    <ExtBtn type='submit'>로그인</ExtBtn>
+    <ExtBtn type="submit">로그인</ExtBtn>
   </Form>
-)
+);
 
-export { SignInForm, SignNav, SignLogo, Container, SetCenter }
+const SignUpForm = props => (
+  <Form>
+    <Form.Field>
+      <label>아이디</label>
+      <input placeholder="아이디" />
+    </Form.Field>
+    <Form.Field>
+      <label>비밀번호</label>
+      <input type="password" placeholder="비밀번호" />
+    </Form.Field>
+    <Form.Field>
+      <label>비밀번호 재입력</label>
+      <input type="password" placeholder="비밀번호 재입력" />
+    </Form.Field>
+    <Form.Field>
+      <label>이름</label>
+      <input placeholder="이름" />
+    </Form.Field>
+    <Form.Field>
+      <Checkbox label='본 페이지를 포트폴리오 관련으로 사용할 것을 약속합니다.' />
+    </Form.Field>
+    <ExtBtn type="submit">가입</ExtBtn>
+  </Form>
+);
+
+export { SignInForm, SignNav, SignLogo, Container, SignUpForm };

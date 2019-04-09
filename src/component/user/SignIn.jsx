@@ -1,21 +1,40 @@
 import React from 'react';
-import { BrowserRouter as Link } from 'react-router-dom';
+import styled from 'styled-components';
 
-const checkPassWord = (e, props) => {
-  const passRule = /^[A-Za-z0-9]{6,12}$/
-  if(!passRule.test(e.value)) {
-    props.setState('hi')
-  }
-}
+import SignNav from './SignNav.jsx';
+import SignInForm from './SignInForm.jsx';
 
-const SignIn = (props) => {
+const SignInLogo = styled.div`
+  display: flex;
+  font-size: 6.1rem;
+  width 20rem;
+  height: 6.3rem;
+  margin: 3rem auto;
+`;
+const Container = styled.div`
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+`;
+const SetCenter = styled.div`
+  display: flex;
+  flex-direction: column;
+  margin: 3rem auto 0 auto;
+`;
+
+const SignIn = props => {
   return (
-    <form method='POST' action='localhost:3000/signin'>
-      id : <input className='id' />
-      password: <input className='password' onChange={checkPassWord}/>
-      <Link to='/signup'>회원가입</Link>
-    </form>
-  )
-}
+    <>
+      <SignInLogo>H-Sens</SignInLogo>
+      <Container>
+        <SetCenter>
+          <SignInForm />
+          <SignNav />
+        </SetCenter>
+      </Container>
+    </>
+  );
+};
 
-export default SignIn
+export default SignIn;

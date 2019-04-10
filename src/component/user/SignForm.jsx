@@ -47,11 +47,21 @@ const SignNav = () => (
   </NavContainer>
 );
 
-const SignInForm = () => (
+const SignInForm = props => (
   <Form>
-    <Form.Input placeholder="아이디" />
-    <Form.Input type="password" placeholder="비밀번호" />
-    <ExtBtn type="submit">로그인</ExtBtn>
+    <Form.Input placeholder="아이디" onChange={props.Fns.getId} />
+    <Form.Input
+      type="password"
+      placeholder="비밀번호"
+      onChange={props.Fns.getPw}
+    />
+    <ExtBtn
+      onClick={props.Fns.submit}
+      content={
+        props.Datas.submitBtn.bCorrect ? '로그인' : '어떠한 값도 없습니다.'
+      }
+      loading={props.Datas.submitBtn.bLoading ? true : null}
+    />
   </Form>
 );
 
@@ -124,7 +134,11 @@ const SignUpForm = props => {
       <GetRePwContent rePw={props.Datas.rePw} checkRePw={props.Fns.checkRePw} />
       <GetNameContent name={props.Datas.name} checkName={props.Fns.checkName} />
       <Form.Checkbox label="본 페이지를 포트폴리오 관련 목적으로 사용할 것을 약속합니다." />
-      <ExtBtn onClick={props.submit}>가입</ExtBtn>
+      <ExtBtn
+        content={props.Datas.submitBtn.bCorrect ? '가입' : '제발 확인좀하세요'}
+        onClick={props.Fns.submit}
+        loading={props.Datas.submitBtn.bLoading ? true : null}
+      />
     </Form>
   );
 };

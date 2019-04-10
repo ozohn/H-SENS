@@ -3,7 +3,8 @@ const useFetch = async (dataUrl, method, headersObj, body) => {
     const fetchedRes = await fetch(dataUrl, {
       method : method,
       headers: headersObj,
-      body: body
+      body: body,
+      mode: 'cors'
     });
     checkStatusNum(fetchedRes.status)
     const jsonData = await fetchedRes.json();

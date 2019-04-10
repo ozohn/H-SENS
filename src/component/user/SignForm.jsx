@@ -1,4 +1,4 @@
-import React, {useRef} from 'react';
+import React from 'react';
 import { Button, Form } from 'semantic-ui-react';
 import styled from 'styled-components';
 import { BrowserRouter as Router, Link } from 'react-router-dom';
@@ -73,7 +73,7 @@ const GetPwContent = props => {
   let pwLabel = props.pw.b
     ? '비밀번호'
     : '비밀번호-특수문자/문자/숫자 조합8-15글자';
-  
+
   return (
     <Form.Input
       type="password"
@@ -89,7 +89,7 @@ const GetPwContent = props => {
 
 const GetRePwContent = props => {
   const rePwLabel = props.rePw.b ? null : '비밀번호와 같지 않습니다.';
-  
+
   return (
     <Form.Input
       type="password"
@@ -102,16 +102,29 @@ const GetRePwContent = props => {
   );
 };
 
-const SignUpForm = props => {
-  const pwRef = useRef(null);
+const GetNameContent = props => {
+  const nameLabel = props.name.b ? '이름' : '이름은 한 글자 이상이어야 합니다.';
+
   return (
-    <Form action="" method="POST">
+    <Form.Input
+      fluid
+      label={nameLabel}
+      placeholder="이름"
+      onChange={props.checkName}
+      error={props.name.b ? null : true}
+    />
+  );
+};
+
+const SignUpForm = props => {
+  return (
+    <Form>
       <GetIdContent id={props.Datas.id} checkId={props.Fns.checkId} />
       <GetPwContent pw={props.Datas.pw} checkPw={props.Fns.checkPw} />
       <GetRePwContent rePw={props.Datas.rePw} checkRePw={props.Fns.checkRePw} />
-      <Form.Input fluid label="이름" placeholder="이름" error />
-      <Form.Checkbox label="본 페이지를 포트폴리오 관련으로 사용할 것을 약속합니다." />
-      <ExtBtn type="submit">가입</ExtBtn>
+      <GetNameContent name={props.Datas.name} checkName={props.Fns.checkName} />
+      <Form.Checkbox label="본 페이지를 포트폴리오 관련 목적으로 사용할 것을 약속합니다." />
+      <ExtBtn onClick={props.submit}>가입</ExtBtn>
     </Form>
   );
 };

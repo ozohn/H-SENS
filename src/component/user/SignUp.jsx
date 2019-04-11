@@ -8,7 +8,10 @@ const SignUp = props => {
   const [pw, setPw] = useState({ b: true, data: '' });
   const [rePw, setRePw] = useState({ b: true });
   const [name, setName] = useState({ b: false, data: '' });
-  const [submitBtn, setSubmitBtn] = useState({bLoading: false, bCorrect: true});
+  const [submitBtn, setSubmitBtn] = useState({
+    bLoading: false,
+    bCorrect: true,
+  });
 
   let checkId = e => {
     let curVal = e.target.value;
@@ -35,22 +38,27 @@ const SignUp = props => {
   };
 
   let submit = async e => {
-    if(!(id.b && pw.b && name.b && rePw.b)) {
-      setSubmitBtn({bLoading: false, bCorrect: false})
+    if (!(id.b && pw.b && name.b && rePw.b)) {
+      setSubmitBtn({ bLoading: false, bCorrect: false });
       return;
     }
-    setSubmitBtn({bLoading: true, bCorrect: true})
+    setSubmitBtn({ bLoading: true, bCorrect: true });
     const jsonHeader = {
-      'Accept': 'application/json',
+      Accept: 'application/json',
       'Content-Type': 'application/json',
     };
     const body = {
       userid: id.data,
       password: pw.data,
-      username: name.data
-    }
-    const res = await useFetch('https://hea-b.herokuapp.com/users/signup', 'POST', jsonHeader, JSON.stringify(body));
-    window.location.replace("http://localhost:3000");
+      username: name.data,
+    };
+    await useFetch(
+      'https://hea-b.herokuapp.com/users/signup',
+      'POST',
+      jsonHeader,
+      JSON.stringify(body)
+    );
+    window.location.replace('http://localhost:3000');
   };
 
   return (
@@ -58,7 +66,7 @@ const SignUp = props => {
       <SignLogo as={Link} to="/" />
       <Container>
         <SignUpForm
-          Fns={{ checkId, checkPw, checkRePw, checkName, submit}}
+          Fns={{ checkId, checkPw, checkRePw, checkName, submit }}
           Datas={{ id, pw, rePw, name, submitBtn }}
         />
       </Container>

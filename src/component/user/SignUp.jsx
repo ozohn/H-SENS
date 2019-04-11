@@ -44,7 +44,7 @@ const SignUp = props => {
     }
     setSubmitBtn({ bLoading: true, bCorrect: true });
     const jsonHeader = {
-      Accept: 'application/json',
+      'Accept': 'application/json',
       'Content-Type': 'application/json',
     };
     const body = {
@@ -53,13 +53,14 @@ const SignUp = props => {
       username: name.data,
     };
     const signUpUrl = 'https://hea-b.herokuapp.com/users/signup'
-    await useFetch(
+    const res = await useFetch(
       signUpUrl,
       'POST',
       jsonHeader,
       JSON.stringify(body)
     );
-    window.location.replace('http://localhost:3000');
+    console.log(res);
+    // window.location.replace('http://localhost:3000');
   };
 
   return (

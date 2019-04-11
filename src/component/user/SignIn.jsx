@@ -22,18 +22,13 @@ const SignIn = props => {
   };
 
   const submit = async e => {
-    if (!(id.b && pw.b)) {
-      setSubmitBtn({ bLoading: false, bCorrect: false });
-      return;
-    }
-    console.log(id.data, pw.data)
     setSubmitBtn({ bLoading: true, bCorrect: true });
     const jsonHeader = {
-      Accept: 'application/json',
+      'Accept': 'application/json',
       'Content-Type': 'application/json',
     };
 
-    const body = {
+    const userData = {
       userid: id.data,
       password: pw.data,
     };
@@ -42,7 +37,7 @@ const SignIn = props => {
       'https://hea-b.herokuapp.com/users/signin',
       'POST',
       jsonHeader,
-      JSON.stringify(body)
+      JSON.stringify(userData)
     );
 
     if(res.users.length) {
@@ -51,6 +46,7 @@ const SignIn = props => {
       setSubmitBtn({bLoading: false, bCorrect: false})
     } 
   };
+
   return (
     <>
       <SignLogo as={Link} to="/" />

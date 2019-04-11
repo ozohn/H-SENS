@@ -61,7 +61,7 @@ const SignUp = props => {
       jsonHeader,
       JSON.stringify(body)
     );
-    
+    window.localStorage.token = token;
     // window.location.replace('http://localhost:3000');
   };
 

@@ -22,40 +22,37 @@ const SignIn = props => {
   };
 
   const submit = async e => {
-    if (!(id.b && pw.b)) {
-      setSubmitBtn({ bLoading: false, bCorrect: false });
-      return;
-    }
-    console.log(id.data, pw.data)
     setSubmitBtn({ bLoading: true, bCorrect: true });
     const jsonHeader = {
       Accept: 'application/json',
       'Content-Type': 'application/json',
     };
-
-    const body = {
+    const userData = {
       userid: id.data,
       password: pw.data,
     };
-
     const res = await useFetch(
       'https://hea-b.herokuapp.com/users/signin',
       'POST',
       jsonHeader,
-      JSON.stringify(body)
+      JSON.stringify(userData)
     );
-
-    if(res.users.length) {
-      window.location.replace('http://localhost:3000');
+    console.log(res);
+    if (res) {
+      // window.location.replace('http://localhost:3000');
     } else {
-      setSubmitBtn({bLoading: false, bCorrect: false})
-    } 
+      setSubmitBtn({ bLoading: false, bCorrect: false });
+    }
   };
+
   return (
     <>
       <SignLogo as={Link} to="/" />
       <Container>
-        <SignInForm Fns={{ getId, getPw, submit }} Datas={{ id, pw, submitBtn }} />
+        <SignInForm
+          Fns={{ getId, getPw, submit }}
+          Datas={{ id, pw, submitBtn }}
+        />
         <SignNav />
       </Container>
     </>

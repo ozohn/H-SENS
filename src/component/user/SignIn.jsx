@@ -24,21 +24,22 @@ const SignIn = props => {
   const submit = async e => {
     setSubmitBtn({ bLoading: true, bCorrect: true });
     const jsonHeader = {
-      Accept: 'application/json',
+      'Accept' : 'application/json',
       'Content-Type': 'application/json',
     };
     const userData = {
       userid: id.data,
       password: pw.data,
     };
+    const signInUrl = 'https://hea-b.herokuapp.com/users/signin';
     const res = await useFetch(
-      'https://hea-b.herokuapp.com/users/signin',
+      signInUrl,
       'POST',
       jsonHeader,
       JSON.stringify(userData)
     );
     console.log(res);
-    if (res) {
+    if (res.error) {
       // window.location.replace('http://localhost:3000');
     } else {
       setSubmitBtn({ bLoading: false, bCorrect: false });

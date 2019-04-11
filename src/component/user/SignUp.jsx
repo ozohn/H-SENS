@@ -46,7 +46,7 @@ const SignUp = props => {
     }
     setSubmitBtn({ bLoading: true, bCorrect: true });
     const jsonHeader = {
-      Accept: 'application/json',
+      'Accept': 'application/json',
       'Content-Type': 'application/json',
     };
     const body = {
@@ -54,8 +54,9 @@ const SignUp = props => {
       password: pw.data,
       username: name.data,
     };
+    const signUpUrl = `http://localhost:3000/users/signup`;
     const token = await useFetch(
-      `http://localhost:3000/users/signup`,
+      signUpUrl,
       'POST',
       jsonHeader,
       JSON.stringify(body)

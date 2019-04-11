@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import { BrowserRouter as Router, Link } from 'react-router-dom';
 import { SignLogo, Container, SignUpForm } from './SignForm.jsx';
 import useFetch from '../fetch.js';
+import dotenv from 'dotenv';
+dotenv.config();
 
 const SignUp = props => {
   const [id, setId] = useState({ b: true, data: '' });
@@ -52,13 +54,14 @@ const SignUp = props => {
       password: pw.data,
       username: name.data,
     };
-    await useFetch(
-      'https://hea-b.herokuapp.com/users/signup',
+    const token = await useFetch(
+      `http://localhost:3000/users/signup`,
       'POST',
       jsonHeader,
       JSON.stringify(body)
     );
-    window.location.replace('http://localhost:3000');
+    
+    // window.location.replace('http://localhost:3000');
   };
 
   return (

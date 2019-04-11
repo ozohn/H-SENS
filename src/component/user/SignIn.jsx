@@ -31,9 +31,9 @@ const SignIn = props => {
       userid: id.data,
       password: pw.data,
     };
-    const serverUrl = 'https://hea-b.herokuapp.com/users/signin';
+    const signInUrl = 'https://hea-b.herokuapp.com/users/signin';
     const res = await useFetch(
-      serverUrl,
+      signInUrl,
       'POST',
       jsonHeader,
       JSON.stringify(userData)

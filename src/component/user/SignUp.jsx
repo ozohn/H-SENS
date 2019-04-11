@@ -52,8 +52,9 @@ const SignUp = props => {
       password: pw.data,
       username: name.data,
     };
+    const signUpUrl = 'https://hea-b.herokuapp.com/users/signup'
     await useFetch(
-      'https://hea-b.herokuapp.com/users/signup',
+      signUpUrl,
       'POST',
       jsonHeader,
       JSON.stringify(body)

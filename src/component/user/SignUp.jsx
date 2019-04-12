@@ -54,15 +54,16 @@ const SignUp = props => {
       password: pw.data,
       username: name.data,
     };
-    const signUpUrl = `http://localhost:3000/users/signup`;
-    const token = await useFetch(
+    const signUpUrl = `https://hea-b.herokuapp.com/users/signup`;
+    const res = await useFetch(
       signUpUrl,
       'POST',
       jsonHeader,
       JSON.stringify(body)
     );
-    window.localStorage.token = token;
-    // window.location.replace('http://localhost:3000');
+    if(res.error) throw res.error;
+    window.localStorage.token = res.token;
+    window.location.replace('http://localhost:3000');
   };
 
   return (

@@ -26,11 +26,13 @@ const LinkStyled = styled(Link)`
 `;
 
 const Header = () => {
+  const hasToken = !!window.localStorage.token;
+
   return (
     <HeaderWrapper className="header">
       <Logo />
       <Search />
-      <LinkStyled to='/signin'></LinkStyled>
+      <LinkStyled to={hasToken ? '/user' : '/signin'}></LinkStyled>
     </HeaderWrapper>
   );
 };

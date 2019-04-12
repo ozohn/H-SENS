@@ -40,7 +40,7 @@ const SignIn = props => {
     );
     console.log(res);
     if (res.error) {
-      // window.location.replace('http://localhost:3000');
+      window.location.replace('http://localhost:3000');
     } else {
       setSubmitBtn({ bLoading: false, bCorrect: false });
     }

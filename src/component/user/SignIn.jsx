@@ -4,6 +4,7 @@ import { SignInForm, SignNav, SignLogo, Container } from './SignForm.jsx';
 import useFetch from '../fetch.js';
 
 const SignIn = props => {
+  console.log(process.env);
   const [id, setId] = useState({ b: false, data: '' });
   const [pw, setPw] = useState({ b: false, data: '' });
   const [submitBtn, setSubmitBtn] = useState({

@@ -54,7 +54,7 @@ const SignUp = props => {
       password: pw.data,
       username: name.data
     };
-    const signUpUrl = `${process.env.REACT_APP_SERVER_URL}`;
+    const signUpUrl = `${process.env.REACT_APP_SERVER_URL}/users/signup`;
     const res = await useFetch(
       signUpUrl,
       "POST",

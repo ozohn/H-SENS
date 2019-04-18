@@ -4,7 +4,6 @@ import { SignInForm, SignNav, SignLogo, Container } from './SignForm.jsx';
 import useFetch from '../fetch.js';
 
 const SignIn = props => {
-  console.log(process.env);
   const [id, setId] = useState({ b: false, data: '' });
   const [pw, setPw] = useState({ b: false, data: '' });
   const [submitBtn, setSubmitBtn] = useState({
@@ -39,7 +38,8 @@ const SignIn = props => {
       jsonHeader,
       JSON.stringify(userData)
     );
-    console.log(res);
+    window.localStorage.token = res.token;
+    window.location.replace('http://localhost:3000');
     if (res.error) {
       window.location.replace('http://localhost:3000');
     } else {

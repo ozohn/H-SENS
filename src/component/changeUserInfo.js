@@ -1,7 +1,7 @@
-import React from "react";
+import useFetch from "./fetch.js";
 
-export default function ChangeUserInfo({user}){
-    return useFetch(
+export default async function ChangeUserInfo(user){
+    return await useFetch(
         `${process.env.REACT_APP_SERVER_URL}/creator/edit`, 
         "POST", 
         {

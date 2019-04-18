@@ -6,8 +6,8 @@ function UserSetting({user, setUser}){
   const [userDesc, setUserDesc] = useState('');
 
   useEffect(() => {
-    setUser({...user, username: userName, userdesc: userDesc});
-  }, [user]);
+    setUser({...user, username: userName, userdesc: userDesc})
+  }, [userName, userDesc])
 
   return (
     <Form>

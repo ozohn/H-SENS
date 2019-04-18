@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import { Image } from "semantic-ui-react";
+import { Button, Divider, Form } from 'semantic-ui-react'
 import useFetch from "../fetch.js";
 
 import { FilePond } from "react-filepond";
@@ -23,12 +24,12 @@ function UserPage() {
       mode: "cors",
       method: "POST",
       headers: {
-        Authorization: `Bearer ${localStorage.getItem("token")}`
+        "Authorization": `Bearer ${localStorage.getItem("token")}`
       }
     }).then(res => console.log(res));
   });
   useEffect(() => {
-    fetch(`${process.env.REACT_APP_SERVER_URL}/image/person.jpg`).then(res =>
+    fetch(`${process.env.REACT_APP_CLIENT_URL}/image/person.jpg`).then(res =>
       setUserImg(res.url)
     );
   });
@@ -41,6 +42,7 @@ function UserPage() {
     <>
       <UserInfo userImg={userImg} />
       <WorksList works={userWorks} />
+      
       <FilePond
         files={files}
         allowMultiple={true}
@@ -59,10 +61,13 @@ function UserInfo({ userImg }) {
   return (
     <>
       <Image src={userImg} size="small" circular />
-      <div>
-        <h2>name</h2>
-        <p>desc</p>
-      </div>
+      <Form>
+        <Form.Input label='name' placeholder='name' />
+        <Form.Field label='An HTML <textarea>' control='textarea' rows='3' />
+        <Form.Field label='An HTML <button>' control='button'>
+          HTML Button
+        </Form.Field>
+      </Form>
     </>
   );
 }

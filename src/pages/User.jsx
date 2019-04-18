@@ -2,39 +2,23 @@ import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import { Image } from "semantic-ui-react";
 import { Button, Divider, Form } from 'semantic-ui-react'
-import useFetch from "../fetch.js";
-
-import { FilePond } from "react-filepond";
-import "filepond/dist/filepond.min.css";
+import useFetch from "../component/fetch.js";
 
 function UserPage() {
   const [user, setUser] = useState({});
-  const [files, setFiles] = useState([]);
+
   useEffect(() => {
-    fetch(`${process.env.REACT_APP_SERVER_URL}/creator`, {
-      method: "POST",
-      headers: {
-        "Authorization": `Bearer ${localStorage.getItem("token")}`
-      }
-    })
-    .then(res => res.json())
-    .then(result => setUser(result));
+    useFetch(
+      `${process.env.REACT_APP_SERVER_URL}/creator`, 
+      "POST", 
+      {"Authorization": `Bearer ${localStorage.getItem("token")}`}
+    ).then(userInfo => setUser(userInfo));
   }, []);
 
   return (
     <>
       <UserInfo user={user} />
       {/* <WorksList /> */}
-      {/* <FilePond
-        files={files}
-        allowMultiple={true}
-        maxFiles={3}
-        server={process.env.REACT_APP_SERVER_URL}
-        onupdatefiles={fileItems => {
-          // Set current file objects to this.state
-          setFiles(fileItems.map(fileItem => fileItem.file));
-        }}
-      /> */}
     </>
   );
 }
@@ -53,18 +37,26 @@ function UserInfo({user}) {
     <>
       <Image src={user.userimage} size="small" circular />
       {!editing?
-        UserView(userName, userDesc, setEditing):UserForm(userName, userDesc, setUserName, setUserDesc, setEditing)
+        UserView(userName, userDesc, setEditing):
+        UserForm(userName, userDesc, setUserName, setUserDesc, setEditing)
       }
+      
     </>
   );
 }
 
 function UserView(userName, userDesc, setEditing){
+  const [active, setActive] = useState(false);
   return (
     <div>
       <h2>{userName}</h2>
       <p>{userDesc}</p>
-      <button onClick={()=>setEditing(true)}>Edit</button>
+      <Button toggle active={active} onClick={()=>{
+        setEditing(true);
+        setActive(true);
+      }}>
+        Toggle
+      </Button>
     </div>
   );
 }
@@ -91,14 +83,15 @@ function ChangeUserInfo(userName, userDesc){
     username: userName,
     userdesc: userDesc
   };
-  return fetch(`${process.env.REACT_APP_SERVER_URL}/creator/edit`, {
-    method: 'POST',
-    headers: {
+  return useFetch(
+    `${process.env.REACT_APP_SERVER_URL}/creator/edit`, 
+    "POST", 
+    {
       "Content-Type": 'application/json',
       "Authorization": `Bearer ${localStorage.getItem("token")}`
     },
-    body: JSON.stringify(obj)
-  }).then(res => res.json()).then(result => result);
+    JSON.stringify(obj)
+  ).then(res => console.log(res));
 }
 
 export default UserPage;

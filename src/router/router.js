@@ -1,8 +1,8 @@
 import React from 'react';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
-import SignIn from '../component/user/SignIn.jsx';
-import SignUp from '../component/user/SignUp.jsx';
-import UserPage from '../component/userPage/userPage.jsx';
+import SignIn from '../pages/SignIn.jsx';
+import SignUp from '../pages/SignUp.jsx';
+import UserPage from '../pages/User.jsx';
 import App from '../App.js';
 
 const Path = props => {

@@ -1,9 +1,7 @@
 import React, { useState } from "react";
-import { BrowserRouter as Router, Link } from "react-router-dom";
-import { SignLogo, Container, SignUpForm } from "./SignForm.jsx";
-import useFetch from "../fetch.js";
-import dotenv from "dotenv";
-dotenv.config();
+import { BrowserRouter as Link } from "react-router-dom";
+import { SignLogo, Container, SignUpForm } from "../component/user/SignForm.jsx";
+import useFetch from "../component/fetch.js";
 
 const SignUp = props => {
   const [id, setId] = useState({ b: true, data: "" });

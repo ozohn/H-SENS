@@ -1,18 +1,18 @@
-import React, { useState } from 'react';
-import { BrowserRouter as Router, Link } from 'react-router-dom';
-import { SignLogo, Container, SignUpForm } from './SignForm.jsx';
-import useFetch from '../fetch.js';
-import dotenv from 'dotenv';
+import React, { useState } from "react";
+import { BrowserRouter as Router, Link } from "react-router-dom";
+import { SignLogo, Container, SignUpForm } from "./SignForm.jsx";
+import useFetch from "../fetch.js";
+import dotenv from "dotenv";
 dotenv.config();
 
 const SignUp = props => {
-  const [id, setId] = useState({ b: true, data: '' });
-  const [pw, setPw] = useState({ b: true, data: '' });
+  const [id, setId] = useState({ b: true, data: "" });
+  const [pw, setPw] = useState({ b: true, data: "" });
   const [rePw, setRePw] = useState({ b: true });
-  const [name, setName] = useState({ b: false, data: '' });
+  const [name, setName] = useState({ b: false, data: "" });
   const [submitBtn, setSubmitBtn] = useState({
     bLoading: false,
-    bCorrect: true,
+    bCorrect: true
   });
 
   let checkId = e => {
@@ -46,24 +46,24 @@ const SignUp = props => {
     }
     setSubmitBtn({ bLoading: true, bCorrect: true });
     const jsonHeader = {
-      'Accept': 'application/json',
-      'Content-Type': 'application/json',
+      Accept: "application/json",
+      "Content-Type": "application/json"
     };
     const body = {
       userid: id.data,
       password: pw.data,
-      username: name.data,
+      username: name.data
     };
-    const signUpUrl = `https://hea-b.herokuapp.com/users/signup`;
+    const signUpUrl = `${process.env.REACT_APP_SERVER_URL}`;
     const res = await useFetch(
       signUpUrl,
-      'POST',
+      "POST",
       jsonHeader,
       JSON.stringify(body)
     );
-    if(res.error) throw res.error;
+    if (res.error) throw res.error;
     window.localStorage.token = res.token;
-    window.location.replace('http://localhost:3000');
+    window.location.replace(`${process.env.REACT_APP_CLIENT_URL}`);
   };
 
   return (

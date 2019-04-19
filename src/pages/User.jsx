@@ -34,7 +34,6 @@ function UserPage() {
 function ToggleButton({editing, user, setEditing}){
   return (
     <Button onClick={()=> {
-      console.log(user);
       if(editing) changeUserInfo(user, 1);
       setEditing(!editing);
     }}>

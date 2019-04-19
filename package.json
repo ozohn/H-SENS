@@ -6,6 +6,8 @@
     "dotenv": "^7.0.0",
     "dotenv-expand": "^5.1.0",
     "filepond": "^4.4.0",
+    "filepond-plugin-file-encode": "^2.1.4",
+    "filepond-plugin-image-resize": "^2.0.4",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
     "react-filepond": "^7.0.1",

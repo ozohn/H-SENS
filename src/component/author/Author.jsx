@@ -1,24 +1,23 @@
 import React from 'react';
 import styled from 'styled-components'
 
-const ListContainer = styled.div`
-    height: 200px;
-    width: 80%;
+const ListItems = styled.div`
+    height: 300px;
+    width: 100%;
     display: flex;
     margin: 0 auto;
-    margin-top: 50px;
 `;
 const Item = styled.div`
     flex: 1;
     border: 1px solid #bbb;
 `;
 
-export default function List(){
+export default function Author(){
     return (
-        <ListContainer>
+        <ListItems>
             <Item></Item>
             <Item></Item>
             <Item></Item>
-        </ListContainer>
+        </ListItems>
     )
 }

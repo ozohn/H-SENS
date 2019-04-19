@@ -1,6 +1,10 @@
-const useFetch = async (dataUrl) => {
+const useFetch = async (dataUrl, method, headersObj, body) => {
   try {
-    const fetchedRes = await fetch(dataUrl);
+    const fetchedRes = await fetch(dataUrl, {
+      method : method,
+      headers: headersObj,
+      body: body,
+    });
     checkStatusNum(fetchedRes.status)
     const jsonData = await fetchedRes.json();
     return jsonData;

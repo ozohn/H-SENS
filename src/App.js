@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
-import List from "./List.jsx";
-import Author from "./Author.jsx";
+import List from "./component/list/List.jsx";
+import Author from "./component/author/Author.jsx";
 import Header from './header.js';
-import UserPage from './component/userPage/userPage.js';
-
+// import { BrowserRouter as Router } from 'react-router-dom';
+require('dotenv').config()
 
 class App extends Component {
   render() {
@@ -12,7 +12,6 @@ class App extends Component {
         <Header />
         <Author />
         <List />
-        <UserPage />
       </>
     );
   }

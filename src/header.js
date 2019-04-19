@@ -1,6 +1,8 @@
 import React from 'react';
+import { BrowserRouter as Router, Link } from 'react-router-dom';
+
 import styled from 'styled-components';
-import Search from './Search.jsx';
+import Search from './component/search/Search.jsx';
 
 const HeaderWrapper = styled.header`
   display: flex;
@@ -16,7 +18,7 @@ const Logo = styled.div`
   height: 3rem;
 `;
 
-const User = styled.div`
+const LinkStyled = styled(Link)`
   border: 1px solid #bbb;
   border-radius: 50%;
   width: 4.5rem;
@@ -24,11 +26,13 @@ const User = styled.div`
 `;
 
 const Header = () => {
+  const hasToken = !!window.localStorage.token;
+
   return (
     <HeaderWrapper className="header">
       <Logo />
       <Search />
-      <User />
+      <LinkStyled to={hasToken ? '/user' : '/signin'}></LinkStyled>
     </HeaderWrapper>
   );
 };

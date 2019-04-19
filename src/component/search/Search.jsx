@@ -1,8 +1,7 @@
-import React from "react";
-import styled from "styled-components";
+import React from 'react';
+import styled from 'styled-components';
 
-const SearchWrapper = styled.div`
-`;
+const SearchWrapper = styled.div``;
 
 const SearchContainer = styled.div`
   display: flex;
@@ -11,9 +10,9 @@ const SearchContainer = styled.div`
 `;
 
 const SearchInputer = styled.input`
-	padding: 0;
-	border: 0;
-	border-bottom: 1px solid #bbb;
+  padding: 0;
+  border: 0;
+  border-bottom: 1px solid #bbb;
   outline: none;
   width: 50rem;
   height: 3rem;
@@ -21,7 +20,7 @@ const SearchInputer = styled.input`
 `;
 
 const Selector = styled.div`
-	width: 2rem;
+  width: 2rem;
   height: 2rem;
 `;
 
@@ -33,7 +32,7 @@ const SearchBtn = styled.div`
 
 const Filter = styled.div`
   display: flex;
-	height:3rem;
+  height: 3rem;
 `;
 
 export default function Search() {

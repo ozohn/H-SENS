@@ -1,10 +1,15 @@
 import React, { useState, useEffect } from "react";
-import { Button } from 'semantic-ui-react'
+import { Button, Divider } from 'semantic-ui-react'
 import useFetch from "../component/fetch.js";
 import UserSetting from "./UserSetting.jsx";
 import UserInfo from "./UserInfo.jsx";
 import changeUserInfo from "../component/changeUserInfo.js";
+import styled from 'styled-components';
 
+const User = styled.div`
+  margin-top: 8rem;
+  
+`;
 
 function UserPage() {
   const [user, setUser]= useState('');
@@ -21,25 +26,13 @@ function UserPage() {
   }, []);
 
   return (
-    <>
+    <User>
       {!editing?
-        <UserInfo user={user} />:
+        <UserInfo user={user} setUser={setUser} editing={editing} setEditing={setEditing} />:
         <UserSetting user={user} setUser={setUser} />
       }
-      <ToggleButton user={user} setUser={setUser} editing={editing} setEditing={setEditing}/>
-    </>
+    </User>
   );
-}
-
-function ToggleButton({editing, user, setEditing}){
-  return (
-    <Button onClick={()=> {
-      if(editing) changeUserInfo(user, 1);
-      setEditing(!editing);
-    }}>
-      {!editing?"Edit":"submit"}
-    </Button>
-  )
 }
 
 

@@ -1,7 +1,7 @@
 import React from 'react';
 import { Button, Form } from 'semantic-ui-react';
 import styled from 'styled-components';
-import { BrowserRouter as Router, Link } from 'react-router-dom';
+import { BrowserRouter as Link } from 'react-router-dom';
 
 const ExtBtn = styled(Button)`
   width: 100%;

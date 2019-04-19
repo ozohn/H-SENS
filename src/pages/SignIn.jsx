@@ -1,14 +1,14 @@
-import React, { useState } from 'react';
-import { BrowserRouter as Router, Link } from 'react-router-dom';
-import { SignInForm, SignNav, SignLogo, Container } from './SignForm.jsx';
-import useFetch from '../fetch.js';
+import React, { useState } from "react";
+import { BrowserRouter as Link } from "react-router-dom";
+import { SignInForm, SignNav, SignLogo, Container } from "../component/user/SignForm.jsx";
+import useFetch from "../component/fetch.js";
 
 const SignIn = props => {
-  const [id, setId] = useState({ b: false, data: '' });
-  const [pw, setPw] = useState({ b: false, data: '' });
+  const [id, setId] = useState({ b: false, data: "" });
+  const [pw, setPw] = useState({ b: false, data: "" });
   const [submitBtn, setSubmitBtn] = useState({
     bLoading: false,
-    bCorrect: true,
+    bCorrect: true
   });
 
   const getId = e => {
@@ -24,23 +24,24 @@ const SignIn = props => {
   const submit = async e => {
     setSubmitBtn({ bLoading: true, bCorrect: true });
     const jsonHeader = {
-      'Accept' : 'application/json',
-      'Content-Type': 'application/json',
+      Accept: "application/json",
+      "Content-Type": "application/json"
     };
     const userData = {
       userid: id.data,
-      password: pw.data,
+      password: pw.data
     };
-    const signInUrl = 'https://hea-b.herokuapp.com/users/signin';
+    const signInUrl = `${process.env.REACT_APP_SERVER_URL}/users/signin`;
     const res = await useFetch(
       signInUrl,
-      'POST',
+      "POST",
       jsonHeader,
       JSON.stringify(userData)
     );
-    console.log(res);
+    window.localStorage.token = res.token;
+    window.location.replace(`${process.env.REACT_APP_CLIENT_URL}`);
     if (res.error) {
-      window.location.replace('http://localhost:3000');
+      window.location.replace(`${process.env.REACT_APP_CLIENT_URL}`);
     } else {
       setSubmitBtn({ bLoading: false, bCorrect: false });
     }

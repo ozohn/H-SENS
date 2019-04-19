@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import React, { useState, useEffect } from "react";
 import { Button, Divider } from 'semantic-ui-react'
 import useFetch from "../component/fetch.js";
@@ -27,22 +28,29 @@ const CustomButton = styled.button`
   font-size: 1.1rem;
   padding: 8px 18px;
 `;
+=======
+import React, { useState, useEffect } from 'react';
+import { Button } from 'semantic-ui-react';
+import useFetch from '../component/fetch.js';
+import UserSetting from './UserSetting.jsx';
+import UserInfo from './UserInfo.jsx';
+import changeUserInfo from '../component/changeUserInfo.js';
+>>>>>>> e26d00affe0579cc7087a127c58a7c30d6eb4129
 
 function UserPage() {
-  const [user, setUser]= useState('');
+  const [user, setUser] = useState('');
   const [editing, setEditing] = useState(false);
 
   useEffect(() => {
-    useFetch(
-      `${process.env.REACT_APP_SERVER_URL}/creator`, 
-      "POST", 
-      {"Authorization": `Bearer ${localStorage.getItem("token")}`}
-    ).then(user => {
+    useFetch(`${process.env.REACT_APP_SERVER_URL}/creator`, 'POST', {
+      Authorization: `Bearer ${localStorage.getItem('token')}`
+    }).then(user => {
       setUser(user);
     });
   }, []);
 
   return (
+<<<<<<< HEAD
     <User>
       {!editing?
         <UserInfo user={user} setUser={setUser} editing={editing} setEditing={setEditing} />:
@@ -65,6 +73,36 @@ function ToggleButton({editing, user, setEditing}){
       {!editing?"Edit":"submit"}
     </CustomButton>
   )
+=======
+    <>
+      {!editing ? (
+        <UserInfo user={user} />
+      ) : (
+        <UserSetting user={user} setUser={setUser} />
+      )}
+      <ToggleButton
+        user={user}
+        setUser={setUser}
+        editing={editing}
+        setEditing={setEditing}
+      />
+    </>
+  );
+}
+
+function ToggleButton({ editing, user, setEditing }) {
+  return (
+    <Button
+      onClick={() => {
+        console.log(user);
+        if (editing) changeUserInfo(user, 1);
+        setEditing(!editing);
+      }}
+    >
+      {!editing ? 'Edit' : 'submit'}
+    </Button>
+  );
+>>>>>>> e26d00affe0579cc7087a127c58a7c30d6eb4129
 }
 
 export default UserPage;

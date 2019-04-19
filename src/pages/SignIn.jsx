@@ -1,11 +1,11 @@
-import React, { useState } from "react";
-import { BrowserRouter as Link } from "react-router-dom";
-import { SignInForm, SignNav, SignLogo, Container } from "../component/user/SignForm.jsx";
-import useFetch from "../component/fetch.js";
+import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
+import { SignInForm, SignNav, SignLogo, Container } from '../component/user/SignForm.jsx';
+import useFetch from '../component/fetch.js';
 
 const SignIn = props => {
-  const [id, setId] = useState({ b: false, data: "" });
-  const [pw, setPw] = useState({ b: false, data: "" });
+  const [id, setId] = useState({ b: false, data: '' });
+  const [pw, setPw] = useState({ b: false, data: '' });
   const [submitBtn, setSubmitBtn] = useState({
     bLoading: false,
     bCorrect: true
@@ -24,20 +24,15 @@ const SignIn = props => {
   const submit = async e => {
     setSubmitBtn({ bLoading: true, bCorrect: true });
     const jsonHeader = {
-      Accept: "application/json",
-      "Content-Type": "application/json"
+      Accept: 'application/json',
+      'Content-Type': 'application/json'
     };
     const userData = {
       userid: id.data,
       password: pw.data
     };
     const signInUrl = `${process.env.REACT_APP_SERVER_URL}/users/signin`;
-    const res = await useFetch(
-      signInUrl,
-      "POST",
-      jsonHeader,
-      JSON.stringify(userData)
-    );
+    const res = await useFetch(signInUrl, 'POST', jsonHeader, JSON.stringify(userData));
     window.localStorage.token = res.token;
     window.location.replace(`${process.env.REACT_APP_CLIENT_URL}`);
     if (res.error) {
@@ -51,10 +46,7 @@ const SignIn = props => {
     <>
       <SignLogo as={Link} to="/" />
       <Container>
-        <SignInForm
-          Fns={{ getId, getPw, submit }}
-          Datas={{ id, pw, submitBtn }}
-        />
+        <SignInForm Fns={{ getId, getPw, submit }} Datas={{ id, pw, submitBtn }} />
         <SignNav />
       </Container>
     </>

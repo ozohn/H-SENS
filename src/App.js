@@ -7,13 +7,13 @@ var myEnv = dotenv.config();
 dotenvExpand(myEnv);
 
 class App extends Component {
-	render() {
-		return (
-			<>
-				<MainPage />
-			</>
-		);
-	}
+  render() {
+    return (
+      <>
+        <MainPage />
+      </>
+    );
+  }
 }
 
 export default App;

@@ -1,7 +1,7 @@
-import React from "react";
-import { Image } from "semantic-ui-react";
+import React from 'react';
+import { Image } from 'semantic-ui-react';
 
-export default function UserInfo({user}){
+export default function UserInfo({ user }) {
   return (
     <div>
       <Image src={user.userimage} size="small" circular />

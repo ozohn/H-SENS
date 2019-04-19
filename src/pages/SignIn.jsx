@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { BrowserRouter as Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { SignInForm, SignNav, SignLogo, Container } from "../component/user/SignForm.jsx";
 import useFetch from "../component/fetch.js";
 
@@ -46,7 +46,7 @@ const SignIn = props => {
       setSubmitBtn({ bLoading: false, bCorrect: false });
     }
   };
-
+  
   return (
     <>
       <SignLogo as={Link} to="/" />

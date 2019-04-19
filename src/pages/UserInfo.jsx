@@ -1,6 +1,5 @@
-<<<<<<< HEAD
 import React from "react";
-import { Image, Button } from "semantic-ui-react";
+import { Image } from "semantic-ui-react";
 import styled from 'styled-components';
 
 const Container = styled.div`
@@ -27,12 +26,6 @@ const UserDesc = styled.p`
 `;
 
 export default function UserInfo({editing, user, setEditing}){
-=======
-import React from 'react';
-import { Image } from 'semantic-ui-react';
-
-export default function UserInfo({ user }) {
->>>>>>> e26d00affe0579cc7087a127c58a7c30d6eb4129
   return (
     <Container>
       <Image src={user.userimage} verticalAlign='top' size="small" circular />

@@ -7,8 +7,25 @@ import changeUserInfo from "../component/changeUserInfo.js";
 import styled from 'styled-components';
 
 const User = styled.div`
-  margin-top: 8rem;
-  
+  border-top: .4rem solid #00ADB5;
+  padding-top: 8rem;
+`;
+
+const ButtonContainer = styled.div`
+  margin-top: 2rem;
+  padding-left: 8rem;
+`;
+const CustomButton = styled.button`
+  width: 8rem;
+  border-radius: 2rem;
+  margin-right: 3rem;
+  padding: 1rem 2rem;
+  background-color: #fff;
+  border: 1px solid #e8e8e8;
+  outline: none;
+  cursor: pointer;
+  font-size: 1.1rem;
+  padding: 8px 18px;
 `;
 
 function UserPage() {
@@ -31,9 +48,23 @@ function UserPage() {
         <UserInfo user={user} setUser={setUser} editing={editing} setEditing={setEditing} />:
         <UserSetting user={user} setUser={setUser} />
       }
+      <ButtonContainer>
+        <ToggleButton user={user} editing={editing} setEditing={setEditing}/>
+      </ButtonContainer>
     </User>
   );
 }
 
+
+function ToggleButton({editing, user, setEditing}){
+  return (
+    <CustomButton onClick={()=> {
+      if(editing) changeUserInfo(user, 1);
+      setEditing(!editing);
+    }}>
+      {!editing?"Edit":"submit"}
+    </CustomButton>
+  )
+}
 
 export default UserPage;

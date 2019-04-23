@@ -1,18 +1,44 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import styled from 'styled-components';
-import useFetch from '../fetch.js';
-import { Grid, Image } from 'semantic-ui-react';
+import { Grid, Image, Card, Icon } from 'semantic-ui-react';
+import AuthorContent from './AuthorContent.jsx';
 
 const AuthorDesc = styled.div`
   border-top: 1px solid #393e46;
-  magin: auto;
+  margin: auto;
 `;
 const AuthorName = styled.div`
   border-top: 1px solid #393e46;
-  magin: auto;
+  margin: auto;
 `;
 const Container = styled.div`
   border: 1px solid #393e46;
+`;
+const SameHeightImage = styled(Image)`
+  &&& {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translateX(-50%) translateY(-50%);
+  }
+`;
+const ImageContainer = styled.div`
+  &&& {
+    overflow: hidden;
+    position: relative;
+    width: 100%;
+    height: 0;
+    padding-top: 75%;
+  }
+`;
+const CardContent = styled(Card.Content)`
+  &&& {
+    overflow: hidden;
+    position: relative;
+    width: 100%;
+    height: 0;
+    padding-top: 30%;
+  }
 `;
 
 const Authors = props => {
@@ -27,39 +53,38 @@ const Authors = props => {
   }
 
   return (
-    <Container>
-      <Image src={props.user.userimage} />
-      <AuthorName>{props.user.username}</AuthorName>
-      <AuthorDesc>{props.user.userdesc}</AuthorDesc>
-    </Container>
+    <Card fluid>
+      <ImageContainer>
+        {props.user.userimage ? (
+          <SameHeightImage src={props.user.userimage} />
+        ) : (
+          <SameHeightImage src="https://react.semantic-ui.com/images/wireframe/image.png" />
+        )}
+      </ImageContainer>
+      <CardContent>
+        <AuthorContent user={props.user} />
+      </CardContent>
+      <Card.Content extra>
+        <a>
+          <Icon name="heart outline" />
+          like
+        </a>
+      </Card.Content>
+    </Card>
   );
 };
 
-const getUserData = async () => {
-  return await useFetch(`${process.env.REACT_APP_SERVER_URL}/main/users`, 'POST');
-};
-
-export default function Author() {
-  const [authorData, setAuthorData] = useState('');
-
-  useEffect(() => {
-    const fetchedData = getUserData();
-    fetchedData.then(user => {
-      // user.length = authors;
-      setAuthorData(user);
-    });
-  }, []);
-
+export default function Author(props) {
   return (
     <Grid columns={3} stackable>
       <Grid.Column>
-        <Authors user={authorData[1]} />
+        <Authors user={props.authors[1]} />
       </Grid.Column>
       <Grid.Column>
-        <Authors user={authorData[2]} />
+        <Authors user={props.authors[2]} />
       </Grid.Column>
       <Grid.Column>
-        <Authors user={authorData[3]} />
+        <Authors user={props.authors[3]} />
       </Grid.Column>
     </Grid>
   );

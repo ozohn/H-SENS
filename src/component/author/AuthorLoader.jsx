@@ -28,7 +28,7 @@ const ContentContainer = styled(Card.Content)`
     padding-top: 30%;
   }
 `;
-const AuthorLoader = props => {
+const AuthorLoader = () => {
   return (
     <Card fluid>
       <ImageLoaderContainer>
@@ -38,10 +38,8 @@ const AuthorLoader = props => {
         <CenterdLoader active inline="centered" />
       </ContentContainer>
       <Card.Content extra>
-        <a>
-          <Icon name="heart outline" />
-          like
-        </a>
+        <Icon name="heart outline" />
+        like
       </Card.Content>
     </Card>
   );

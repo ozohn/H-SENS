@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
-import MainPage from './pages/Main.jsx';
-var dotenv = require('dotenv');
-var dotenvExpand = require('dotenv-expand');
+import MainPage from './pages/Main';
 
-var myEnv = dotenv.config();
+const dotenv = require('dotenv');
+const dotenvExpand = require('dotenv-expand');
+
+const myEnv = dotenv.config();
 dotenvExpand(myEnv);
 
 class App extends Component {

@@ -1,5 +1,5 @@
-import React from "react";
-import { Image } from "semantic-ui-react";
+import React from 'react';
+import { Image } from 'semantic-ui-react';
 import styled from 'styled-components';
 
 const Container = styled.div`
@@ -7,7 +7,7 @@ const Container = styled.div`
   padding: 4rem rem;
   display: inline-block;
   padding: 3rem 4rem 4rem 4rem;
-  box-shadow: 0 0 3px rgba(0,0,0,.2);
+  box-shadow: 0 0 3px rgba(0, 0, 0, 0.2);
   border-radius: 3px;
 `;
 
@@ -25,11 +25,11 @@ const UserDesc = styled.p`
   margin-top: 2rem;
 `;
 
-export default function UserInfo({editing, user, setEditing}){
+export default function UserInfo({ user }) {
   return (
     <Container>
-      <Image src={user.userimage} verticalAlign='top' size="small" circular />
-      <UserInfoContainer>     
+      <Image src={user.userimage} verticalAlign="top" size="small" circular />
+      <UserInfoContainer>
         <Heading2>{user.username}</Heading2>
         <UserDesc>{user.userdesc}</UserDesc>
       </UserInfoContainer>

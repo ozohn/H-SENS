@@ -1,14 +1,18 @@
 import React, { useEffect, useState } from 'react';
-import List from '../component/list/List.jsx';
-import Author from '../component/author/Author.jsx';
-import Header from '../header.js';
-import useFetch from '../component/fetch.js';
+import List from '../component/list/List';
+import Author from '../component/author/Author';
+import Header from '../header';
+import useFetch from '../component/fetch';
 
 const getUserData = async () => {
-  return await useFetch(`${process.env.REACT_APP_SERVER_URL}/main/users`, 'POST');
+  const fetchedData = await useFetch(
+    `${process.env.REACT_APP_SERVER_URL}/main/users`,
+    'POST',
+  );
+  return fetchedData;
 };
 
-const MainPage = props => {
+const MainPage = () => {
   const [authorData, setAuthorData] = useState('');
 
   useEffect(() => {

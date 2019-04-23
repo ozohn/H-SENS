@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import useFetch from "../component/fetch.js";
+import WorksEditor from "./WorksEditor.jsx";
 import styled from "styled-components";
 
 const Button = styled.button``;
@@ -14,6 +15,7 @@ export default function Works() {
       <WorksContainer>
         <Work />
       </WorksContainer>
+      <WorksEditor />
     </WorksWrapper>
   );
 }

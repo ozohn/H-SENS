@@ -1,7 +1,7 @@
 import React from 'react';
 import { Button, Form } from 'semantic-ui-react';
 import styled from 'styled-components';
-import { BrowserRouter as Router, Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 const ExtBtn = styled(Button)`
   width: 100%;
@@ -15,7 +15,6 @@ const ButtonGroup = styled(Button.Group)`
 `;
 const SignLogo = styled.div`
   display: flex;
-  font-size: 6.1rem;
   width 20rem;
   height: 8.4rem;
   background: no-repeat url('./image/H-SensEx.png');
@@ -66,15 +65,15 @@ const SignInForm = props => (
 );
 
 const GetIdContent = props => {
-  const idLabel = props.id.b ? '아이디' : '아이디-문자/숫자 조합 6-12글자';
+  let idLabel = props.id.b ? '아이디' : '아이디-중복된 아이디거나 6-12글자가 아닙니다.';
 
   return (
     <Form.Input
       fluid
       label={idLabel}
       placeholder="아이디"
-      onChange={props.checkId}
       error={props.id.b ? null : true}
+      onBlur={props.checkId}
     />
   );
 };
@@ -137,7 +136,12 @@ const SignUpSubmitBtn = props => {
 const SignUpForm = props => {
   return (
     <Form>
-      <GetIdContent id={props.Datas.id} checkId={props.Fns.checkId} />
+      <GetIdContent
+        id={props.Datas.id}
+        checkId={props.Fns.checkId}
+        checkOverlap={props.Fns.checkOverlap}
+        overlap={props.Datas.overlap}
+      />
       <GetPwContent pw={props.Datas.pw} checkPw={props.Fns.checkPw} />
       <GetRePwContent rePw={props.Datas.rePw} checkRePw={props.Fns.checkRePw} />
       <GetNameContent name={props.Datas.name} checkName={props.Fns.checkName} />

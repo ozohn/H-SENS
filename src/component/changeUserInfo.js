@@ -1,13 +1,14 @@
-import useFetch from "./fetch.js";
+import useFetch from './fetch';
 
 export default async function ChangeUserInfo(user) {
-  return await useFetch(
+  const fetchedData = await useFetch(
     `${process.env.REACT_APP_SERVER_URL}/creator/edit`,
-    "POST",
+    'POST',
     {
-      "Content-Type": "application/json",
-      Authorization: `Bearer ${localStorage.getItem("token")}`
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${localStorage.getItem('token')}`,
     },
-    JSON.stringify(user)
+    JSON.stringify(user),
   );
+  return fetchedData;
 }

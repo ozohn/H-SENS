@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 import styled from 'styled-components';
-import Search from './component/search/Search.jsx';
+import Search from './component/search/Search';
 
 const HeaderWrapper = styled.header`
   display: flex;
@@ -32,7 +32,7 @@ const Header = () => {
     <HeaderWrapper className="header">
       <Logo />
       <Search />
-      <LinkStyled to={hasToken ? '/user' : '/signin'}></LinkStyled>
+      <LinkStyled to={hasToken ? '/user' : '/signin'} />
     </HeaderWrapper>
   );
 };

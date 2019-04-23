@@ -5,30 +5,35 @@ import "tui-editor/dist/tui-editor-contents.min.css";
 import { Editor } from "@toast-ui/react-editor";
 import useFetch from "../component/fetch.js";
 
-function handleClick(inputEl) {
+function handleClick(inputName, inputDesc) {
   const body = {
-    portfolioname: portfolioname.name,
-    portfoliodesc: inputEl.current.getInstance().getValue()
+    portfolioname: inputName.current.value,
+    portfoliodesc: inputDesc.current.getInstance().getValue()
   };
-  useFetch(`${process.env.REACT_APP_SERVER_URL}/portfolio`, "POST", {
-    Authorization: `Bearer ${localStorage.getItem("token")}`
-  }).then(user => {
-    setUser(user);
-  });
+  useFetch(
+    `${process.env.REACT_APP_SERVER_URL}/portfolio`,
+    "POST",
+    {
+      Authorization: `Bearer ${localStorage.getItem("token")}`
+    },
+    JSON.stringify(body)
+  );
 }
 
 function WorksEditor() {
-  const inputEl = useRef(null);
+  const inputName = useRef(null);
+  const inputDesc = useRef(null);
 
   return (
     <>
+      <input type="text" ref={inputName} />
       <Editor
         initialValue="hello react editor world!"
         previewStyle="vertical"
         height="600px"
         initialEditType="wysiwyg"
         useCommandShortcut={true}
-        ref={inputEl}
+        ref={inputDesc}
         exts={[
           {
             name: "chart",
@@ -44,7 +49,9 @@ function WorksEditor() {
           "table"
         ]}
       />
-      <button onClick={() => handleClick(inputEl)}>make bold</button>
+      <button onClick={() => handleClick(inputName, inputDesc)}>
+        make bold
+      </button>
     </>
   );
 }

@@ -1,22 +1,33 @@
-import React, { useState, useEffect } from "react";
-import { Form } from "semantic-ui-react";
-import styled from "styled-components";
+import React, { useState, useEffect } from 'react';
+import { Form } from 'semantic-ui-react';
+import styled from 'styled-components';
 
 const FormContainer = styled.div`
   padding-left: 8rem;
   width: 50rem;
 `;
 
+function getBase64(file, setUserImage) {
+  const reader = new FileReader();
+  reader.readAsDataURL(file);
+  reader.onload = () => {
+    setUserImage(reader.result);
+  };
+  reader.onerror = error => {
+    throw error.message;
+  };
+}
+
 function UserSetting({ user, setUser }) {
-  const [userName, setUserName] = useState("");
-  const [userDesc, setUserDesc] = useState("");
-  const [userImage, setUserImage] = useState("");
+  const [userName, setUserName] = useState('');
+  const [userDesc, setUserDesc] = useState('');
+  const [userImage, setUserImage] = useState('');
 
   useEffect(() => {
     setUser({
-      username: userName ? userName : user.username,
-      userdesc: userDesc ? userDesc : user.userdesc,
-      userimage: userImage ? userImage : user.userimage
+      username: userName || user.username,
+      userdesc: userDesc || user.userdesc,
+      userimage: userImage || user.userimage,
     });
   }, [userName, userDesc, userImage]);
 
@@ -46,17 +57,6 @@ function UserSetting({ user, setUser }) {
       </div>
     </FormContainer>
   );
-}
-
-function getBase64(file, setUserImage) {
-  const reader = new FileReader();
-  reader.readAsDataURL(file);
-  reader.onload = function() {
-    setUserImage(reader.result);
-  };
-  reader.onerror = function(error) {
-    console.error("Error: ", error);
-  };
 }
 
 export default UserSetting;

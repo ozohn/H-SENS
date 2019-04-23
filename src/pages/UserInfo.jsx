@@ -1,6 +1,6 @@
-import React from "react";
-import { Image } from "semantic-ui-react";
-import styled from "styled-components";
+import React from 'react';
+import { Image } from 'semantic-ui-react';
+import styled from 'styled-components';
 
 const Container = styled.div`
   margin-left: 8rem;
@@ -25,7 +25,7 @@ const UserDesc = styled.p`
   margin-top: 2rem;
 `;
 
-export default function UserInfo({ editing, user, setEditing }) {
+export default function UserInfo({ user }) {
   return (
     <Container>
       <Image src={user.userimage} verticalAlign="top" size="small" circular />

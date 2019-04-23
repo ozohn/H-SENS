@@ -6,7 +6,7 @@ const checkStatusNum = statusNum => {
   }
 };
 
-const useFetch = async (dataUrl, httpMethod, headersObj, bodyData) => {
+const fetchData = async (dataUrl, httpMethod, headersObj, bodyData) => {
   try {
     const fetchedRes = await fetch(dataUrl, {
       method: httpMethod,
@@ -21,4 +21,4 @@ const useFetch = async (dataUrl, httpMethod, headersObj, bodyData) => {
   }
 };
 
-export default useFetch;
+export default fetchData;

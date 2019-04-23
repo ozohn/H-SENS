@@ -1,9 +1,10 @@
 import styled from 'styled-components';
 import React, { useState, useEffect } from 'react';
-import useFetch from '../component/fetch';
+import fetchData from '../component/fetchData';
 import UserSetting from './UserSetting';
 import UserInfo from './UserInfo';
 import changeUserInfo from '../component/changeUserInfo';
+import Works from './Works';
 
 const User = styled.div`
   border-top: 0.4rem solid #00adb5;
@@ -32,7 +33,7 @@ function UserPage() {
   const [editing, setEditing] = useState(false);
 
   useEffect(() => {
-    useFetch(`${process.env.REACT_APP_SERVER_URL}/creator`, 'POST', {
+    fetchData(`${process.env.REACT_APP_SERVER_URL}/creator`, 'POST', {
       Authorization: `Bearer ${localStorage.getItem('token')}`,
     }).then(userInfo => {
       setUser(userInfo);
@@ -54,6 +55,7 @@ function UserPage() {
       <ButtonContainer>
         <ToggleButton user={user} editing={editing} setEditing={setEditing} />
       </ButtonContainer>
+      <Works />
     </User>
   );
 }

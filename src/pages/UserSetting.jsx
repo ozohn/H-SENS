@@ -1,22 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { Form } from 'semantic-ui-react';
 import styled from 'styled-components';
+import getBase64 from '../component/getBase64';
 
 const FormContainer = styled.div`
   padding-left: 8rem;
   width: 50rem;
 `;
-
-function getBase64(file, setUserImage) {
-  const reader = new FileReader();
-  reader.readAsDataURL(file);
-  reader.onload = () => {
-    setUserImage(reader.result);
-  };
-  reader.onerror = error => {
-    throw error.message;
-  };
-}
 
 function UserSetting({ user, setUser }) {
   const [userName, setUserName] = useState('');

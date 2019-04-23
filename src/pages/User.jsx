@@ -1,12 +1,12 @@
-import React, { useState, useEffect } from "react";
-import useFetch from "../component/fetch.js";
-import UserSetting from "./UserSetting.jsx";
-import UserInfo from "./UserInfo.jsx";
-import changeUserInfo from "../component/changeUserInfo.js";
 import styled from 'styled-components';
+import React, { useState, useEffect } from 'react';
+import useFetch from '../component/fetch';
+import UserSetting from './UserSetting';
+import UserInfo from './UserInfo';
+import changeUserInfo from '../component/changeUserInfo';
 
 const User = styled.div`
-  border-top: .4rem solid #00ADB5;
+  border-top: 0.4rem solid #00adb5;
   padding-top: 8rem;
 `;
 
@@ -33,35 +33,42 @@ function UserPage() {
 
   useEffect(() => {
     useFetch(`${process.env.REACT_APP_SERVER_URL}/creator`, 'POST', {
-      Authorization: `Bearer ${localStorage.getItem('token')}`
-    }).then(user => {
-      setUser(user);
+      Authorization: `Bearer ${localStorage.getItem('token')}`,
+    }).then(userInfo => {
+      setUser(userInfo);
     });
   }, []);
 
   return (
     <User>
-      {!editing?
-        <UserInfo user={user} setUser={setUser} editing={editing} setEditing={setEditing} />:
+      {!editing ? (
+        <UserInfo
+          user={user}
+          setUser={setUser}
+          editing={editing}
+          setEditing={setEditing}
+        />
+      ) : (
         <UserSetting user={user} setUser={setUser} />
-      }
+      )}
       <ButtonContainer>
-        <ToggleButton user={user} editing={editing} setEditing={setEditing}/>
+        <ToggleButton user={user} editing={editing} setEditing={setEditing} />
       </ButtonContainer>
     </User>
   );
 }
 
-
-function ToggleButton({editing, user, setEditing}){
+function ToggleButton({ editing, user, setEditing }) {
   return (
-    <CustomButton onClick={()=> {
-      if(editing) changeUserInfo(user, 1);
-      setEditing(!editing);
-    }}>
-      {!editing?"Edit":"submit"}
+    <CustomButton
+      onClick={() => {
+        if (editing) changeUserInfo(user, 1);
+        setEditing(!editing);
+      }}
+    >
+      {!editing ? 'Edit' : 'submit'}
     </CustomButton>
-  )
+  );
 }
 
 export default UserPage;

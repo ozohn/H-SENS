@@ -24,11 +24,11 @@ const CardDescription = styled(Card.Description)`
   }
 `;
 
-const AuthorContent = props => {
+const AuthorContent = ({ user }) => {
   return (
     <>
-      <CardHeader>{props.user.username}</CardHeader>
-      <CardDescription>{props.user.userdesc}</CardDescription>
+      <CardHeader>{user.username}</CardHeader>
+      <CardDescription>{user.userdesc}</CardDescription>
     </>
   );
 };

@@ -1,8 +1,9 @@
+/* eslint-disable react/prop-types */
 import React from 'react';
 import styled from 'styled-components';
 import { Grid, Image, Card, Icon } from 'semantic-ui-react';
-import AuthorContent from './AuthorContent.jsx';
-import AuthorLoader from './AuthorLoader.jsx';
+import AuthorContent from './AuthorContent';
+import AuthorLoader from './AuthorLoader';
 
 const SameHeightImage = styled(Image)`
   &&& {
@@ -31,44 +32,42 @@ const CardContent = styled(Card.Content)`
   }
 `;
 
-const Authors = props => {
-  if (props.user === undefined) {
+const Authors = ({ user }) => {
+  if (user === undefined) {
     return <AuthorLoader />;
   }
 
   return (
     <Card fluid>
       <ImageContainer>
-        {props.user.userimage ? (
-          <SameHeightImage src={props.user.userimage} />
+        {user.userimage ? (
+          <SameHeightImage src={user.userimage} />
         ) : (
           <SameHeightImage src="https://react.semantic-ui.com/images/wireframe/image.png" />
         )}
       </ImageContainer>
       <CardContent>
-        <AuthorContent user={props.user} />
+        <AuthorContent user={user} />
       </CardContent>
       <Card.Content extra>
-        <a>
-          <Icon name="heart outline" />
-          like
-        </a>
+        <Icon name="heart outline" />
+        like
       </Card.Content>
     </Card>
   );
 };
 
-export default function Author(props) {
+export default function Author({ authors }) {
   return (
     <Grid columns={3} stackable>
       <Grid.Column>
-        <Authors user={props.authors[1]} />
+        <Authors user={authors[1]} />
       </Grid.Column>
       <Grid.Column>
-        <Authors user={props.authors[2]} />
+        <Authors user={authors[2]} />
       </Grid.Column>
       <Grid.Column>
-        <Authors user={props.authors[3]} />
+        <Authors user={authors[3]} />
       </Grid.Column>
     </Grid>
   );

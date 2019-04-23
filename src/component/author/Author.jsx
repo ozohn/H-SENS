@@ -2,18 +2,8 @@ import React from 'react';
 import styled from 'styled-components';
 import { Grid, Image, Card, Icon } from 'semantic-ui-react';
 import AuthorContent from './AuthorContent.jsx';
+import AuthorLoader from './AuthorLoader.jsx';
 
-const AuthorDesc = styled.div`
-  border-top: 1px solid #393e46;
-  margin: auto;
-`;
-const AuthorName = styled.div`
-  border-top: 1px solid #393e46;
-  margin: auto;
-`;
-const Container = styled.div`
-  border: 1px solid #393e46;
-`;
 const SameHeightImage = styled(Image)`
   &&& {
     position: absolute;
@@ -43,13 +33,7 @@ const CardContent = styled(Card.Content)`
 
 const Authors = props => {
   if (props.user === undefined) {
-    return (
-      <Container>
-        <Image />
-        <AuthorName />
-        <AuthorDesc />
-      </Container>
-    );
+    return <AuthorLoader />;
   }
 
   return (

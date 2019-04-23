@@ -1,20 +1,27 @@
 import styled from 'styled-components';
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import WorksEditor from './WorksEditor';
+import fetchData from '../component/fetchData';
+import WorksList from './WorksList';
 
 const Button = styled.button``;
-const WorksWrapper = styled.div``;
-const WorksContainer = styled.div``;
-const Work = styled.div``;
 
 export default function Works() {
+  const [works, setWorks] = useState([]);
+  const [creating, setCreating] = useState(false);
+
+  useEffect(() => {
+    fetchData(`${process.env.REACT_APP_SERVER_URL}/works`, 'POST', {
+      Authorization: `Bearer ${localStorage.getItem('token')}`,
+    }).then(workInfo => {
+      setWorks(workInfo);
+    });
+  }, []);
+
   return (
-    <WorksWrapper>
-      <Button>create</Button>
-      <WorksContainer>
-        <Work />
-      </WorksContainer>
-      <WorksEditor />
-    </WorksWrapper>
+    <>
+      <Button onClick={() => setCreating(!creating)}>create</Button>
+      {!creating ? <WorksList works={works} /> : <WorksEditor />}
+    </>
   );
 }

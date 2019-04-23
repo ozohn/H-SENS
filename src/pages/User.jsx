@@ -55,7 +55,7 @@ function UserPage() {
       <ButtonContainer>
         <ToggleButton user={user} editing={editing} setEditing={setEditing} />
       </ButtonContainer>
-      <Works />
+      <Works user={user} />
     </User>
   );
 }

@@ -5,7 +5,6 @@ import { Dropdown, Button } from 'semantic-ui-react';
 const SearchWrapper = styled.div`
   width: 60%;
 `;
-
 const SearchContainer = styled.div`
   display: flex;
   width: 100%;
@@ -13,7 +12,6 @@ const SearchContainer = styled.div`
   margin: auto;
   align-items: center;
 `;
-
 const SearchInputer = styled.input`
   padding: 0;
   border: 0;
@@ -62,25 +60,16 @@ export default function Search() {
       value: '작품',
     },
   ];
+
   return (
     <SearchWrapper>
       <SearchContainer>
         <SearchInputer placeholder="검색할 단어를 입력하세요" />
-        <Selector
-          placeholder="작가"
-          color="#bbb"
-          fluid
-          selection
-          options={searchOptions}
-        />
-        <SearchBtn basic color="#bbb">
-          검색
-        </SearchBtn>
+        <Selector placeholder="Select" fluid selection options={searchOptions} />
+        <SearchBtn basic>검색</SearchBtn>
       </SearchContainer>
       <FilterContainer>
-        <Filter>
-          <div>something</div>
-        </Filter>
+        <Filter>이 부분은 filter가 들어갈 부분입니다.</Filter>
       </FilterContainer>
     </SearchWrapper>
   );

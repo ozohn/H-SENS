@@ -1,36 +1,50 @@
 import styled from 'styled-components';
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import fetchData from '../component/fetchData';
 import UserSetting from './UserSetting';
+
 import UserInfo from './UserInfo';
 import changeUserInfo from '../component/changeUserInfo';
 import Works from './Works';
 
 const User = styled.div`
-  border-top: 0.4rem solid #00adb5;
-  padding-top: 8rem;
+  position: relative;
+  height: 200vh;
+  overflow-y: scroll;
+  scroll-behavior: smooth;
+  ::-webkit-scrollbar {
+    width: 0px;
+  }
 `;
 
 const ButtonContainer = styled.div`
-  margin-top: 2rem;
   padding-left: 8rem;
 `;
 const CustomButton = styled.button`
-  width: 8rem;
-  border-radius: 2rem;
+  color: #ff4d4d;
   margin-right: 3rem;
-  padding: 1rem 2rem;
-  background-color: #fff;
-  border: 1px solid #e8e8e8;
+  border: 0;
   outline: none;
   cursor: pointer;
-  font-size: 1.1rem;
-  padding: 8px 18px;
+  font-size: 2rem;
+  font-weight: bold;
+  &:hover {
+    border-bottom: 1px solid #ff4d4d;
+  }
 `;
+
+function handleScroll(scrollInfo) {
+  const { scrollTop } = scrollInfo.current;
+  const profile = scrollInfo.current.firstElementChild;
+  if (scrollTop > profile.offsetHeight) {
+    // profile.style.transform = `translateY(-${num}%)`;
+  }
+}
 
 function UserPage() {
   const [user, setUser] = useState('');
   const [editing, setEditing] = useState(false);
+  const scrollInfo = useRef(null);
 
   useEffect(() => {
     fetchData(`${process.env.REACT_APP_SERVER_URL}/creator`, 'POST', {
@@ -41,7 +55,12 @@ function UserPage() {
   }, []);
 
   return (
-    <User>
+    <User
+      ref={scrollInfo}
+      onScroll={() => {
+        handleScroll(scrollInfo);
+      }}
+    >
       {!editing ? (
         <UserInfo
           user={user}

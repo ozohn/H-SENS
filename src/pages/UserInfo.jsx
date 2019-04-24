@@ -39,7 +39,7 @@ const ImageContainer = styled(Image)`
   }
 `;
 
-export default function UserInfo({ user }) {
+export default function UserInfo({ user, editing, setEditing, ToggleButton }) {
   return (
     <Container>
       <HeadingContainer>
@@ -48,6 +48,7 @@ export default function UserInfo({ user }) {
       </HeadingContainer>
       <ImageContainer src={user.userimage} verticalAlign="top" size="small" circular />
       <UserDesc>{user.userdesc}</UserDesc>
+      <ToggleButton editing={editing} setEditing={setEditing} />
     </Container>
   );
 }

@@ -17,21 +17,32 @@ const User = styled.div`
   }
 `;
 
-const ButtonContainer = styled.div`
-  padding-left: 8rem;
-`;
 const CustomButton = styled.button`
-  color: #ff4d4d;
+  color: #95bfb4;
   margin-right: 3rem;
   border: 0;
   outline: none;
   cursor: pointer;
   font-size: 2rem;
   font-weight: bold;
+  background-color: transparent;
   &:hover {
-    border-bottom: 1px solid #ff4d4d;
+    border-bottom: 1px solid #95bfb4;
   }
 `;
+
+function ToggleButton({ editing, user, setEditing }) {
+  return (
+    <CustomButton
+      onClick={() => {
+        if (editing) changeUserInfo(user, 1);
+        setEditing(!editing);
+      }}
+    >
+      {!editing ? 'Edit' : 'submit'}
+    </CustomButton>
+  );
+}
 
 function handleScroll(scrollInfo) {
   const { scrollTop } = scrollInfo.current;
@@ -53,7 +64,6 @@ function UserPage() {
       setUser(userInfo);
     });
   }, []);
-
   return (
     <User
       ref={scrollInfo}
@@ -67,28 +77,22 @@ function UserPage() {
           setUser={setUser}
           editing={editing}
           setEditing={setEditing}
+          ToggleButton={ToggleButton}
         />
       ) : (
-        <UserSetting user={user} setUser={setUser} />
+        <UserSetting
+          user={user}
+          setUser={setUser}
+          editing={editing}
+          setEditing={setEditing}
+          ToggleButton={ToggleButton}
+        />
       )}
-      <ButtonContainer>
+      {/* <ButtonContainer>
         <ToggleButton user={user} editing={editing} setEditing={setEditing} />
-      </ButtonContainer>
+      </ButtonContainer> */}
       <Works user={user} />
     </User>
-  );
-}
-
-function ToggleButton({ editing, user, setEditing }) {
-  return (
-    <CustomButton
-      onClick={() => {
-        if (editing) changeUserInfo(user, 1);
-        setEditing(!editing);
-      }}
-    >
-      {!editing ? 'Edit' : 'submit'}
-    </CustomButton>
   );
 }
 

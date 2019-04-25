@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { SignInForm, SignNav, SignLogo, Container } from '../component/user/SignForm';
-import useFetch from '../component/fetch';
+import fetchData from '../component/fetchData';
 
 const SignIn = () => {
   const [id, setId] = useState({ b: false, data: '' });
@@ -32,7 +32,7 @@ const SignIn = () => {
       password: pw.data,
     };
     const signInUrl = `${process.env.REACT_APP_SERVER_URL}/users/signin`;
-    const res = await useFetch(signInUrl, 'POST', jsonHeader, JSON.stringify(userData));
+    const res = await fetchData(signInUrl, 'POST', jsonHeader, JSON.stringify(userData));
     window.localStorage.token = res.token;
     window.location.replace(`${process.env.REACT_APP_CLIENT_URL}`);
     if (res.error) {

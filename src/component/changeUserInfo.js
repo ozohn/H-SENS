@@ -1,4 +1,4 @@
-import useFetch from './fetch';
+import useFetch from './fetchData';
 
 export default async function ChangeUserInfo(user) {
   const fetchedData = await useFetch(

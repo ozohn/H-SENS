@@ -2,10 +2,10 @@ import React, { useEffect, useState } from 'react';
 import List from '../component/list/List';
 import Author from '../component/author/Author';
 import Header from '../header';
-import useFetch from '../component/fetch';
+import fetchData from '../component/fetchData';
 
 const getUserData = async () => {
-  const fetchedData = await useFetch(
+  const fetchedData = await fetchData(
     `${process.env.REACT_APP_SERVER_URL}/main/users`,
     'POST',
   );

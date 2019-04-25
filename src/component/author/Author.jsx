@@ -32,8 +32,8 @@ const CardContent = styled(Card.Content)`
   }
 `;
 
-const Authors = ({ user }) => {
-  if (user === undefined) {
+const Authors = ({ user, }) => {
+  if (!user) {
     return <AuthorLoader />;
   }
 
@@ -61,13 +61,13 @@ export default function Author({ authors }) {
   return (
     <Grid columns={3} stackable>
       <Grid.Column>
+        <Authors user={authors[0]} />
+      </Grid.Column>
+      <Grid.Column>
         <Authors user={authors[1]} />
       </Grid.Column>
       <Grid.Column>
         <Authors user={authors[2]} />
-      </Grid.Column>
-      <Grid.Column>
-        <Authors user={authors[3]} />
       </Grid.Column>
     </Grid>
   );

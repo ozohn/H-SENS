@@ -32,13 +32,13 @@ const LinkStyled = styled(Link)`
   height: 4.5rem;
 `;
 
-const Header = ({ userImage }) => {
+const Header = ({ userImage, authors }) => {
   const hasToken = !!window.localStorage.token;
 
   return (
     <HeaderWrapper className="header">
       <Logo />
-      <Search />
+      <Search authors={authors} userImage={userImage} />
       <LinkStyled to={hasToken ? '/user' : '/signin'} user={userImage} />
     </HeaderWrapper>
   );

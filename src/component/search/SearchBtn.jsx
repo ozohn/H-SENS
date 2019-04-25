@@ -3,18 +3,21 @@ import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import { Button } from 'semantic-ui-react';
 
-const StyledSearchBtn = styled(Button)`
-  width: 15%;
-  height: 100%;
+const StyledSearchBtn = styled(Link)`
+  &&& {
+    width: 15%;
+    height: 100%;
+    background-color: gray;
+    color: black;
+    border-radius: 1rem;
+  }
 `;
 
 const SearchBtn = ({ value }) => {
   return (
-    <StyledSearchBtn
-      content="검색"
-      as={Link}
-      to={{ pathname: '/searched', state: { value } }}
-    />
+    <StyledSearchBtn as={Link} to={{ pathname: '/searched', state: { value } }}>
+      검색
+    </StyledSearchBtn>
   );
 };
 

@@ -1,7 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
-import { Button } from 'semantic-ui-react';
 
 const StyledSearchBtn = styled(Link)`
   &&& {

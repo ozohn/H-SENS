@@ -7,7 +7,6 @@ import WorksList from './WorksList';
 const WorksContainer = styled.div`
   position: fixed;
   top: 0;
-  overflow-y: scroll;
   width: 100%;
   height: 100vh;
   padding: 2rem 0;
@@ -16,12 +15,22 @@ const WorksContainer = styled.div`
 
 const Heading2 = styled.h2`
   display: inline-block;
-  font-size: 8rem;
+  font-size: 7rem;
   color: #ff4d4d;
   border-bottom: 1px solid #ff4d4d;
 `;
 
 const Button = styled.button`
+  margin-top: 2rem;
+  border: 0;
+  outline: none;
+  font-size: 2.2rem;
+  background-color: transparent;
+  color: #ff4d4d;
+  cursor: pointer;
+  &:hover {
+    border-bottom: 1px solid #ff4d4d;
+  }
   &&& {
     float: right;
   }
@@ -40,15 +49,7 @@ export default function Works() {
   }, []);
 
   return (
-    <WorksContainer
-      onScroll={e => {
-        window.scrollTo({
-          top: e.target.offsetHeight,
-          left: 0,
-          behavior: 'smooth',
-        });
-      }}
-    >
+    <WorksContainer>
       <Heading2>PROJECTS</Heading2>
       <Button onClick={() => setCreating(!creating)}>create</Button>
       {!creating ? <WorksList works={works} /> : <WorksEditor />}

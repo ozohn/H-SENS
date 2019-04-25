@@ -35,7 +35,7 @@ function WorksEditor() {
       <Editor
         initialValue="hello react editor world!"
         previewStyle="vertical"
-        height="600px"
+        height="400px"
         initialEditType="wysiwyg"
         ref={inputDesc}
         exts={[
@@ -54,7 +54,7 @@ function WorksEditor() {
         ]}
       />
       <button
-        type="submit"
+        type="button"
         onClick={e => {
           e.preventDefault();
           handleClick(inputName, workImage, inputDesc);

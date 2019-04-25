@@ -12,6 +12,7 @@ const User = styled.div`
   height: 200vh;
   overflow-y: scroll;
   scroll-behavior: smooth;
+  font-weight: bold;
   ::-webkit-scrollbar {
     width: 0px;
   }

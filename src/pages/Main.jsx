@@ -43,7 +43,7 @@ const MainPage = () => {
 
   return (
     <>
-      <Header userImage={userImage} />
+      <Header userImage={userImage} authors={authorData} />
       <Author authors={authorData} />
       <List />
     </>

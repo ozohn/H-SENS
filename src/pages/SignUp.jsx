@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { BrowserRouter as Link } from 'react-router-dom';
 import { SignLogo, Container, SignUpForm } from '../component/user/SignForm';
-import useFetch from '../component/fetch';
+import fetchData from '../component/fetchData';
 
 const SignUp = () => {
   const [id, setId] = useState({ b: true, data: '' });
@@ -18,7 +18,12 @@ const SignUp = () => {
       'Content-Type': 'application/json',
     };
     const checkOverlapUrl = `${process.env.REACT_APP_SERVER_URL}/users/checkid`;
-    const res = await useFetch(checkOverlapUrl, 'POST', jsonHeader, JSON.stringify(body));
+    const res = await fetchData(
+      checkOverlapUrl,
+      'POST',
+      jsonHeader,
+      JSON.stringify(body),
+    );
     if (res.message === 'OK') {
       setId({ b: true, data: curVal });
     } else {
@@ -69,7 +74,7 @@ const SignUp = () => {
       username: name.data,
     };
     const signUpUrl = `${process.env.REACT_APP_SERVER_URL}/users/signup`;
-    const res = await useFetch(signUpUrl, 'POST', jsonHeader, JSON.stringify(body));
+    const res = await fetchData(signUpUrl, 'POST', jsonHeader, JSON.stringify(body));
     if (res.error) throw res.error;
     window.localStorage.token = res.token;
     window.location.replace(`${process.env.REACT_APP_CLIENT_URL}`);

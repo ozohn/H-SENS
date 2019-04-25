@@ -32,7 +32,8 @@ const MainPage = () => {
     fetchedData.then(user => {
       setAuthorData(user);
     });
-    if (localStorage) {
+    const hasToken = !!window.localStorage.token;
+    if (hasToken) {
       const fetchedUserData = getUserData();
       fetchedUserData.then(user => {
         setUserImage(user.userimage);

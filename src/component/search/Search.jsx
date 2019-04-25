@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
-import { Dropdown, Button } from 'semantic-ui-react';
+import Selector from './Selector';
+import SearchBtn from './SearchBtn';
 
 const SearchWrapper = styled.div`
   width: 60%;
@@ -22,17 +23,7 @@ const SearchInputer = styled.input`
   font-size: 1.6rem;
   margin-right: 5%;
 `;
-const Selector = styled(Dropdown)`
-  &&& {
-    width: 15%;
-    height: 100%;
-    margin-right: 5%;
-  }
-`;
-const SearchBtn = styled(Button)`
-  width: 15%;
-  height: 100%;
-`;
+
 const Filter = styled.div`
   border: 1px solid #bbb;
   width: 100%;
@@ -48,25 +39,23 @@ const FilterContainer = styled.div`
 `;
 
 export default function Search() {
-  const searchOptions = [
-    {
-      key: '작가',
-      text: '작가',
-      value: '작가',
-    },
-    {
-      key: '작품',
-      text: '작품',
-      value: '작품',
-    },
-  ];
+  const [selectedValue, setSelectedValue] = useState('');
+  const [inputValue, setInputValue] = useState('');
+
+  const handleSelectorChange = (e, { value }) => {
+    setSelectedValue(value);
+  };
+
+  const handleInputChange = e => {
+    setInputValue(e.target.value);
+  };
 
   return (
     <SearchWrapper>
       <SearchContainer>
-        <SearchInputer placeholder="검색할 단어를 입력하세요" />
-        <Selector placeholder="Select" fluid selection options={searchOptions} />
-        <SearchBtn basic>검색</SearchBtn>
+        <SearchInputer placeholder="입력해주세요" onChange={handleInputChange} />
+        <Selector handleChange={handleSelectorChange} selectedValue={selectedValue} />
+        <SearchBtn value={{ selectedValue, inputValue }} />
       </SearchContainer>
       <FilterContainer>
         <Filter>이 부분은 filter가 들어갈 부분입니다.</Filter>

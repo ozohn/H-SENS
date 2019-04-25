@@ -38,7 +38,7 @@ const FilterContainer = styled.div`
   margin-top: 1rem;
 `;
 
-export default function Search() {
+export default function Search({ authors, userImage }) {
   const [selectedValue, setSelectedValue] = useState('');
   const [inputValue, setInputValue] = useState('');
 
@@ -55,7 +55,7 @@ export default function Search() {
       <SearchContainer>
         <SearchInputer placeholder="입력해주세요" onChange={handleInputChange} />
         <Selector handleChange={handleSelectorChange} selectedValue={selectedValue} />
-        <SearchBtn value={{ selectedValue, inputValue }} />
+        <SearchBtn value={{ selectedValue, inputValue, authors, userImage }} />
       </SearchContainer>
       <FilterContainer>
         <Filter>이 부분은 filter가 들어갈 부분입니다.</Filter>

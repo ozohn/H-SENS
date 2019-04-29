@@ -1,10 +1,27 @@
 import React, { useState, useRef } from 'react';
+import styled from 'styled-components';
 import 'codemirror/lib/codemirror.css';
 import 'tui-editor/dist/tui-editor.min.css';
 import 'tui-editor/dist/tui-editor-contents.min.css';
 import { Editor } from '@toast-ui/react-editor';
 import fetchData from '../component/fetchData';
 import getBase64 from '../component/getBase64';
+
+const Button = styled.button`
+  margin-top: 2rem;
+  border: 0;
+  outline: none;
+  font-size: 2.2rem;
+  background-color: transparent;
+  color: #ff4d4d;
+  cursor: pointer;
+  &:hover {
+    border-bottom: 1px solid #ff4d4d;
+  }
+  &&& {
+    float: right;
+  }
+`;
 
 function handleClick(inputName, workImage, inputDesc) {
   const body = {
@@ -23,13 +40,22 @@ function handleClick(inputName, workImage, inputDesc) {
   );
 }
 
-function WorksEditor() {
+function WorksEditor({ setCreating, creating }) {
   const inputName = useRef(null);
   const inputDesc = useRef(null);
   const [workImage, setWorkImage] = useState('');
 
   return (
     <>
+      <Button
+        onClick={e => {
+          e.preventDefault();
+          handleClick(inputName, workImage, inputDesc);
+          setCreating(!creating);
+        }}
+      >
+        submit
+      </Button>
       <input type="text" ref={inputName} />
       <input type="file" onChange={e => getBase64(e.target.files[0], setWorkImage)} />
       <Editor
@@ -53,15 +79,6 @@ function WorksEditor() {
           'table',
         ]}
       />
-      <button
-        type="button"
-        onClick={e => {
-          e.preventDefault();
-          handleClick(inputName, workImage, inputDesc);
-        }}
-      >
-        make bold
-      </button>
     </>
   );
 }

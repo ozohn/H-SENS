@@ -32,11 +32,31 @@ const CustomButton = styled.button`
   }
 `;
 
+function handleClick(user) {
+  const body = {
+    username: user.username,
+    userdesc: user.userdesc,
+    userimage: user.userimage,
+  };
+  fetchData(
+    `${process.env.REACT_APP_SERVER_URL}/creator/edit`,
+    'POST',
+    {
+      Authorization: `Bearer ${localStorage.getItem('token')}`,
+      'Content-Type': 'application/json',
+    },
+    JSON.stringify(body),
+  );
+}
+
 function ToggleButton({ editing, user, setEditing }) {
   return (
     <CustomButton
       onClick={() => {
-        if (editing) changeUserInfo(user, 1);
+        if (editing) {
+          changeUserInfo(user);
+          handleClick(user);
+        }
         setEditing(!editing);
       }}
     >
@@ -45,16 +65,8 @@ function ToggleButton({ editing, user, setEditing }) {
   );
 }
 
-function handleScroll(scrollInfo) {
-  const { scrollTop } = scrollInfo.current;
-  const profile = scrollInfo.current.firstElementChild;
-  if (scrollTop > profile.offsetHeight) {
-    // profile.style.transform = `translateY(-${num}%)`;
-  }
-}
-
 function UserPage() {
-  const [user, setUser] = useState('');
+  const [user, setUser] = useState({});
   const [editing, setEditing] = useState(false);
   const scrollInfo = useRef(null);
 
@@ -66,12 +78,7 @@ function UserPage() {
     });
   }, []);
   return (
-    <User
-      ref={scrollInfo}
-      onScroll={() => {
-        handleScroll(scrollInfo);
-      }}
-    >
+    <User ref={scrollInfo}>
       {!editing ? (
         <UserInfo
           user={user}
@@ -89,9 +96,6 @@ function UserPage() {
           ToggleButton={ToggleButton}
         />
       )}
-      {/* <ButtonContainer>
-        <ToggleButton user={user} editing={editing} setEditing={setEditing} />
-      </ButtonContainer> */}
       <Works user={user} />
     </User>
   );

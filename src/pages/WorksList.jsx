@@ -58,15 +58,33 @@ function handleClick(work, setWorkInfo) {
   });
 }
 
-export default function WorksList({ works }) {
+const Button = styled.button`
+  margin-top: 2rem;
+  border: 0;
+  outline: none;
+  font-size: 2.2rem;
+  background-color: transparent;
+  color: #ff4d4d;
+  cursor: pointer;
+  &:hover {
+    border-bottom: 1px solid #ff4d4d;
+  }
+  &&& {
+    float: right;
+  }
+`;
+
+export default function WorksList({ works, setCreating, creating }) {
   const [workInfo, setWorkInfo] = useState({});
   return (
     <>
+      <Button onClick={() => setCreating(!creating)}>create</Button>
       <WorkView workInfo={workInfo} />
       <Works>
-        {works.map((work, index) => (
-          <Work key={work._id} work={work} index={index} setWorkInfo={setWorkInfo} />
-        ))}
+        {works.length &&
+          works.map((work, index) => (
+            <Work key={work._id} work={work} index={index} setWorkInfo={setWorkInfo} />
+          ))}
       </Works>
     </>
   );

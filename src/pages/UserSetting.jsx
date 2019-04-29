@@ -123,7 +123,7 @@ function UserSetting({ user, setUser, editing, setEditing, ToggleButton }) {
           onChange={e => getBase64(e.target.files[0], setUserImage)}
         />
       </FileLabel>
-      <ToggleButton editing={editing} setEditing={setEditing} />
+      <ToggleButton user={user} editing={editing} setEditing={setEditing} />
     </FormContainer>
   );
 }

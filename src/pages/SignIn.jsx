@@ -1,6 +1,11 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { SignInForm, SignNav, SignLogo, Container } from '../component/user/SignForm';
+import {
+  SignInForm,
+  SignLogo,
+  Container,
+  WholeContainer,
+} from '../component/user/SignForm';
 import fetchData from '../component/fetchData';
 
 const SignIn = () => {
@@ -43,13 +48,12 @@ const SignIn = () => {
   };
 
   return (
-    <>
+    <WholeContainer>
       <SignLogo as={Link} to="/" />
       <Container>
         <SignInForm Fns={{ getId, getPw, submit }} Datas={{ id, pw, submitBtn }} />
-        <SignNav />
       </Container>
-    </>
+    </WholeContainer>
   );
 };
 

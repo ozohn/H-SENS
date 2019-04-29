@@ -1,21 +1,50 @@
 import React from 'react';
-import { Button, Form } from 'semantic-ui-react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 
-const ExtBtn = styled(Button)`
+const StyledInput = styled.input`
+  position: relative;
+  padding: 0;
+  border: 0;
+  color: #011627;
+  border-bottom: 1px solid #011627;
+  outline: none;
   width: 100%;
+  height: 5vh;
 `;
-const NavContainer = styled.div`
+const WholeContainer = styled.div`
   display: flex;
-  margin-top: 1rem;
+  flex-direction: column;
+  border-top: 0.4rem solid #2ec4b6;
+  justify-content: center;
+  align-items: center;
+  height: 70vh;
 `;
-const ButtonGroup = styled(Button.Group)`
+const ExtBtn = styled.button`
+  font-size: 1.6rem;
+  margin-top: 1vh;
+  height: 5vh;
+  border: 0;
   width: 100%;
+  text-align: center;
+  border: 1px solid transparent
+  &:hover {
+    border: 1px solid #011627;
+  }
+`;
+const SignUpBtn = styled.button`
+  margin-top: 1vh;
+  color: #888;
+  font-size: 1rem;
+  width: 15%;
+  float: right;
+  &:hover {
+    color: #011627;
+  }
 `;
 const SignLogo = styled.div`
   display: flex;
-  width 20rem;
+  width: 20rem;
   height: 8.4rem;
   background: no-repeat url('./image/H-SensEx.png');
   background-size: contain;
@@ -28,47 +57,34 @@ const Container = styled.div`
   margin: 3rem auto 0 auto;
 `;
 
-const SignNav = () => (
-  <NavContainer>
-    <ButtonGroup>
-      <Button as={Link} to="/findid">
-        아이디 찾기
-      </Button>
-      <Button.Or />
-      <Button as={Link} to="/findpw">
-        비밀번호 찾기
-      </Button>
-      <Button.Or />
-      <Button as={Link} to="/signup">
-        회원가입
-      </Button>
-    </ButtonGroup>
-  </NavContainer>
+const LinkedSignUpBtn = () => (
+  <SignUpBtn as={Link} to="/signup">
+    Sign Up
+  </SignUpBtn>
 );
 
 const SignInSubmitBtn = ({ submit, submitBtn }) => {
   return (
-    <ExtBtn
-      onClick={submit}
-      content={submitBtn.bCorrect ? '로그인' : '어떠한 값도 없습니다.'}
-      loading={submitBtn.bLoading ? true : null}
-    />
+    <ExtBtn onClick={submit} loading={submitBtn.bLoading ? true : null}>
+      {submitBtn.bCorrect ? 'Sign In' : 'Sign In Fail'}
+    </ExtBtn>
   );
 };
 
 const SignInForm = ({ Fns, Datas }) => (
-  <Form>
-    <Form.Input placeholder="아이디" onChange={Fns.getId} />
-    <Form.Input type="password" placeholder="비밀번호" onChange={Fns.getPw} />
+  <form>
+    <StyledInput placeholder="ID" onChange={Fns.getId} />
+    <StyledInput type="password" placeholder="PW" onChange={Fns.getPw} />
+    <LinkedSignUpBtn />
     <SignInSubmitBtn submit={Fns.submit} submitBtn={Datas.submitBtn} />
-  </Form>
+  </form>
 );
 
 const GetIdContent = ({ id, checkId }) => {
   const idLabel = id.b ? '아이디' : '아이디-중복된 아이디거나 6-12글자가 아닙니다.';
 
   return (
-    <Form.Input
+    <styledInput
       fluid
       label={idLabel}
       placeholder="아이디"
@@ -82,7 +98,7 @@ const GetPwContent = ({ pw, checkPw }) => {
   const pwLabel = pw.b ? '비밀번호' : '비밀번호-특수문자/문자/숫자 조합8-15글자';
 
   return (
-    <Form.Input
+    <styledInput
       type="password"
       className="pw"
       fluid
@@ -98,7 +114,7 @@ const GetRePwContent = ({ rePw, checkRePw }) => {
   const rePwLabel = rePw.b ? null : '비밀번호와 같지 않습니다.';
 
   return (
-    <Form.Input
+    <styledInput
       type="password"
       placeholder="비밀번호 재입력"
       fluid
@@ -113,7 +129,7 @@ const GetNameContent = ({ name, checkName }) => {
   const nameLabel = name.b ? '이름' : '이름은 한 글자 이상이어야 합니다.';
 
   return (
-    <Form.Input
+    <styledInput
       fluid
       label={nameLabel}
       placeholder="이름"
@@ -135,7 +151,7 @@ const SignUpSubmitBtn = ({ submitBtn, submit }) => {
 
 const SignUpForm = ({ Datas, Fns }) => {
   return (
-    <Form>
+    <form>
       <GetIdContent
         id={Datas.id}
         checkId={Fns.checkId}
@@ -145,10 +161,9 @@ const SignUpForm = ({ Datas, Fns }) => {
       <GetPwContent pw={Datas.pw} checkPw={Fns.checkPw} />
       <GetRePwContent rePw={Datas.rePw} checkRePw={Fns.checkRePw} />
       <GetNameContent name={Datas.name} checkName={Fns.checkName} />
-      <Form.Checkbox label="본 페이지를 포트폴리오 관련 목적으로 사용할 것을 약속합니다." />
       <SignUpSubmitBtn submitBtn={Datas.submitBtn} submit={Fns.submit} />
-    </Form>
+    </form>
   );
 };
 
-export { SignInForm, SignNav, SignLogo, Container, SignUpForm };
+export { SignInForm, SignLogo, Container, SignUpForm, WholeContainer };

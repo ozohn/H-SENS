@@ -1,49 +1,55 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
+import Selector from './Selector';
+import SearchBtn from './SearchBtn';
 
-const SearchWrapper = styled.div``;
-
+const SearchWrapper = styled.div`
+  width: 60%;
+  height: 60%;
+`;
 const SearchContainer = styled.div`
   display: flex;
+  width: 100%;
+  height: 100%;
   margin: auto;
   align-items: center;
 `;
-
 const SearchInputer = styled.input`
   padding: 0;
   border: 0;
-  border-bottom: 1px solid #bbb;
+  color: #011627;
+  background-color: #efffe9;
+  border-bottom: 1px solid #011627;
   outline: none;
-  width: 50rem;
-  height: 3rem;
+  width: 65%;
+  height: 100%;
   font-size: 1.6rem;
 `;
-
-const Selector = styled.div`
-  width: 2rem;
-  height: 2rem;
+const Line = styled.div`
+  border-right: 1px solid #011627;
+  height: 65%;
 `;
 
-const SearchBtn = styled.div`
-  border: 1px solid #bbb;
-  width: 8.4rem;
-  height: 3rem;
-`;
+export default function Search({ authors, userImage }) {
+  const [selectedValue, setSelectedValue] = useState('');
+  const [inputValue, setInputValue] = useState('');
 
-const Filter = styled.div`
-  display: flex;
-  height: 3rem;
-`;
+  const handleSelectorChange = (e, { value }) => {
+    setSelectedValue(value);
+  };
 
-export default function Search() {
+  const handleInputChange = e => {
+    setInputValue(e.target.value);
+  };
+
   return (
     <SearchWrapper>
       <SearchContainer>
-        <SearchInputer />
-        <Selector />
-        <SearchBtn />
+        <SearchInputer placeholder="which? who?" onChange={handleInputChange} />
+        <SearchBtn value={{ selectedValue, inputValue, authors, userImage }} />
+        <Line />
+        <Selector handleChange={handleSelectorChange} selectedValue={selectedValue} />
       </SearchContainer>
-      <Filter />
     </SearchWrapper>
   );
 }

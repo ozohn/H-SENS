@@ -1,48 +1,25 @@
 import React from 'react';
 import styled from 'styled-components';
-import { Loader, Image, Card, Icon } from 'semantic-ui-react';
 
-const ImageLoaderContainer = styled(Image)`
-  &&& {
-    overflow: hidden;
-    position: relative;
-    width: 100%;
-    height: 0;
-    padding-top: 75%;
+const Loader = styled.div`
+  @keyframes spin {
+    0% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(360deg);
+    }
   }
-`;
-const CenterdLoader = styled(Loader)`
-  &&& {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translateX(-50%) translateY(-50%);
-  }
-`;
-const ContentContainer = styled(Card.Content)`
-  &&& {
-    overflow: hidden;
-    position: relative;
-    width: 100%;
-    height: 0;
-    padding-top: 30%;
-  }
+  width: 10%;
+  height: 10%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  animation: spin 2s linear infinite;
+  background-image: url(./image/loader.png);
 `;
 const AuthorLoader = () => {
-  return (
-    <Card fluid>
-      <ImageLoaderContainer>
-        <CenterdLoader active inline="centered" />
-      </ImageLoaderContainer>
-      <ContentContainer>
-        <CenterdLoader active inline="centered" />
-      </ContentContainer>
-      <Card.Content extra>
-        <Icon name="heart outline" />
-        like
-      </Card.Content>
-    </Card>
-  );
+  return <Loader />;
 };
 
 export default AuthorLoader;

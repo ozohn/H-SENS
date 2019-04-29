@@ -1,10 +1,17 @@
 /* eslint-disable react/prop-types */
 import React from 'react';
 import styled from 'styled-components';
-import { Grid, Image, Card, Icon } from 'semantic-ui-react';
+import { Image } from 'semantic-ui-react';
 import AuthorContent from './AuthorContent';
 import AuthorLoader from './AuthorLoader';
 
+const AuthorContainer = styled.div`
+  margin-top: 1%;
+  width: 100%;
+  height: 25rem;
+  overflow-x: auto;
+  white-space: nowrap;
+`;
 const SameHeightImage = styled(Image)`
   &&& {
     position: absolute;
@@ -14,31 +21,32 @@ const SameHeightImage = styled(Image)`
   }
 `;
 const ImageContainer = styled.div`
-  &&& {
-    overflow: hidden;
-    position: relative;
-    width: 100%;
-    height: 0;
-    padding-top: 75%;
-  }
+  overflow: hidden;
+  position: relative;
+  width: 100%;
+  height: 0;
+  padding-top: 75%;
 `;
-const CardContent = styled(Card.Content)`
-  &&& {
-    overflow: hidden;
-    position: relative;
-    width: 100%;
-    height: 0;
-    padding-top: 30%;
-  }
+const CardContent = styled.div`
+  overflow: hidden;
+  position: relative;
+  width: 100%;
+  height: 0;
+  padding-top: 30%;
 `;
-
-const Authors = ({ user }) => {
-  if (user === undefined) {
+const AuthorCard = styled.div`
+  display: inline-block;
+  width: 30%;
+  height: 30%;
+  margin-right: 1%;
+`;
+const Authors = ({ user, index }) => {
+  if (!user.length === 0) {
     return <AuthorLoader />;
   }
 
   return (
-    <Card fluid>
+    <AuthorCard index={index}>
       <ImageContainer>
         {user.userimage ? (
           <SameHeightImage src={user.userimage} />
@@ -49,26 +57,20 @@ const Authors = ({ user }) => {
       <CardContent>
         <AuthorContent user={user} />
       </CardContent>
-      <Card.Content extra>
-        <Icon name="heart outline" />
-        like
-      </Card.Content>
-    </Card>
+    </AuthorCard>
   );
 };
 
 export default function Author({ authors }) {
   return (
-    <Grid columns={3} stackable>
-      <Grid.Column>
-        <Authors user={authors[1]} />
-      </Grid.Column>
-      <Grid.Column>
-        <Authors user={authors[2]} />
-      </Grid.Column>
-      <Grid.Column>
-        <Authors user={authors[3]} />
-      </Grid.Column>
-    </Grid>
+    <AuthorContainer>
+      {authors ? (
+        authors.map((author, i) => {
+          return <Authors user={author} key={author.userdesc} index={i} />;
+        })
+      ) : (
+        <Authors user={[]} />
+      )}
+    </AuthorContainer>
   );
 }

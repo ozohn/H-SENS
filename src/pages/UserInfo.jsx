@@ -48,7 +48,7 @@ export default function UserInfo({ user, editing, setEditing, ToggleButton }) {
       </HeadingContainer>
       <ImageContainer src={user.userimage} verticalAlign="top" size="small" circular />
       <UserDesc>{user.userdesc}</UserDesc>
-      <ToggleButton editing={editing} setEditing={setEditing} />
+      <ToggleButton user={user} editing={editing} setEditing={setEditing} />
     </Container>
   );
 }

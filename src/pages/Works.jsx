@@ -20,22 +20,6 @@ const Heading2 = styled.h2`
   border-bottom: 1px solid #ff4d4d;
 `;
 
-const Button = styled.button`
-  margin-top: 2rem;
-  border: 0;
-  outline: none;
-  font-size: 2.2rem;
-  background-color: transparent;
-  color: #ff4d4d;
-  cursor: pointer;
-  &:hover {
-    border-bottom: 1px solid #ff4d4d;
-  }
-  &&& {
-    float: right;
-  }
-`;
-
 export default function Works() {
   const [works, setWorks] = useState([]);
   const [creating, setCreating] = useState(false);
@@ -51,8 +35,11 @@ export default function Works() {
   return (
     <WorksContainer>
       <Heading2>PROJECTS</Heading2>
-      <Button onClick={() => setCreating(!creating)}>create</Button>
-      {!creating ? <WorksList works={works} /> : <WorksEditor />}
+      {!creating ? (
+        <WorksList works={works} setCreating={setCreating} creating={creating} />
+      ) : (
+        <WorksEditor setCreating={setCreating} creating={creating} />
+      )}
     </WorksContainer>
   );
 }

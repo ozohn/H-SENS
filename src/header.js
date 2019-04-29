@@ -7,15 +7,17 @@ import Search from './component/search/Search';
 const HeaderWrapper = styled.header`
   display: flex;
   justify-content: space-between;
+  align-items:center;
   width: 100%;
   border: 1px solid #bbb;
-  border-top: 0.4rem solid #00adb5
+  border-top: 0.4rem solid #2EC4B6
   padding: 1%;
   height: 8rem;
+  background-color: #EFFFE9
 `;
 
 const Logo = styled.div`
-  border: 1px solid #bbb;
+  border: 1px solid #011627;
   width: 15%;
   height: 80%;
 `;
@@ -26,7 +28,7 @@ const LinkStyled = styled(Link)`
   background-size: contain;
   background-repeat: no-repeat;
   background-position: center center;
-  border: 1px solid #bbb;
+  border: 1px solid #011627;
   border-radius: 50%;
   width: 4.5rem;
   height: 4.5rem;

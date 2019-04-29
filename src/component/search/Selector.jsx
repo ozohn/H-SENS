@@ -1,38 +1,36 @@
 import React from 'react';
 import styled from 'styled-components';
-import { Dropdown } from 'semantic-ui-react';
+import SelectorC from './component';
 
-const StyledSelector = styled(Dropdown)`
-  &&& {
-    width: 15%;
-    height: 100%;
-    margin-right: 5%;
-  }
+const SelectorContainer = styled.div`
+  width: 15%;
+  height: 100%;
+  margin-left: 2.5%;
 `;
 
 const Selector = ({ handleChange, selectedValue }) => {
-  const searchOptions = [
+  const selectorList = [
     {
-      key: '작가',
-      text: '작가',
-      value: '작가',
+      id: 1,
+      title: 'Author',
+      value: 'Author',
     },
     {
-      key: '작품',
-      text: '작품',
-      value: '작품',
+      id: 2,
+      title: 'Works',
+      value: 'Works',
     },
   ];
 
   return (
-    <StyledSelector
-      placeholder="Select"
-      onChange={handleChange}
-      fluid
-      selection
-      options={searchOptions}
-      value={selectedValue}
-    />
+    <SelectorContainer>
+      <SelectorC
+        title="Choose"
+        list={selectorList}
+        handleChange={handleChange}
+        selectedValue={selectedValue}
+      />
+    </SelectorContainer>
   );
 };
 

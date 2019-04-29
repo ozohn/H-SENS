@@ -4,20 +4,24 @@ import styled from 'styled-components';
 
 const StyledSearchBtn = styled(Link)`
   &&& {
-    width: 15%;
+    display: flex;
+    align-items: center;
+    background: center / 80% url(./image/searchBtnHover.png) no-repeat;
+    width: 10%;
     height: 100%;
-    background-color: gray;
-    color: black;
-    border-radius: 1rem;
+    color: #011627;
+    border-bottom: 1px solid #011627;
+    transition: background 0.3s;
+    margin-right: 2.5%;
+  }
+  &&&:hover {
+    background: center/80% url(./image/searchBtn.png) no-repeat;
+    transition: background 0.3s;
   }
 `;
 
 const SearchBtn = ({ value }) => {
-  return (
-    <StyledSearchBtn as={Link} to={{ pathname: '/searched', state: { value } }}>
-      검색
-    </StyledSearchBtn>
-  );
+  return <StyledSearchBtn as={Link} to={{ pathname: '/searched', state: { value } }} />;
 };
 
 export default SearchBtn;

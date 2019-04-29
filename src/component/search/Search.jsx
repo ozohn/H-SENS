@@ -5,37 +5,29 @@ import SearchBtn from './SearchBtn';
 
 const SearchWrapper = styled.div`
   width: 60%;
+  height: 60%;
 `;
 const SearchContainer = styled.div`
   display: flex;
   width: 100%;
-  height: 50%;
+  height: 100%;
   margin: auto;
   align-items: center;
 `;
 const SearchInputer = styled.input`
   padding: 0;
   border: 0;
-  border-bottom: 1px solid #bbb;
+  color: #011627;
+  background-color: #efffe9;
+  border-bottom: 1px solid #011627;
   outline: none;
   width: 65%;
   height: 100%;
   font-size: 1.6rem;
-  margin-right: 5%;
 `;
-
-const Filter = styled.div`
-  border: 1px solid #bbb;
-  width: 100%;
-  height: 100%;
-`;
-const FilterContainer = styled.div`
-  display: flex;
-  width: 100%;
-  height: 30%;
-  align-items: center;
-  margin: auto;
-  margin-top: 1rem;
+const Line = styled.div`
+  border-right: 1px solid #011627;
+  height: 65%;
 `;
 
 export default function Search({ authors, userImage }) {
@@ -53,13 +45,11 @@ export default function Search({ authors, userImage }) {
   return (
     <SearchWrapper>
       <SearchContainer>
-        <SearchInputer placeholder="입력해주세요" onChange={handleInputChange} />
-        <Selector handleChange={handleSelectorChange} selectedValue={selectedValue} />
+        <SearchInputer placeholder="which? who?" onChange={handleInputChange} />
         <SearchBtn value={{ selectedValue, inputValue, authors, userImage }} />
+        <Line />
+        <Selector handleChange={handleSelectorChange} selectedValue={selectedValue} />
       </SearchContainer>
-      <FilterContainer>
-        <Filter>이 부분은 filter가 들어갈 부분입니다.</Filter>
-      </FilterContainer>
     </SearchWrapper>
   );
 }

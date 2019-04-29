@@ -1,30 +1,76 @@
+/* eslint-disable react/prop-types */
 import React from 'react';
 import styled from 'styled-components';
-import { Grid, Image } from 'semantic-ui-react';
+import { Image } from 'semantic-ui-react';
+import AuthorContent from './AuthorContent';
+import AuthorLoader from './AuthorLoader';
 
-const ListItems = styled.div`
-  height: 300px;
+const AuthorContainer = styled.div`
+  margin-top: 1%;
   width: 100%;
-  display: flex;
-  margin: 0 auto;
+  height: 25rem;
+  overflow-x: auto;
+  white-space: nowrap;
 `;
-const Item = styled.div`
-  flex: 1;
-  border: 1px solid #bbb;
+const SameHeightImage = styled(Image)`
+  &&& {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translateX(-50%) translateY(-50%);
+  }
 `;
+const ImageContainer = styled.div`
+  overflow: hidden;
+  position: relative;
+  width: 100%;
+  height: 0;
+  padding-top: 75%;
+`;
+const CardContent = styled.div`
+  overflow: hidden;
+  position: relative;
+  width: 100%;
+  height: 0;
+  padding-top: 30%;
+`;
+const AuthorCard = styled.div`
+  display: inline-block;
+  width: 30%;
+  height: 30%;
+  margin-right: 1%;
+`;
+const Authors = ({ user, index }) => {
+  if (!user.length === 0) {
+    return <AuthorLoader />;
+  }
 
-export default function Author() {
   return (
-    <Grid columns={3} stackable>
-      <Grid.Column>
-        <Image src="https://react.semantic-ui.com/images/wireframe/image.png" />
-      </Grid.Column>
-      <Grid.Column>
-        <Image src="https://react.semantic-ui.com/images/wireframe/image.png" />
-      </Grid.Column>
-      <Grid.Column>
-        <Image src="https://react.semantic-ui.com/images/wireframe/image.png" />
-      </Grid.Column>
-    </Grid>
+    <AuthorCard index={index}>
+      <ImageContainer>
+        {user.userimage ? (
+          <SameHeightImage src={user.userimage} />
+        ) : (
+          <SameHeightImage src="https://react.semantic-ui.com/images/wireframe/image.png" />
+        )}
+      </ImageContainer>
+      <CardContent>
+        <AuthorContent user={user} />
+      </CardContent>
+    </AuthorCard>
+  );
+};
+
+export default function Author({ authors }) {
+  return (
+    <AuthorContainer>
+      {authors ? (
+        authors.map((author, i) => {
+          return <Authors user={author} key={author.userdesc} index={i} />;
+        })
+      ) : (
+        <Authors user={[]} />
+      )}
+    </AuthorContainer>
   );
 }

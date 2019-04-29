@@ -1,8 +1,9 @@
+import 'semantic-ui-css/semantic.min.css';
 import React from 'react';
 import ReactDOM from 'react-dom';
-import Path from './router/router.js';
-import 'semantic-ui-css/semantic.min.css';
+import Path from './router/router';
 import * as serviceWorker from './serviceWorker';
+import './index.css';
 
 ReactDOM.render(<Path />, document.getElementById('root'));
 

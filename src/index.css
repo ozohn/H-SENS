@@ -1,0 +1,12 @@
+@font-face {
+  font-family: "Gotham";
+  src: url("/font/GothamBook.ttf");
+  font-style: normal;
+  font-weight: 400;
+  font-display: fallback;
+}
+
+body {
+  font-family: "Gotham", san-serif;
+  letter-spacing: -1px;
+}

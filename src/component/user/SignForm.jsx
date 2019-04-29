@@ -46,40 +46,40 @@ const SignNav = () => (
   </NavContainer>
 );
 
-const SignInSubmitBtn = props => {
+const SignInSubmitBtn = ({ submit, submitBtn }) => {
   return (
     <ExtBtn
-      onClick={props.submit}
-      content={props.submitBtn.bCorrect ? '로그인' : '어떠한 값도 없습니다.'}
-      loading={props.submitBtn.bLoading ? true : null}
+      onClick={submit}
+      content={submitBtn.bCorrect ? '로그인' : '어떠한 값도 없습니다.'}
+      loading={submitBtn.bLoading ? true : null}
     />
   );
 };
 
-const SignInForm = props => (
+const SignInForm = ({ Fns, Datas }) => (
   <Form>
-    <Form.Input placeholder="아이디" onChange={props.Fns.getId} />
-    <Form.Input type="password" placeholder="비밀번호" onChange={props.Fns.getPw} />
-    <SignInSubmitBtn submit={props.Fns.submit} submitBtn={props.Datas.submitBtn} />
+    <Form.Input placeholder="아이디" onChange={Fns.getId} />
+    <Form.Input type="password" placeholder="비밀번호" onChange={Fns.getPw} />
+    <SignInSubmitBtn submit={Fns.submit} submitBtn={Datas.submitBtn} />
   </Form>
 );
 
-const GetIdContent = props => {
-  let idLabel = props.id.b ? '아이디' : '아이디-중복된 아이디거나 6-12글자가 아닙니다.';
+const GetIdContent = ({ id, checkId }) => {
+  const idLabel = id.b ? '아이디' : '아이디-중복된 아이디거나 6-12글자가 아닙니다.';
 
   return (
     <Form.Input
       fluid
       label={idLabel}
       placeholder="아이디"
-      error={props.id.b ? null : true}
-      onBlur={props.checkId}
+      error={id.b ? null : true}
+      onBlur={checkId}
     />
   );
 };
 
-const GetPwContent = props => {
-  let pwLabel = props.pw.b ? '비밀번호' : '비밀번호-특수문자/문자/숫자 조합8-15글자';
+const GetPwContent = ({ pw, checkPw }) => {
+  const pwLabel = pw.b ? '비밀번호' : '비밀번호-특수문자/문자/숫자 조합8-15글자';
 
   return (
     <Form.Input
@@ -88,14 +88,14 @@ const GetPwContent = props => {
       fluid
       label={pwLabel}
       placeholder="비밀번호"
-      onChange={props.checkPw}
-      error={props.pw.b ? null : true}
+      onChange={checkPw}
+      error={pw.b ? null : true}
     />
   );
 };
 
-const GetRePwContent = props => {
-  const rePwLabel = props.rePw.b ? null : '비밀번호와 같지 않습니다.';
+const GetRePwContent = ({ rePw, checkRePw }) => {
+  const rePwLabel = rePw.b ? null : '비밀번호와 같지 않습니다.';
 
   return (
     <Form.Input
@@ -103,50 +103,50 @@ const GetRePwContent = props => {
       placeholder="비밀번호 재입력"
       fluid
       label={rePwLabel}
-      onChange={props.checkRePw}
-      error={props.rePw.b ? null : true}
+      onChange={checkRePw}
+      error={rePw.b ? null : true}
     />
   );
 };
 
-const GetNameContent = props => {
-  const nameLabel = props.name.b ? '이름' : '이름은 한 글자 이상이어야 합니다.';
+const GetNameContent = ({ name, checkName }) => {
+  const nameLabel = name.b ? '이름' : '이름은 한 글자 이상이어야 합니다.';
 
   return (
     <Form.Input
       fluid
       label={nameLabel}
       placeholder="이름"
-      onChange={props.checkName}
-      error={props.name.b ? null : true}
+      onChange={checkName}
+      error={name.b ? null : true}
     />
   );
 };
 
-const SignUpSubmitBtn = props => {
+const SignUpSubmitBtn = ({ submitBtn, submit }) => {
   return (
     <ExtBtn
-      content={props.submitBtn.bCorrect ? '가입' : '가입 조건이 맞지 않습니다.'}
-      onClick={props.submit}
-      loading={props.submitBtn.bLoading ? true : null}
+      content={submitBtn.bCorrect ? '가입' : '가입 조건이 맞지 않습니다.'}
+      onClick={submit}
+      loading={submitBtn.bLoading ? true : null}
     />
   );
 };
 
-const SignUpForm = props => {
+const SignUpForm = ({ Datas, Fns }) => {
   return (
     <Form>
       <GetIdContent
-        id={props.Datas.id}
-        checkId={props.Fns.checkId}
-        checkOverlap={props.Fns.checkOverlap}
-        overlap={props.Datas.overlap}
+        id={Datas.id}
+        checkId={Fns.checkId}
+        checkOverlap={Fns.checkOverlap}
+        overlap={Datas.overlap}
       />
-      <GetPwContent pw={props.Datas.pw} checkPw={props.Fns.checkPw} />
-      <GetRePwContent rePw={props.Datas.rePw} checkRePw={props.Fns.checkRePw} />
-      <GetNameContent name={props.Datas.name} checkName={props.Fns.checkName} />
+      <GetPwContent pw={Datas.pw} checkPw={Fns.checkPw} />
+      <GetRePwContent rePw={Datas.rePw} checkRePw={Fns.checkRePw} />
+      <GetNameContent name={Datas.name} checkName={Fns.checkName} />
       <Form.Checkbox label="본 페이지를 포트폴리오 관련 목적으로 사용할 것을 약속합니다." />
-      <SignUpSubmitBtn submitBtn={props.Datas.submitBtn} submit={props.Fns.submit} />
+      <SignUpSubmitBtn submitBtn={Datas.submitBtn} submit={Fns.submit} />
     </Form>
   );
 };

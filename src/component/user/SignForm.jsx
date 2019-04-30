@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 
 const StyledInput = styled.input`
+  font-size: 1.3rem;
   position: relative;
   padding: 0;
   border: 0;
@@ -11,11 +12,16 @@ const StyledInput = styled.input`
   outline: none;
   width: 100%;
   height: 5vh;
+  margin-top: 1.3rem;
+  transition: all 0.3s;
+  &:focus {
+    font-size: 1.5rem;
+    transition: all 0.5s;
+  }
 `;
 const WholeContainer = styled.div`
   display: flex;
   flex-direction: column;
-  border-top: 0.4rem solid #2ec4b6;
   justify-content: center;
   align-items: center;
   height: 70vh;
@@ -27,9 +33,11 @@ const ExtBtn = styled.button`
   border: 0;
   width: 100%;
   text-align: center;
-  border: 1px solid transparent
+  border: 1px solid transparent;
+  font-weight: bold;
+  cursor: pointer;
   &:hover {
-    border: 1px solid #011627;
+    color: #95bfb4;
   }
 `;
 const SignUpBtn = styled.button`
@@ -44,17 +52,18 @@ const SignUpBtn = styled.button`
 `;
 const SignLogo = styled.div`
   display: flex;
-  width: 20rem;
-  height: 8.4rem;
+  width: 14rem;
+  padding-top: 15%;
   background: no-repeat url('./image/H-SensEx.png');
   background-size: contain;
   margin: 0 auto;
+  height: 0;
 `;
 const Container = styled.div`
   display: flex;
   flex-direction: column;
-  width: 25rem;
-  margin: 3rem auto 0 auto;
+  width: 30rem;
+  margin: 0 auto;
 `;
 
 const LinkedSignUpBtn = () => (

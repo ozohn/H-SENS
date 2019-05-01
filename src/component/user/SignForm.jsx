@@ -1,70 +1,13 @@
 import React from 'react';
-import styled from 'styled-components';
 import { Link } from 'react-router-dom';
-
-const StyledInput = styled.input`
-  font-size: 1.3rem;
-  position: relative;
-  padding: 0;
-  border: 0;
-  color: #011627;
-  border-bottom: 1px solid #011627;
-  outline: none;
-  width: 100%;
-  height: 5vh;
-  margin-top: 1.3rem;
-  transition: all 0.3s;
-  &:focus {
-    font-size: 1.5rem;
-    transition: all 0.5s;
-  }
-`;
-const WholeContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  height: 70vh;
-`;
-const ExtBtn = styled.button`
-  font-size: 1.6rem;
-  margin-top: 1vh;
-  height: 5vh;
-  border: 0;
-  width: 100%;
-  text-align: center;
-  border: 1px solid transparent;
-  font-weight: bold;
-  cursor: pointer;
-  &:hover {
-    color: #95bfb4;
-  }
-`;
-const SignUpBtn = styled.button`
-  margin-top: 1vh;
-  color: #888;
-  font-size: 1rem;
-  width: 15%;
-  float: right;
-  &:hover {
-    color: #011627;
-  }
-`;
-const SignLogo = styled.div`
-  display: flex;
-  width: 14rem;
-  padding-top: 15%;
-  background: no-repeat url('./image/H-SensEx.png');
-  background-size: contain;
-  margin: 0 auto;
-  height: 0;
-`;
-const Container = styled.div`
-  display: flex;
-  flex-direction: column;
-  width: 30rem;
-  margin: 0 auto;
-`;
+import {
+  StyledInput, // 밑줄 인풋창
+  WholeContainer, // 가운데로 맞추고 DOM들의 방향을 아래로 하는 컨테이너
+  ExtBtn, // 확장시켜놓은 버튼
+  SignUpBtn, // 회원가입으로 가는 조그마한 버튼
+  SignLogo, // 회원가입 위의 로고 버튼
+  Container, // 전체를 감싸는 컨테이너
+} from './SignStyle';
 
 const LinkedSignUpBtn = () => (
   <SignUpBtn as={Link} to="/signup">
@@ -72,21 +15,26 @@ const LinkedSignUpBtn = () => (
   </SignUpBtn>
 );
 
-const SignInSubmitBtn = ({ submit, submitBtn }) => {
+const SignInSubmitBtn = ({ submit, bLoading, bCorrect }) => {
+  console.log(bLoading);
   return (
-    <ExtBtn onClick={submit} loading={submitBtn.bLoading ? true : null}>
-      {submitBtn.bCorrect ? 'Sign In' : 'Sign In Fail'}
+    <ExtBtn onClick={submit} bLoading={bLoading}>
+      {bCorrect ? 'Sign In' : 'Not Correct'}
     </ExtBtn>
   );
 };
 
 const SignInForm = ({ Fns, Datas }) => (
-  <form>
+  <div>
     <StyledInput placeholder="ID" onChange={Fns.getId} />
     <StyledInput type="password" placeholder="PW" onChange={Fns.getPw} />
     <LinkedSignUpBtn />
-    <SignInSubmitBtn submit={Fns.submit} submitBtn={Datas.submitBtn} />
-  </form>
+    <SignInSubmitBtn
+      submit={Fns.submit}
+      bLoading={Datas.bLoading}
+      bCorrect={Datas.bCorrect}
+    />
+  </div>
 );
 
 const GetIdContent = ({ id, checkId }) => {

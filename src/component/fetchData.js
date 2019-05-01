@@ -1,6 +1,6 @@
 const checkStatusNum = statusNum => {
   if (statusNum >= 400 && statusNum < 500) {
-    throw new Error('잘못된 요청입니다.');
+    throw new Error('요청거부');
   } else if (statusNum >= 500) {
     throw new Error('현재 서버가 박살난 상태입니다.');
   }

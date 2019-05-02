@@ -7,6 +7,7 @@ import {
   SignUpBtn, // 회원가입으로 가는 조그마한 버튼
   SignLogo, // 회원가입 위의 로고 버튼
   Container, // 전체를 감싸는 컨테이너
+  LoadingAni, // 로딩 애니메이션
 } from './SignStyle';
 
 const LinkedSignUpBtn = () => (
@@ -18,8 +19,9 @@ const LinkedSignUpBtn = () => (
 const SignInSubmitBtn = ({ submit, bLoading, bCorrect }) => {
   console.log(bLoading);
   return (
-    <ExtBtn onClick={submit} bLoading={bLoading}>
-      {bCorrect ? 'Sign In' : 'Not Correct'}
+    <ExtBtn onClick={submit}>
+      {bLoading ? <LoadingAni /> : bCorrect ? 'Sing in' : 'Check Please'}
+      {/* {bCorrect ? 'Sign In' : 'Not Correct'} */}
     </ExtBtn>
   );
 };

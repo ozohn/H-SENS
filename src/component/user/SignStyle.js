@@ -1,13 +1,19 @@
 import styled, { keyframes, css } from 'styled-components';
 
-const rotate = keyframes`
+const pump = keyframes`
   from {
-    transform: rotate(0deg);
+    transform: scale(0.7, 0.7)
   }
-
   to {
-    transform: rotate(360deg);
+    transform: scale(1, 1);
   }
+`;
+const LoadingAni = styled.div`
+  border: 1px solid #000;
+  border-radius: 50%;
+  width: 1.6rem;
+  height: 1.6rem;
+  animation: ${pump} 0.3s linear infinite;
 `;
 const StyledInput = styled.input`
   font-size: 1.3rem;
@@ -34,13 +40,13 @@ const WholeContainer = styled.div`
   height: 70vh;
 `;
 const ExtBtn = styled.button`
+  display: flex;
   font-size: 1.6rem;
   margin-top: 1vh;
   height: 5vh;
   border: 0;
   width: 100%;
-  text-align: center;
-  border: 1px solid transparent;
+  justify-content: center;
   font-weight: bold;
   cursor: pointer;
   &:hover {
@@ -73,4 +79,12 @@ const Container = styled.div`
   margin: 0 auto;
 `;
 
-export { StyledInput, WholeContainer, ExtBtn, SignUpBtn, SignLogo, Container };
+export {
+  StyledInput,
+  WholeContainer,
+  ExtBtn,
+  SignUpBtn,
+  SignLogo,
+  Container,
+  LoadingAni,
+};

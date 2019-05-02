@@ -1,4 +1,4 @@
-import styled, { keyframes, css } from 'styled-components';
+import styled, { keyframes } from 'styled-components';
 
 const pump = keyframes`
   from {
@@ -6,6 +6,14 @@ const pump = keyframes`
   }
   to {
     transform: scale(1, 1);
+  }
+`;
+const slide = keyframes`
+  from {
+    width: 0%;
+  }
+  to {
+    width: 100%;
   }
 `;
 const LoadingAni = styled.div`
@@ -21,7 +29,7 @@ const StyledInput = styled.input`
   padding: 0;
   border: 0;
   color: #011627;
-  border-bottom: 1px solid #011627;
+  border-bottom: 1px solid ${props => (props.error ? '#ff4100' : '#011627')};
   outline: none;
   width: 100%;
   height: 5vh;
@@ -78,6 +86,15 @@ const Container = styled.div`
   width: 30rem;
   margin: 0 auto;
 `;
+const Error = styled.div`
+  padding-top: 0.3rem;
+  height: 1.3rem;
+  width: 100%;
+  font-size: 1rem;
+  color: #ff4100;
+  overflow: hidden;
+  animation: ${slide} 1s linear;
+`;
 
 export {
   StyledInput,
@@ -87,4 +104,5 @@ export {
   SignLogo,
   Container,
   LoadingAni,
+  Error,
 };

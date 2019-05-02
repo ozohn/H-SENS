@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 import styled from 'styled-components';
-import Search from './component/search/Search';
+import Search from '../search/Search';
 
 const HeaderWrapper = styled.header`
   display: flex;

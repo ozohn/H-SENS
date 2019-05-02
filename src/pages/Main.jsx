@@ -1,12 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import List from '../component/list/List';
-import Author from '../component/author/Author';
-import Header from '../header';
+import Header from '../component/header/header';
 import fetchData from '../component/fetchData';
 
-const getAuthorData = async () => {
+const getWorksData = async () => {
   const fetchedData = await fetchData(
-    `${process.env.REACT_APP_SERVER_URL}/main/users`,
+    `${process.env.REACT_APP_SERVER_URL}/main/works`,
     'POST',
   );
   return fetchedData;
@@ -28,7 +27,7 @@ const MainPage = () => {
   const [authorData, setAuthorData] = useState('');
 
   useEffect(() => {
-    const fetchedData = getAuthorData();
+    const fetchedData = getWorksData();
     fetchedData.then(user => {
       setAuthorData(user);
     });
@@ -44,7 +43,6 @@ const MainPage = () => {
   return (
     <>
       <Header userImage={userImage} authors={authorData} />
-      <Author authors={authorData} />
       <List />
     </>
   );

@@ -8,14 +8,6 @@ const pump = keyframes`
     transform: scale(1, 1);
   }
 `;
-const slide = keyframes`
-  from {
-    width: 0%;
-  }
-  to {
-    width: 100%;
-  }
-`;
 const LoadingAni = styled.div`
   border: 1px solid #000;
   border-radius: 50%;
@@ -92,8 +84,6 @@ const Error = styled.div`
   width: 100%;
   font-size: 1rem;
   color: #ff4100;
-  overflow: hidden;
-  animation: ${slide} 1s linear;
 `;
 
 export {

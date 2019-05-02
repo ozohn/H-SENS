@@ -24,7 +24,8 @@ const SignIn = () => {
     setPw(curVal);
   };
 
-  const submit = async () => {
+  const submit = async e => {
+    e.preventDefault();
     setbLoading(true);
     const jsonHeader = {
       Accept: 'application/json',

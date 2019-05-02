@@ -17,7 +17,6 @@ const LinkedSignUpBtn = () => (
 );
 
 const SignInSubmitBtn = ({ submit, bLoading, bCorrect }) => {
-  console.log(bLoading);
   return (
     <ExtBtn onClick={submit}>
       {bLoading ? <LoadingAni /> : bCorrect ? 'Sing in' : 'Check Please'}
@@ -27,7 +26,7 @@ const SignInSubmitBtn = ({ submit, bLoading, bCorrect }) => {
 };
 
 const SignInForm = ({ Fns, Datas }) => (
-  <div>
+  <form>
     <StyledInput placeholder="ID" onChange={Fns.getId} />
     <StyledInput type="password" placeholder="PW" onChange={Fns.getPw} />
     <LinkedSignUpBtn />
@@ -36,7 +35,7 @@ const SignInForm = ({ Fns, Datas }) => (
       bLoading={Datas.bLoading}
       bCorrect={Datas.bCorrect}
     />
-  </div>
+  </form>
 );
 
 const GetIdContent = ({ id, checkId }) => {

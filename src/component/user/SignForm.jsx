@@ -9,7 +9,7 @@ import {
   SignLogo, // 회원가입 위의 로고 버튼
   Container, // 전체를 감싸는 컨테이너
   LoadingAni, // 로딩 애니메이션
-  Error, // 아이디 에러 폼
+  Error, // 에러 폼
 } from './SignStyle';
 
 const LinkedSignUpBtn = () => (
@@ -118,6 +118,6 @@ const SignUpForm = ({ Datas, Fns }) => {
       />
     </form>
   );
-};
+}; // production build 해보기. 로딩속도 체크해보기. 성능개선관점, network탭의 performance탭을 열어보기
 
 export { SignInForm, SignLogo, Container, SignUpForm, WholeContainer };

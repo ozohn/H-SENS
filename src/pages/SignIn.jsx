@@ -32,8 +32,8 @@ const SignIn = () => {
       'Content-Type': 'application/json',
     };
     const userData = {
-      userid: id.data,
-      password: pw.data,
+      userid: id,
+      password: pw,
     };
     const signInUrl = `${process.env.REACT_APP_SERVER_URL}/users/signin`;
     const res = await fetchData(signInUrl, 'POST', jsonHeader, JSON.stringify(userData));

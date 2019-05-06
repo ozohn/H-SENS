@@ -18,8 +18,8 @@ function creatorReducer(state, action) {
     case 'INITIAL': {
       return { ...action.data };
     }
-    case 'edit': {
-      return state;
+    case 'EDIT': {
+      return { ...state, ...action.data };
     }
     default: {
       return state;

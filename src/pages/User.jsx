@@ -1,7 +1,6 @@
 import styled from 'styled-components';
 import React, { useState, useEffect, useReducer, useContext } from 'react';
 import fetchData from '../component/fetchData';
-import { Provider } from '../context/creator/creatorContext';
 import UserInfo from './UserInfo';
 import Works from './Works';
 
@@ -17,23 +16,11 @@ const User = styled.div`
 `;
 
 function UserPage() {
-  // const [user, setUser] = useState({});
-
-  // useEffect(() => {
-  //   fetchData(`${process.env.REACT_APP_SERVER_URL}/creator`, 'POST', {
-  //     Authorization: `Bearer ${localStorage.getItem('token')}`,
-  //   }).then(userInfo => {
-  //     console.log(userInfo);
-  //     setUser(userInfo);
-  //   });
-  // }, []);
   return (
-    <Provider>
-      <User>
-        <UserInfo />
-        <Works />
-      </User>
-    </Provider>
+    <User>
+      <UserInfo />
+      <Works />
+    </User>
   );
 }
 

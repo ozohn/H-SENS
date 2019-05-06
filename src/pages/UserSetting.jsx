@@ -1,11 +1,11 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useContext } from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import { Icon } from 'semantic-ui-react';
 import getBase64 from '../component/getBase64';
 import fetchData from '../component/fetchData';
 import InputForm from '../component/form/Input';
-import changeUserInfo from '../component/changeUserInfo';
+import { CreatorContext } from '../context/creator/creatorContext';
 
 const FormContainer = styled.div`
   position: absolute;
@@ -76,50 +76,11 @@ const CustomButton = styled(Link)`
   }
 `;
 
-function handleClick(user) {
-  const body = {
-    username: user.username,
-    userdesc: user.userdesc,
-    userimage: user.userimage,
-  };
-  fetchData(
-    `${process.env.REACT_APP_SERVER_URL}/creator/edit`,
-    'POST',
-    {
-      Authorization: `Bearer ${localStorage.getItem('token')}`,
-      'Content-Type': 'application/json',
-    },
-    JSON.stringify(body),
-  );
-}
-
-function EditBtn({ user }) {
-  return (
-    <CustomButton
-      to="/user"
-      onClick={() => {
-        changeUserInfo(user);
-        handleClick(user);
-      }}
-    >
-      submit
-    </CustomButton>
-  );
-}
-
-function UserSetting({ location }) {
-  const { user, setUser } = location.query;
-  const [userName, setUserName] = useState('');
-  const [userDesc, setUserDesc] = useState('');
-  const [userImage, setUserImage] = useState('');
-
-  useEffect(() => {
-    setUser({
-      username: userName || user.username,
-      userdesc: userDesc || user.userdesc,
-      userimage: userImage || user.userimage,
-    });
-  }, [userName, userDesc, userImage]);
+function UserSetting() {
+  const { modifyUserInfo } = useContext(CreatorContext);
+  const [userName, setUserName] = useState();
+  const [userDesc, setUserDesc] = useState();
+  const [userImage, setUserImage] = useState();
 
   return (
     <FormContainer>
@@ -146,7 +107,14 @@ function UserSetting({ location }) {
           onChange={e => getBase64(e.target.files[0], setUserImage)}
         />
       </FileLabel>
-      <EditBtn user={user} handleClick={handleClick} />
+      <CustomButton
+        to="/user"
+        onClick={() => {
+          modifyUserInfo({ userDesc, userImage, userName });
+        }}
+      >
+        submit
+      </CustomButton>
     </FormContainer>
   );
 }

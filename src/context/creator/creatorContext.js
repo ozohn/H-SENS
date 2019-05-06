@@ -14,8 +14,27 @@ function Provider({ children }) {
     });
   }, []);
 
+  function modifyUserInfo({ userName, userDesc, userImage }) {
+    const body = {
+      username: state.username || userName,
+      userdesc: state.userdesc || userDesc,
+      userimage: state.userimage || userImage,
+    };
+    fetchData(
+      `${process.env.REACT_APP_SERVER_URL}/creator/edit`,
+      'POST',
+      {
+        Authorization: `Bearer ${localStorage.getItem('token')}`,
+        'Content-Type': 'application/json',
+      },
+      JSON.stringify(body),
+    ).then(data => {
+      dispatch(fetchEdit(data));
+    });
+  }
+
   return (
-    <CreatorContext.Provider value={{ state, dispatch }}>
+    <CreatorContext.Provider value={{ state, dispatch, modifyUserInfo }}>
       {children}
     </CreatorContext.Provider>
   );

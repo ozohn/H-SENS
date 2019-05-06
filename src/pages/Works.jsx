@@ -22,7 +22,7 @@ const Heading2 = styled.h2`
 
 export default function Works() {
   const [works, setWorks] = useState([]);
-  const [creating, setCreating] = useState(false);
+  const [editing, setEditing] = useState(false);
 
   useEffect(() => {
     fetchData(`${process.env.REACT_APP_SERVER_URL}/works`, 'POST', {
@@ -35,10 +35,10 @@ export default function Works() {
   return (
     <WorksContainer>
       <Heading2>PROJECTS</Heading2>
-      {!creating ? (
-        <WorksList works={works} setCreating={setCreating} creating={creating} />
+      {!editing ? (
+        <WorksList works={works} setEditing={setEditing} editing={editing} />
       ) : (
-        <WorksEditor setCreating={setCreating} creating={creating} />
+        <WorksEditor setEditing={setEditing} editing={editing} />
       )}
     </WorksContainer>
   );

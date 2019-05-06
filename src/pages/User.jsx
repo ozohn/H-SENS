@@ -20,7 +20,6 @@ const User = styled.div`
 function UserPage() {
   const [user, setUser] = useState({});
   const [editing, setEditing] = useState(false);
-  const scrollInfo = useRef(null);
 
   useEffect(() => {
     fetchData(`${process.env.REACT_APP_SERVER_URL}/creator`, 'POST', {
@@ -30,7 +29,7 @@ function UserPage() {
     });
   }, []);
   return (
-    <User ref={scrollInfo}>
+    <User>
       {!editing ? (
         <UserInfo
           user={user}

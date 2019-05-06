@@ -4,6 +4,7 @@ import { Icon } from 'semantic-ui-react';
 import getBase64 from '../component/getBase64';
 import fetchData from '../component/fetchData';
 import EditBtn from '../component/button/EditBtn';
+import InputForm from '../component/form/Input';
 
 const FormContainer = styled.div`
   position: absolute;
@@ -15,16 +16,6 @@ const FormContainer = styled.div`
   height: 100vh;
   width: 100%;
   background-color: #fff;
-`;
-
-const Label = styled.label`
-  display: none;
-`;
-
-const Heading3 = styled.h3`
-  margin: 0;
-  margin-top: 1rem;
-  font-size: 4rem;
 `;
 
 const TextArea = styled.textarea`
@@ -86,37 +77,6 @@ function handleClick(user) {
   );
 }
 
-function InputForm({ cb, label, type }) {
-  return (
-    <>
-      <Heading3>{label}</Heading3>
-      <Label>{label}</Label>
-      <Input
-        type={type}
-        placeholder="Name"
-        onChange={e => {
-          cb(e.target.value);
-        }}
-      />
-    </>
-  );
-}
-
-function TextareaForm({ cb, label }) {
-  return (
-    <>
-      <Heading3>{label}</Heading3>
-      <Label>{label}</Label>
-      <TextArea
-        placeholder="What's up?"
-        onChange={e => {
-          cb(e.target.value);
-        }}
-      />
-    </>
-  );
-}
-
 function UserSetting({ user, setUser, editing, setEditing }) {
   const [userName, setUserName] = useState('');
   const [userDesc, setUserDesc] = useState('');
@@ -132,8 +92,20 @@ function UserSetting({ user, setUser, editing, setEditing }) {
 
   return (
     <FormContainer>
-      <InputForm cb={setUserName} label="Who are you?" type="text" />
-      <TextareaForm cb={setUserDesc} label="More" type="textarea" />
+      <InputForm
+        Tag={Input}
+        cb={setUserName}
+        placeholder="Name"
+        label="Who are you?"
+        type="text"
+      />
+      <InputForm
+        Tag={TextArea}
+        cb={setUserDesc}
+        label="More"
+        placeholder="What's up?"
+        type="textarea"
+      />
       <FileLabel>
         Profie Image
         <Icon disabled name="image" size="big" />

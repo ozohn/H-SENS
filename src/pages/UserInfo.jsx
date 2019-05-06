@@ -26,13 +26,11 @@ const Heading2 = styled.h2`
   font-size: 5rem;
   margin: auto 0;
 `;
-
 const UserDesc = styled.p`
   margin-top: 2rem;
   font-size: 3rem;
   line-height: 3.2rem;
 `;
-
 const ImageContainer = styled(Image)`
   &&& {
     float: right;

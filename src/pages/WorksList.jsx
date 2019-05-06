@@ -69,8 +69,7 @@ const Button = styled.button`
   }
 `;
 
-function handleClick(work, setWorkInfo, listView, setListView) {
-  setListView(!listView);
+function handleClick(work, setWorkInfo) {
   const body = {
     workid: work._id,
   };
@@ -114,7 +113,10 @@ export default function WorksList({ works, setCreating, creating }) {
 function Work({ work, setWorkInfo, index, listView, setListView }) {
   return (
     <ItemContainer
-      onClick={() => handleClick(work, setWorkInfo, listView, setListView)}
+      onClick={() => {
+        setListView(!listView);
+        handleClick(work, setWorkInfo, listView, setListView);
+      }}
       index={index}
     >
       <CustomImage src={work.workimage} verticalAlign="top" size="medium" />

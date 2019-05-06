@@ -38,7 +38,7 @@ export default function Works() {
       {!editing ? (
         <WorksList works={works} setEditing={setEditing} editing={editing} />
       ) : (
-        <WorksEditor setEditing={setEditing} editing={editing} />
+        <WorksEditor setEditing={setEditing} editing={editing} setWorks={setWorks} />
       )}
     </WorksContainer>
   );

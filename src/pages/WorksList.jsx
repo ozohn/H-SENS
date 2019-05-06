@@ -86,15 +86,15 @@ function handleClick(work, setWorkInfo) {
   });
 }
 
-export default function WorksList({ works, setCreating, creating }) {
+export default function WorksList({ works, setEditing, editing }) {
   const [workInfo, setWorkInfo] = useState({});
   const [listView, setListView] = useState(false);
   return (
     <>
-      <Button onClick={() => setCreating(!creating)}>create</Button>
+      <Button onClick={() => setEditing(!editing)}>create</Button>
       <Works listView={listView}>
         <WorkView workInfo={workInfo} listView={listView} />
-        {!works.length &&
+        {works.length &&
           works.map((work, index) => (
             <Work
               key={work._id}

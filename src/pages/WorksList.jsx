@@ -7,6 +7,8 @@ import fetchData from '../component/fetchData';
 
 const Works = styled.ul`
   position: relative;
+  top: 0;
+  left: 0;
   margin-top: 10rem;
   max-width: 100%;
   overflow-x: scroll;
@@ -39,24 +41,17 @@ const CustomImage = styled(Image)`
   }
 `;
 
-const WorkCover = styled.div``;
-
-function handleClick(work, setWorkInfo) {
-  const body = {
-    workid: work._id,
-  };
-  fetchData(
-    `${process.env.REACT_APP_SERVER_URL}/works/view`,
-    'POST',
-    {
-      Authorization: `Bearer ${localStorage.getItem('token')}`,
-      'Content-Type': 'application/json',
-    },
-    JSON.stringify(body),
-  ).then(workInfo => {
-    setWorkInfo(workInfo);
-  });
-}
+const WorkCover = styled.div`
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: ${props => (props.listView ? '100vw' : '0vw')};
+  height: ${props => (props.listView ? '100vh' : '0vh')};
+  transition: all 0.2s ease-in-out;
+  overflow: hidden;
+  background: #fff;
+  z-index: 9;
+`;
 
 const Button = styled.button`
   margin-top: 2rem;
@@ -74,40 +69,64 @@ const Button = styled.button`
   }
 `;
 
+function handleClick(work, setWorkInfo, listView, setListView) {
+  setListView(!listView);
+  const body = {
+    workid: work._id,
+  };
+  fetchData(
+    `${process.env.REACT_APP_SERVER_URL}/works/view`,
+    'POST',
+    {
+      Authorization: `Bearer ${localStorage.getItem('token')}`,
+      'Content-Type': 'application/json',
+    },
+    JSON.stringify(body),
+  ).then(workInfo => {
+    setWorkInfo(workInfo);
+  });
+}
+
 export default function WorksList({ works, setCreating, creating }) {
   const [workInfo, setWorkInfo] = useState({});
+  const [listView, setListView] = useState(false);
   return (
     <>
       <Button onClick={() => setCreating(!creating)}>create</Button>
-      <WorkView workInfo={workInfo} />
-      <Works>
-        {works.length &&
+      <Works listView={listView}>
+        <WorkView workInfo={workInfo} listView={listView} />
+        {!works.length &&
           works.map((work, index) => (
-            <Work key={work._id} work={work} index={index} setWorkInfo={setWorkInfo} />
+            <Work
+              key={work._id}
+              work={work}
+              index={index}
+              setWorkInfo={setWorkInfo}
+              listView={listView}
+              setListView={setListView}
+            />
           ))}
       </Works>
     </>
   );
 }
 
-function Work({ work, setWorkInfo, index }) {
+function Work({ work, setWorkInfo, index, listView, setListView }) {
   return (
     <ItemContainer
-      onClick={() => handleClick(work, setWorkInfo)}
+      onClick={() => handleClick(work, setWorkInfo, listView, setListView)}
       index={index}
-      setWorkInfo={setWorkInfo}
     >
       <CustomImage src={work.workimage} verticalAlign="top" size="medium" />
     </ItemContainer>
   );
 }
 
-function WorkView({ workInfo }) {
+function WorkView({ workInfo, listView }) {
   return (
-    <WorkCover>
-      <Viewer initialValue={workInfo.workdesc} previewStyle="vertical" height="600px" />
+    <WorkCover listView={listView}>
       <h3>{workInfo.worktitle}</h3>
-      <p>{workInfo.workdesc}</p>
+      <Viewer initialValue={workInfo.workdesc} previewStyle="vertical" height="600px" />
     </WorkCover>
   );
 }

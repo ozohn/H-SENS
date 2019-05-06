@@ -2,17 +2,19 @@ import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { Icon } from 'semantic-ui-react';
 import getBase64 from '../component/getBase64';
+import fetchData from '../component/fetchData';
+import EditBtn from '../component/button/EditBtn';
 
 const FormContainer = styled.div`
   position: absolute;
   top: 0;
   left: 0;
   z-index: 2;
-  background-color: #eeeeee;
   display: inline-block;
   padding: 2rem 2rem 0 2rem;
   height: 100vh;
   width: 100%;
+  background-color: #fff;
 `;
 
 const Label = styled.label`
@@ -66,6 +68,24 @@ const FileLabel = styled.label`
   cursor: pointer;
   text-align: center;
 `;
+
+function handleClick(user) {
+  const body = {
+    username: user.username,
+    userdesc: user.userdesc,
+    userimage: user.userimage,
+  };
+  fetchData(
+    `${process.env.REACT_APP_SERVER_URL}/creator/edit`,
+    'POST',
+    {
+      Authorization: `Bearer ${localStorage.getItem('token')}`,
+      'Content-Type': 'application/json',
+    },
+    JSON.stringify(body),
+  );
+}
+
 function InputForm({ cb, label, type }) {
   return (
     <>
@@ -97,7 +117,7 @@ function TextareaForm({ cb, label }) {
   );
 }
 
-function UserSetting({ user, setUser, editing, setEditing, ToggleButton }) {
+function UserSetting({ user, setUser, editing, setEditing }) {
   const [userName, setUserName] = useState('');
   const [userDesc, setUserDesc] = useState('');
   const [userImage, setUserImage] = useState('');
@@ -123,7 +143,12 @@ function UserSetting({ user, setUser, editing, setEditing, ToggleButton }) {
           onChange={e => getBase64(e.target.files[0], setUserImage)}
         />
       </FileLabel>
-      <ToggleButton user={user} editing={editing} setEditing={setEditing} />
+      <EditBtn
+        user={user}
+        editing={editing}
+        setEditing={setEditing}
+        handleClick={handleClick}
+      />
     </FormContainer>
   );
 }

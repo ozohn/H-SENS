@@ -1,6 +1,7 @@
 import React from 'react';
 import { Image } from 'semantic-ui-react';
 import styled from 'styled-components';
+import EditBtn from '../component/button/EditBtn';
 
 const Container = styled.div`
   position: absolute;
@@ -39,7 +40,7 @@ const ImageContainer = styled(Image)`
   }
 `;
 
-export default function UserInfo({ user, editing, setEditing, ToggleButton }) {
+export default function UserInfo({ user, editing, setEditing }) {
   return (
     <Container>
       <HeadingContainer>
@@ -48,7 +49,7 @@ export default function UserInfo({ user, editing, setEditing, ToggleButton }) {
       </HeadingContainer>
       <ImageContainer src={user.userimage} verticalAlign="top" size="small" circular />
       <UserDesc>{user.userdesc}</UserDesc>
-      <ToggleButton user={user} editing={editing} setEditing={setEditing} />
+      <EditBtn user={user} editing={editing} setEditing={setEditing} />
     </Container>
   );
 }

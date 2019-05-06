@@ -15,22 +15,16 @@ const fetchEdit = data => ({
 
 function creatorReducer(state, action) {
   switch (action.type) {
-    case 'view': {
-      return;
+    case 'INITIAL': {
+      return { ...action.data };
     }
     case 'edit': {
-      return;
-    }
-    default:
       return state;
+    }
+    default: {
+      return state;
+    }
   }
-}
-function workReducer(state, action) {
-  switch (action.type) {
-    default:
-      break;
-  }
-  return state;
 }
 
-export { creatorReducer, workReducer, fetchInitial, fetchEdit };
+export { creatorReducer, fetchInitial, fetchEdit };

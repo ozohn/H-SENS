@@ -15,21 +15,3 @@ const CustomButton = styled.button`
     border-bottom: 1px solid #95bfb4;
   }
 `;
-
-function EditBtn({ editing, user, setEditing, handleClick }) {
-  return (
-    <CustomButton
-      onClick={() => {
-        if (editing) {
-          changeUserInfo(user);
-          handleClick(user);
-        }
-        setEditing(!editing);
-      }}
-    >
-      {!editing ? 'Edit' : 'submit'}
-    </CustomButton>
-  );
-}
-
-export default EditBtn;

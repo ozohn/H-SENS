@@ -1,8 +1,7 @@
 import styled from 'styled-components';
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useReducer, useContext } from 'react';
 import fetchData from '../component/fetchData';
-import UserSetting from './UserSetting';
-
+import { Provider } from '../context/creator/creatorContext';
 import UserInfo from './UserInfo';
 import Works from './Works';
 
@@ -18,35 +17,23 @@ const User = styled.div`
 `;
 
 function UserPage() {
-  const [user, setUser] = useState({});
-  const [editing, setEditing] = useState(false);
+  // const [user, setUser] = useState({});
 
-  useEffect(() => {
-    fetchData(`${process.env.REACT_APP_SERVER_URL}/creator`, 'POST', {
-      Authorization: `Bearer ${localStorage.getItem('token')}`,
-    }).then(userInfo => {
-      setUser(userInfo);
-    });
-  }, []);
+  // useEffect(() => {
+  //   fetchData(`${process.env.REACT_APP_SERVER_URL}/creator`, 'POST', {
+  //     Authorization: `Bearer ${localStorage.getItem('token')}`,
+  //   }).then(userInfo => {
+  //     console.log(userInfo);
+  //     setUser(userInfo);
+  //   });
+  // }, []);
   return (
-    <User>
-      {!editing ? (
-        <UserInfo
-          user={user}
-          setUser={setUser}
-          editing={editing}
-          setEditing={setEditing}
-        />
-      ) : (
-        <UserSetting
-          user={user}
-          setUser={setUser}
-          editing={editing}
-          setEditing={setEditing}
-        />
-      )}
-      <Works user={user} />
-    </User>
+    <Provider>
+      <User>
+        <UserInfo />
+        <Works />
+      </User>
+    </Provider>
   );
 }
 

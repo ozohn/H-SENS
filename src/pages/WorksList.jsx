@@ -94,17 +94,16 @@ export default function WorksList({ works, setEditing, editing }) {
       <Button onClick={() => setEditing(!editing)}>create</Button>
       <Works listView={listView}>
         <WorkView workInfo={workInfo} listView={listView} />
-        {works.length &&
-          works.map((work, index) => (
-            <Work
-              key={work._id}
-              work={work}
-              index={index}
-              setWorkInfo={setWorkInfo}
-              listView={listView}
-              setListView={setListView}
-            />
-          ))}
+        {works.map((work, index) => (
+          <Work
+            key={work._id}
+            work={work}
+            index={index}
+            setWorkInfo={setWorkInfo}
+            listView={listView}
+            setListView={setListView}
+          />
+        ))}
       </Works>
     </>
   );

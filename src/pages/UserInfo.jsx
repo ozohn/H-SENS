@@ -1,8 +1,8 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
 import { Image } from 'semantic-ui-react';
 import styled from 'styled-components';
-import EditBtn from '../component/button/EditBtn';
+import { CreatorContext } from '../context/creator/creatorContext';
 
 const Container = styled.div`
   position: absolute;
@@ -37,28 +37,39 @@ const ImageContainer = styled(Image)`
   }
 `;
 
-export default function UserInfo({ user, setUser, editing, setEditing }) {
+const CustomButton = styled(Link)`
+  display: inline-block;
+  color: #95bfb4;
+  margin-right: 3rem;
+  border: 0;
+  outline: none;
+  cursor: pointer;
+  font-size: 2rem;
+  font-weight: bold;
+  background-color: transparent;
+  &:hover {
+    border-bottom: 1px solid #95bfb4;
+  }
+`;
+
+export default function UserInfo() {
+  const { state, dispatch } = useContext(CreatorContext);
+  const { userimage, userdesc, username } = state;
   return (
     <Container>
       <HeadingContainer>
         <Heading3>Stories</Heading3>
-        <Heading2>{user.username}</Heading2>
+        <Heading2>{username}</Heading2>
       </HeadingContainer>
-      <ImageContainer src={user.userimage} verticalAlign="top" size="small" circular />
-      <UserDesc>{user.userdesc}</UserDesc>
-      <Link
+      <ImageContainer src={userimage} verticalAlign="top" size="small" circular />
+      <UserDesc>{userdesc}</UserDesc>
+      <CustomButton
         to={{
           pathname: '/usersetting',
-          query: {
-            user,
-            setUser,
-            editing,
-            setEditing,
-          },
         }}
       >
-        <EditBtn user={user} editing={editing} setEditing={setEditing} />
-      </Link>
+        Edit
+      </CustomButton>
     </Container>
   );
 }

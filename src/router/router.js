@@ -16,13 +16,7 @@ const Path = () => {
       <Route path="/signup" render={() => (hasToken ? <App /> : <SignUp />)} />
       <Route path="/user" component={UserPage} />
       <Route path="/searched" component={Searched} />
-      <Route
-        path="/usersetting"
-        render={({ location }) => {
-          console.log(location.query);
-          return location.query ? <UserSetting {...location.query} /> : <UserPage />;
-        }}
-      />
+      <Route path="/usersetting" component={UserSetting} />
     </Router>
   );
 };

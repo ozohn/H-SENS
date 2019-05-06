@@ -4,8 +4,8 @@ import styled from 'styled-components';
 import { Icon } from 'semantic-ui-react';
 import getBase64 from '../component/getBase64';
 import fetchData from '../component/fetchData';
-import EditBtn from '../component/button/EditBtn';
 import InputForm from '../component/form/Input';
+import changeUserInfo from '../component/changeUserInfo';
 
 const FormContainer = styled.div`
   position: absolute;
@@ -61,6 +61,21 @@ const FileLabel = styled.label`
   text-align: center;
 `;
 
+const CustomButton = styled(Link)`
+  color: #95bfb4;
+  margin-right: 3rem;
+  display: inline-block;
+  border: 0;
+  outline: none;
+  cursor: pointer;
+  font-size: 2rem;
+  font-weight: bold;
+  background-color: transparent;
+  &:hover {
+    border-bottom: 1px solid #95bfb4;
+  }
+`;
+
 function handleClick(user) {
   const body = {
     username: user.username,
@@ -78,7 +93,22 @@ function handleClick(user) {
   );
 }
 
-function UserSetting({ user, setUser, editing, setEditing }) {
+function EditBtn({ user }) {
+  return (
+    <CustomButton
+      to="/user"
+      onClick={() => {
+        changeUserInfo(user);
+        handleClick(user);
+      }}
+    >
+      submit
+    </CustomButton>
+  );
+}
+
+function UserSetting({ location }) {
+  const { user, setUser } = location.query;
   const [userName, setUserName] = useState('');
   const [userDesc, setUserDesc] = useState('');
   const [userImage, setUserImage] = useState('');
@@ -116,12 +146,7 @@ function UserSetting({ user, setUser, editing, setEditing }) {
           onChange={e => getBase64(e.target.files[0], setUserImage)}
         />
       </FileLabel>
-      <EditBtn
-        user={user}
-        editing={editing}
-        setEditing={setEditing}
-        handleClick={handleClick}
-      />
+      <EditBtn user={user} handleClick={handleClick} />
     </FormContainer>
   );
 }

@@ -1,22 +1,24 @@
 /* eslint-disable no-underscore-dangle */
 import styled from 'styled-components';
 import { Image } from 'semantic-ui-react';
-import React, { useState, useContext } from 'react';
+import React, { useContext } from 'react';
 import { Viewer } from '@toast-ui/react-editor';
-import fetchData from '../component/fetchData';
 import { WorkContext } from '../context/work/workContext';
 
 const Works = styled.ul`
-  position: relative;
-  top: 0;
+  position: absolute;
+  top: 50%;
   left: 0;
-  margin-top: 10rem;
-  max-width: 100%;
-  overflow-x: scroll;
-  overflow-y: hidden;
-  height: 40vh;
-  white-space: nowrap;
+  width: 60vh;
+  height: 100vw;
   padding: 0;
+  overflow-y: auto;
+  overflow-x: scroll;
+  transform: rotate(-90deg) translateX(30%) translateY(-60vh);
+  transform-origin: right top;
+  text-align: center;
+  font-size: 0;
+  margin: 0;
   ::-webkit-scrollbar {
     width: 0px;
     height: 0px;
@@ -24,18 +26,27 @@ const Works = styled.ul`
 `;
 
 const ItemContainer = styled.li`
-  margin: 0;
-  height: 100%;
-  vertical-align: top;
+  position: relative;
+  top: 0;
+  left: 0;
+  width: 20rem;
+  height: 20rem;
+  margin-bottom: 5rem;
   display: inline-block;
-  overflow: hidden;
   cursor: pointer;
+  transform: rotate(90deg);
+  transform-origin: center center;
+  transition: all 0.3s ease-in-out;
+  &:hover {
+    z-index: 9;
+    transform: rotate(90deg) scale(1.3);
+  }
 `;
 
 const CustomImage = styled(Image)`
   &&& {
-    height: 100%;
-    width: auto;
+    height: auto;
+    width: 100%;
   }
   &&&:hover {
     mix-blend-mode: luminosity;

@@ -26,12 +26,6 @@ const SignUp = () => {
     bLoading: false,
     bCorrect: true,
   });
-  // const [id, setId] = useState({ b: true, data: '' });
-  // const [pw, setPw] = useState({ b: true, data: '' });
-  // const [rePw, setRePw] = useState({ b: true });
-  // const [name, setName] = useState({ b: true, data: '' });
-  // const [bLoading, setBLoading] = useState(false);
-  // const [bCorrect, setBCorrect] = useState(true);
 
   const checkOverlap = async curVal => {
     const body = {

@@ -26,15 +26,15 @@ const SignInSubmitBtn = ({ submit, bLoading, bCorrect }) => {
   );
 };
 
-const SignInForm = ({ Fns, Datas }) => (
+const SignInForm = ({ Fns, state }) => (
   <form>
     <StyledInput placeholder="ID" onChange={Fns.getId} />
     <StyledInput type="password" placeholder="PW" onChange={Fns.getPw} />
     <LinkedSignUpBtn />
     <SignInSubmitBtn
       submit={Fns.submit}
-      bLoading={Datas.bLoading}
-      bCorrect={Datas.bCorrect}
+      bLoading={state.bLoading}
+      bCorrect={state.bCorrect}
     />
   </form>
 );

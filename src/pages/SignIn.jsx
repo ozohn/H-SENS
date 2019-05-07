@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useReducer } from 'react';
 import { Link } from 'react-router-dom';
 import {
   SignInForm,
@@ -7,39 +7,43 @@ import {
   WholeContainer,
 } from '../component/user/SignForm';
 import fetchData from '../component/fetchData';
+import {
+  signInReducer,
+  setIdInput,
+  setPasswordInput,
+  setLoadingState,
+  setCorrectState,
+} from '../context/authorization/signInReducer';
 
 const SignIn = () => {
-  const [id, setId] = useState('');
-  const [pw, setPw] = useState('');
-  const [bLoading, setbLoading] = useState(null);
-  const [bCorrect, setBCorrect] = useState(true);
+  const [state, dispatch] = useReducer(signInReducer, { bCorrect: true });
 
   const getId = e => {
     const curVal = e.target.value;
-    setId(curVal);
+    dispatch(setIdInput(curVal));
   };
 
   const getPw = e => {
     const curVal = e.target.value;
-    setPw(curVal);
+    dispatch(setPasswordInput(curVal));
   };
 
   const submit = async e => {
     e.preventDefault();
-    setbLoading(true);
+    dispatch(setLoadingState(true));
     const jsonHeader = {
       Accept: 'application/json',
       'Content-Type': 'application/json',
     };
     const userData = {
-      userid: id,
-      password: pw,
+      userid: state.id,
+      password: state.pw,
     };
     const signInUrl = `${process.env.REACT_APP_SERVER_URL}/users/signin`;
     const res = await fetchData(signInUrl, 'POST', jsonHeader, JSON.stringify(userData));
     if (typeof res === 'string') {
-      setbLoading(null);
-      setBCorrect(false);
+      dispatch(setLoadingState(null));
+      dispatch(setCorrectState(false));
     } else {
       window.localStorage.token = res.token;
       window.location.replace(`${process.env.REACT_APP_CLIENT_URL}`);
@@ -50,10 +54,7 @@ const SignIn = () => {
     <WholeContainer>
       <SignLogo as={Link} to="/" />
       <Container>
-        <SignInForm
-          Fns={{ getId, getPw, submit }}
-          Datas={{ id, pw, bLoading, bCorrect }}
-        />
+        <SignInForm Fns={{ getId, getPw, submit }} state={state} />
       </Container>
     </WholeContainer>
   );

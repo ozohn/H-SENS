@@ -8,6 +8,11 @@ const StyledImage = styled(Image)`
     height: 40vh;
   }
 `;
+const ReverseImage = styled(StyledImage)`
+  &&& {
+    transform: rotate(180deg);
+  }
+`;
 const ListContainer = styled.div`
   height: 80vh;
   width: 100%;
@@ -25,6 +30,14 @@ const Item = styled.div`
   width: 33.333333333333%;
   border: 1px solid #bbb;
   display: inline-block;
+  &::-webkit-scrollbar {
+    -webkit-appearance: none;
+    width: 0px;
+  }
+`;
+
+const ReverseItem = styled(Item)`
+  transform: rotate(180deg);
 `;
 
 export default function List() {
@@ -34,17 +47,14 @@ export default function List() {
 
   const multiScroll = e => {
     if (e.target === firLine.current) {
-      const sum = firLine.current.clientHeight + firLine.current.scrollTop;
-      secLine.current.scrollTop = firLine.current.scrollHeight - sum;
-      trdLine.current.scrollTop = firLine.current.scrollTop;
+      secLine.current.scrollTo(0, firLine.current.scrollTop);
+      trdLine.current.scrollTo(0, firLine.current.scrollTop);
     } else if (e.target === secLine.current) {
-      const sum = secLine.current.clientHeight + secLine.current.scrollTop;
-      firLine.current.scrollTop = secLine.current.scrollHeight - sum;
-      trdLine.current.scrollTop = secLine.current.scrollHeight - sum;
+      firLine.current.scrollTo(0, secLine.current.scrollTop);
+      trdLine.current.scrollTo(0, secLine.current.scrollTop);
     } else {
-      const sum = trdLine.current.clientHeight + trdLine.current.scrollTop;
-      firLine.current.scrollTop = trdLine.current.scrollTop;
-      secLine.current.scrollTop = secLine.current.scrollHeight - sum;
+      firLine.current.scrollTo(0, trdLine.current.scrollTop);
+      secLine.current.scrollTo(0, trdLine.current.scrollTop);
     }
   };
 
@@ -64,20 +74,20 @@ export default function List() {
           size="small"
         />
       </Item>
-      <Item ref={secLine}>
-        <StyledImage
+      <ReverseItem ref={secLine}>
+        <ReverseImage
           src="https://react.semantic-ui.com/images/wireframe/image.png"
           size="small"
         />
-        <StyledImage
+        <ReverseImage
           src="https://react.semantic-ui.com/images/wireframe/image.png"
           size="small"
         />
-        <StyledImage
+        <ReverseImage
           src="https://react.semantic-ui.com/images/wireframe/image.png"
           size="small"
         />
-      </Item>
+      </ReverseItem>
       <Item ref={trdLine}>
         <StyledImage
           src="https://react.semantic-ui.com/images/wireframe/image.png"

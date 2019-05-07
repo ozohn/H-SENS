@@ -28,7 +28,6 @@ export default function List() {
   const trdline = useRef(null);
 
   const onScrollEvent = e => {
-    console.log(e.target);
     setScrollNum(firline.current.offsetHeight);
     firline.current.scrollTop = firline.current.scrollTop;
     secline.current.scrollTop = firline.current.offsetHeight - firline.current.scrollTop;

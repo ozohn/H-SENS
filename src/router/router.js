@@ -4,6 +4,8 @@ import SignIn from '../pages/SignIn';
 import SignUp from '../pages/SignUp';
 import UserPage from '../pages/User';
 import Searched from '../pages/Searched';
+import UserSetting from '../pages/UserSetting';
+import { Provider } from '../context/creator/creatorContext';
 import App from '../App';
 
 const Path = () => {
@@ -13,8 +15,11 @@ const Path = () => {
       <Route path="/" exact component={App} />
       <Route path="/signin" render={() => (hasToken ? <App /> : <SignIn />)} />
       <Route path="/signup" render={() => (hasToken ? <App /> : <SignUp />)} />
-      <Route path="/user" component={UserPage} />
       <Route path="/searched" component={Searched} />
+      <Provider>
+        <Route path="/user" component={UserPage} />
+        <Route path="/usersetting" component={UserSetting} />
+      </Provider>
     </Router>
   );
 };

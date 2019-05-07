@@ -46,8 +46,8 @@ const WorkCover = styled.div`
   position: absolute;
   top: 0;
   left: 0;
-  width: ${props => (props.listView ? '100vw' : '0vw')};
-  height: ${props => (props.listView ? '100vh' : '0vh')};
+  width: '100vw';
+  height: '100vh';
   transition: all 0.2s ease-in-out;
   overflow: hidden;
   background: #fff;
@@ -70,63 +70,30 @@ const Button = styled.button`
   }
 `;
 
-function handleClick(work, setWorkInfo) {
-  const body = {
-    workid: work._id,
-  };
-  fetchData(
-    `${process.env.REACT_APP_SERVER_URL}/works/view`,
-    'POST',
-    {
-      Authorization: `Bearer ${localStorage.getItem('token')}`,
-      'Content-Type': 'application/json',
-    },
-    JSON.stringify(body),
-  ).then(workInfo => {
-    setWorkInfo(workInfo);
-  });
-}
-
 export default function WorksList({ setEditing, editing }) {
   const { state, dispatch } = useContext(WorkContext);
-  console.log(state);
-  const [workInfo, setWorkInfo] = useState({});
-  const [listView, setListView] = useState(false);
   return (
     <>
       <Button onClick={() => setEditing(!editing)}>create</Button>
-      <Works listView={listView}>
-        <WorkView workInfo={workInfo} listView={listView} />
-        {state &&
-          state.map(work => (
-            <Work
-              key={work._id}
-              work={work}
-              listView={listView}
-              setListView={setListView}
-            />
-          ))}
+      <Works>
+        {/* <WorkView /> */}
+        {state && state.map(work => <Work key={work._id} work={work} />)}
       </Works>
     </>
   );
 }
 
-function Work({ work, listView, setListView }) {
+function Work({ work }) {
   return (
-    <ItemContainer
-      onClick={() => {
-        setListView(!listView);
-        handleClick(work, listView, setListView);
-      }}
-    >
+    <ItemContainer>
       <CustomImage src={work.workimage} verticalAlign="top" size="medium" />
     </ItemContainer>
   );
 }
 
-function WorkView({ workInfo, listView }) {
+function WorkView({ workInfo }) {
   return (
-    <WorkCover listView={listView}>
+    <WorkCover>
       <h3>{workInfo.worktitle}</h3>
       <Viewer initialValue={workInfo.workdesc} previewStyle="vertical" height="600px" />
     </WorkCover>

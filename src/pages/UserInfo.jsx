@@ -53,7 +53,7 @@ const CustomButton = styled(Link)`
 `;
 
 export default function UserInfo() {
-  const { state, dispatch } = useContext(CreatorContext);
+  const { state } = useContext(CreatorContext);
   const { userimage, userdesc, username } = state;
   return (
     <Container>

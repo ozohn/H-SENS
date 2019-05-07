@@ -1,6 +1,5 @@
 import styled from 'styled-components';
-import React, { useState, useEffect, useReducer, useContext } from 'react';
-import fetchData from '../component/fetchData';
+import React from 'react';
 import UserInfo from './UserInfo';
 import Works from './Works';
 

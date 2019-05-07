@@ -1,9 +1,10 @@
 /* eslint-disable no-underscore-dangle */
 import styled from 'styled-components';
 import { Image } from 'semantic-ui-react';
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { Viewer } from '@toast-ui/react-editor';
 import fetchData from '../component/fetchData';
+import { WorkContext } from '../context/work/workContext';
 
 const Works = styled.ul`
   position: relative;
@@ -45,8 +46,8 @@ const WorkCover = styled.div`
   position: absolute;
   top: 0;
   left: 0;
-  width: ${props => (props.listView ? '100vw' : '0vw')};
-  height: ${props => (props.listView ? '100vh' : '0vh')};
+  width: '100vw';
+  height: '100vh';
   transition: all 0.2s ease-in-out;
   overflow: hidden;
   background: #fff;
@@ -69,63 +70,30 @@ const Button = styled.button`
   }
 `;
 
-function handleClick(work, setWorkInfo) {
-  const body = {
-    workid: work._id,
-  };
-  fetchData(
-    `${process.env.REACT_APP_SERVER_URL}/works/view`,
-    'POST',
-    {
-      Authorization: `Bearer ${localStorage.getItem('token')}`,
-      'Content-Type': 'application/json',
-    },
-    JSON.stringify(body),
-  ).then(workInfo => {
-    setWorkInfo(workInfo);
-  });
-}
-
-export default function WorksList({ works, setEditing, editing }) {
-  const [workInfo, setWorkInfo] = useState({});
-  const [listView, setListView] = useState(false);
+export default function WorksList({ setEditing, editing }) {
+  const { state, dispatch } = useContext(WorkContext);
   return (
     <>
       <Button onClick={() => setEditing(!editing)}>create</Button>
-      <Works listView={listView}>
-        <WorkView workInfo={workInfo} listView={listView} />
-        {works.map((work, index) => (
-          <Work
-            key={work._id}
-            work={work}
-            index={index}
-            setWorkInfo={setWorkInfo}
-            listView={listView}
-            setListView={setListView}
-          />
-        ))}
+      <Works>
+        {/* <WorkView /> */}
+        {state && state.map(work => <Work key={work._id} work={work} />)}
       </Works>
     </>
   );
 }
 
-function Work({ work, setWorkInfo, index, listView, setListView }) {
+function Work({ work }) {
   return (
-    <ItemContainer
-      onClick={() => {
-        setListView(!listView);
-        handleClick(work, setWorkInfo, listView, setListView);
-      }}
-      index={index}
-    >
+    <ItemContainer>
       <CustomImage src={work.workimage} verticalAlign="top" size="medium" />
     </ItemContainer>
   );
 }
 
-function WorkView({ workInfo, listView }) {
+function WorkView({ workInfo }) {
   return (
-    <WorkCover listView={listView}>
+    <WorkCover>
       <h3>{workInfo.worktitle}</h3>
       <Viewer initialValue={workInfo.workdesc} previewStyle="vertical" height="600px" />
     </WorkCover>

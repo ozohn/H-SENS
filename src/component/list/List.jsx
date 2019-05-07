@@ -14,6 +14,9 @@ const ListContainer = styled.div`
   margin: 0 auto;
   overflow: hidden;
 `;
+// 리버스 div를 만들어서 rotate로 돌리고 구현해 보도록 하자.
+// 돌렸기 때문에 translate로 계산하고 맞추어야 한다.
+// 잘안되면 개발자 도구로 찍어보고 그려보고 하면서 맞추어보자.
 
 const Item = styled.div`
   overflow-x: hidden;

@@ -23,7 +23,7 @@ const Button = styled.button`
   }
 `;
 
-function handleClick(inputName, workImage, inputDesc) {
+function handleClick(inputName, workImage, inputDesc, setWorks) {
   const body = {
     worktitle: inputName.current.value,
     workimage: workImage,
@@ -37,10 +37,10 @@ function handleClick(inputName, workImage, inputDesc) {
       'Content-Type': 'application/json',
     },
     JSON.stringify(body),
-  );
+  ).then(works => setWorks(works));
 }
 
-function WorksEditor({ setCreating, creating }) {
+function WorksEditor({ setEditing, editing, setWorks }) {
   const inputName = useRef(null);
   const inputDesc = useRef(null);
   const [workImage, setWorkImage] = useState('');
@@ -50,8 +50,8 @@ function WorksEditor({ setCreating, creating }) {
       <Button
         onClick={e => {
           e.preventDefault();
-          handleClick(inputName, workImage, inputDesc);
-          setCreating(!creating);
+          handleClick(inputName, workImage, inputDesc, setWorks);
+          setEditing(!editing);
         }}
       >
         submit

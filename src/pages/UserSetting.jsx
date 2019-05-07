@@ -1,28 +1,22 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useContext } from 'react';
+import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import { Icon } from 'semantic-ui-react';
 import getBase64 from '../component/getBase64';
+import fetchData from '../component/fetchData';
+import InputForm from '../component/form/Input';
+import { CreatorContext } from '../context/creator/creatorContext';
 
 const FormContainer = styled.div`
   position: absolute;
   top: 0;
   left: 0;
   z-index: 2;
-  background-color: #eeeeee;
   display: inline-block;
   padding: 2rem 2rem 0 2rem;
   height: 100vh;
   width: 100%;
-`;
-
-const Label = styled.label`
-  display: none;
-`;
-
-const Heading3 = styled.h3`
-  margin: 0;
-  margin-top: 1rem;
-  font-size: 4rem;
+  background-color: #fff;
 `;
 
 const TextArea = styled.textarea`
@@ -66,54 +60,44 @@ const FileLabel = styled.label`
   cursor: pointer;
   text-align: center;
 `;
-function InputForm({ cb, label, type }) {
-  return (
-    <>
-      <Heading3>{label}</Heading3>
-      <Label>{label}</Label>
-      <Input
-        type={type}
-        placeholder="Name"
-        onChange={e => {
-          cb(e.target.value);
-        }}
-      />
-    </>
-  );
-}
 
-function TextareaForm({ cb, label }) {
-  return (
-    <>
-      <Heading3>{label}</Heading3>
-      <Label>{label}</Label>
-      <TextArea
-        placeholder="What's up?"
-        onChange={e => {
-          cb(e.target.value);
-        }}
-      />
-    </>
-  );
-}
+const CustomButton = styled(Link)`
+  color: #95bfb4;
+  margin-right: 3rem;
+  display: inline-block;
+  border: 0;
+  outline: none;
+  cursor: pointer;
+  font-size: 2rem;
+  font-weight: bold;
+  background-color: transparent;
+  &:hover {
+    border-bottom: 1px solid #95bfb4;
+  }
+`;
 
-function UserSetting({ user, setUser, editing, setEditing, ToggleButton }) {
-  const [userName, setUserName] = useState('');
-  const [userDesc, setUserDesc] = useState('');
-  const [userImage, setUserImage] = useState('');
-
-  useEffect(() => {
-    setUser({
-      username: userName || user.username,
-      userdesc: userDesc || user.userdesc,
-      userimage: userImage || user.userimage,
-    });
-  }, [userName, userDesc, userImage]);
+function UserSetting() {
+  const { modifyUserInfo } = useContext(CreatorContext);
+  const [userName, setUserName] = useState();
+  const [userDesc, setUserDesc] = useState();
+  const [userImage, setUserImage] = useState();
 
   return (
     <FormContainer>
-      <InputForm cb={setUserName} label="Who are you?" type="text" />
-      <TextareaForm cb={setUserDesc} label="More" type="textarea" />
+      <InputForm
+        Tag={Input}
+        cb={setUserName}
+        placeholder="Name"
+        label="Who are you?"
+        type="text"
+      />
+      <InputForm
+        Tag={TextArea}
+        cb={setUserDesc}
+        label="More"
+        placeholder="What's up?"
+        type="textarea"
+      />
       <FileLabel>
         Profie Image
         <Icon disabled name="image" size="big" />
@@ -123,7 +107,14 @@ function UserSetting({ user, setUser, editing, setEditing, ToggleButton }) {
           onChange={e => getBase64(e.target.files[0], setUserImage)}
         />
       </FileLabel>
-      <ToggleButton user={user} editing={editing} setEditing={setEditing} />
+      <CustomButton
+        to="/user"
+        onClick={() => {
+          modifyUserInfo({ userDesc, userImage, userName });
+        }}
+      >
+        submit
+      </CustomButton>
     </FormContainer>
   );
 }

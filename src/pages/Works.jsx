@@ -1,7 +1,6 @@
 import styled from 'styled-components';
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import WorksEditor from './WorksEditor';
-import fetchData from '../component/fetchData';
 import WorksList from './WorksList';
 
 const WorksContainer = styled.div`
@@ -21,24 +20,15 @@ const Heading2 = styled.h2`
 `;
 
 export default function Works() {
-  const [works, setWorks] = useState([]);
   const [editing, setEditing] = useState(false);
-
-  useEffect(() => {
-    fetchData(`${process.env.REACT_APP_SERVER_URL}/works`, 'POST', {
-      Authorization: `Bearer ${localStorage.getItem('token')}`,
-    }).then(workInfo => {
-      setWorks(workInfo);
-    });
-  }, []);
 
   return (
     <WorksContainer>
       <Heading2>PROJECTS</Heading2>
       {!editing ? (
-        <WorksList works={works} setEditing={setEditing} editing={editing} />
+        <WorksList setEditing={setEditing} editing={editing} />
       ) : (
-        <WorksEditor setEditing={setEditing} editing={editing} setWorks={setWorks} />
+        <WorksEditor setEditing={setEditing} editing={editing} />
       )}
     </WorksContainer>
   );

@@ -3,7 +3,6 @@ import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import { Icon } from 'semantic-ui-react';
 import getBase64 from '../component/getBase64';
-import fetchData from '../component/fetchData';
 import InputForm from '../component/form/Input';
 import { CreatorContext } from '../context/creator/creatorContext';
 

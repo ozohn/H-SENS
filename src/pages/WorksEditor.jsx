@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useContext } from 'react';
 import styled from 'styled-components';
 import 'codemirror/lib/codemirror.css';
 import 'tui-editor/dist/tui-editor.min.css';
@@ -6,6 +6,8 @@ import 'tui-editor/dist/tui-editor-contents.min.css';
 import { Editor } from '@toast-ui/react-editor';
 import fetchData from '../component/fetchData';
 import getBase64 from '../component/getBase64';
+import { WorkContext } from '../context/work/workContext';
+import InputForm from '../component/form/Input';
 
 const Button = styled.button`
   margin-top: 2rem;
@@ -22,48 +24,52 @@ const Button = styled.button`
     float: right;
   }
 `;
+const Input = styled.input`
+  width: 50vw;
+  margin: 4rem 0 4rem 0;
+  border: 0;
+  border-bottom: 0.2rem solid #95bfb4;
+  outline: 0;
+  font-size: 4rem;
+  font-weight: bold;
+  background: transparent;
+  color: #1f272f;
+`;
 
-function handleClick(inputName, workImage, inputDesc, setWorks) {
-  const body = {
-    worktitle: inputName.current.value,
-    workimage: workImage,
-    workdesc: inputDesc.current.getInstance().getValue(),
-  };
-  fetchData(
-    `${process.env.REACT_APP_SERVER_URL}/works/add`,
-    'POST',
-    {
-      Authorization: `Bearer ${localStorage.getItem('token')}`,
-      'Content-Type': 'application/json',
-    },
-    JSON.stringify(body),
-  ).then(works => setWorks(works));
-}
-
-function WorksEditor({ setEditing, editing, setWorks }) {
-  const inputName = useRef(null);
-  const inputDesc = useRef(null);
-  const [workImage, setWorkImage] = useState('');
+function WorksEditor({ setEditing, editing }) {
+  const { addWork } = useContext(WorkContext);
+  const workDesc = useRef(null);
+  const [workimage, setWorkimage] = useState('');
+  const [worktitle, setWorktitle] = useState('');
 
   return (
     <>
       <Button
-        onClick={e => {
-          e.preventDefault();
-          handleClick(inputName, workImage, inputDesc, setWorks);
+        onClick={() => {
+          addWork({
+            userdesc: workDesc.current.getInstance().getValue(),
+            workimage,
+            worktitle,
+          });
           setEditing(!editing);
         }}
       >
         submit
       </Button>
-      <input type="text" ref={inputName} />
-      <input type="file" onChange={e => getBase64(e.target.files[0], setWorkImage)} />
+      <InputForm
+        Tag={Input}
+        cb={setWorktitle}
+        placeholder="Name"
+        label="Who are you?"
+        type="text"
+      />
+      <input type="file" onChange={e => getBase64(e.target.files[0], setWorkimage)} />
       <Editor
         initialValue="hello react editor world!"
         previewStyle="vertical"
         height="400px"
         initialEditType="wysiwyg"
-        ref={inputDesc}
+        ref={workDesc}
         exts={[
           {
             name: 'chart',

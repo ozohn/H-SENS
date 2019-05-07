@@ -1,9 +1,10 @@
 /* eslint-disable no-underscore-dangle */
 import styled from 'styled-components';
 import { Image } from 'semantic-ui-react';
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { Viewer } from '@toast-ui/react-editor';
 import fetchData from '../component/fetchData';
+import { WorkContext } from '../context/work/workContext';
 
 const Works = styled.ul`
   position: relative;
@@ -86,7 +87,9 @@ function handleClick(work, setWorkInfo) {
   });
 }
 
-export default function WorksList({ works, setEditing, editing }) {
+export default function WorksList({ setEditing, editing }) {
+  const { state, dispatch } = useContext(WorkContext);
+  console.log(state);
   const [workInfo, setWorkInfo] = useState({});
   const [listView, setListView] = useState(false);
   return (
@@ -94,29 +97,27 @@ export default function WorksList({ works, setEditing, editing }) {
       <Button onClick={() => setEditing(!editing)}>create</Button>
       <Works listView={listView}>
         <WorkView workInfo={workInfo} listView={listView} />
-        {works.map((work, index) => (
-          <Work
-            key={work._id}
-            work={work}
-            index={index}
-            setWorkInfo={setWorkInfo}
-            listView={listView}
-            setListView={setListView}
-          />
-        ))}
+        {state &&
+          state.map(work => (
+            <Work
+              key={work._id}
+              work={work}
+              listView={listView}
+              setListView={setListView}
+            />
+          ))}
       </Works>
     </>
   );
 }
 
-function Work({ work, setWorkInfo, index, listView, setListView }) {
+function Work({ work, listView, setListView }) {
   return (
     <ItemContainer
       onClick={() => {
         setListView(!listView);
-        handleClick(work, setWorkInfo, listView, setListView);
+        handleClick(work, listView, setListView);
       }}
-      index={index}
     >
       <CustomImage src={work.workimage} verticalAlign="top" size="medium" />
     </ItemContainer>

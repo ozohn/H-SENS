@@ -4,7 +4,7 @@ import fetchData from '../../component/fetchData';
 
 const CreatorContext = React.createContext();
 
-function Provider({ children }) {
+function CreatorProvider({ children }) {
   const [state, dispatch] = useReducer(creatorReducer, []);
   useEffect(() => {
     fetchData(`${process.env.REACT_APP_SERVER_URL}/creator`, 'POST', {
@@ -40,4 +40,4 @@ function Provider({ children }) {
   );
 }
 
-export { Provider, CreatorContext };
+export { CreatorProvider, CreatorContext };

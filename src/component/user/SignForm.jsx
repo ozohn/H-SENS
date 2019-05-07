@@ -74,9 +74,9 @@ const GetRePwContent = ({ rePw, checkRePw }) => {
         type="password"
         placeholder="PW RE"
         onChange={checkRePw}
-        error={rePw.b ? null : !rePw.b}
+        error={rePw ? null : !rePw}
       />
-      {rePw.b ? null : <Error>{errorMessage}</Error>}
+      {rePw ? null : <Error>{errorMessage}</Error>}
     </>
   );
 };
@@ -104,16 +104,16 @@ const SignUpSubmitBtn = ({ submit, bLoading, bCorrect }) => {
   );
 };
 
-const SignUpForm = ({ Datas, Fns }) => {
+const SignUpForm = ({ state, Fns }) => {
   return (
     <form>
-      <GetIdContent id={Datas.id} checkId={Fns.checkId} />
-      <GetPwContent pw={Datas.pw} checkPw={Fns.checkPw} />
-      <GetRePwContent rePw={Datas.rePw} checkRePw={Fns.checkRePw} />
-      <GetNameContent name={Datas.name} checkName={Fns.checkName} />
+      <GetIdContent id={state.id} checkId={Fns.checkId} />
+      <GetPwContent pw={state.pw} checkPw={Fns.checkPw} />
+      <GetRePwContent rePw={state.rePw} checkRePw={Fns.checkRePw} />
+      <GetNameContent name={state.name} checkName={Fns.checkName} />
       <SignUpSubmitBtn
-        bLoading={Datas.bLoading}
-        bCorrect={Datas.bCorrect}
+        bLoading={state.bLoading}
+        bCorrect={state.bCorrect}
         submit={Fns.submit}
       />
     </form>

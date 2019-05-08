@@ -1,48 +1,32 @@
-import React, { useReducer } from 'react';
+import React, { useReducer, useEffect } from 'react';
 import fetchData from '../../component/fetchData';
-import { mainReducer } from './mainReducer';
+import { mainReducer, getUserData, getWorks } from './mainReducer';
 
 const MainContext = React.createContext();
 
-const MainContextProvider = () => {
+const MainProvider = ({ children }) => {
   const [state, dispatch] = useReducer(mainReducer, []);
-  const getWorksData = async () => {
-    const fetchedData = await fetchData(
+  useEffect(async () => {
+    const fetchedWorkData = await fetchData(
       `${process.env.REACT_APP_SERVER_URL}/main/works`,
       'POST',
     );
-    return fetchedData;
-  };
+    dispatch(getWorks(fetchedWorkData));
 
-  const getUserData = async () => {
-    const fetchedData = await fetchData(
+    const fetchedUserData = await fetchData(
       `${process.env.REACT_APP_SERVER_URL}/creator`,
       'POST',
       {
         Authorization: `Bearer ${localStorage.getItem('token')}`,
       },
     );
-    return fetchedData;
-  };
+    console.log(fetchedUserData);
+    dispatch(getUserData(fetchedUserData));
+  }, []);
 
-  const MainPage = () => {
-    const [userImage, setUserImage] = useState('');
-    const [authorData, setAuthorData] = useState('');
-
-    useEffect(() => {
-      const fetchedData = getWorksData();
-      fetchedData.then(user => {
-        setAuthorData(user);
-      });
-      const hasToken = !!window.localStorage.token;
-      if (hasToken) {
-        const fetchedUserData = getUserData();
-        fetchedUserData.then(user => {
-          setUserImage(user.userimage);
-        });
-      }
-    }, []);
-  };
+  return (
+    <MainContext.Provider value={{ state, dispatch }}>{children}</MainContext.Provider>
+  );
 };
 
-export { MainContextProvider, MainContext };
+export { MainProvider, MainContext };

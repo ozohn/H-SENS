@@ -46,7 +46,7 @@ function WorksEditor({ setEditing, editing }) {
       <Button
         onClick={() => {
           addWork({
-            userdesc: workDesc.current.getInstance().getValue(),
+            workdesc: workDesc.current.getInstance().getValue(),
             workimage,
             worktitle,
           });

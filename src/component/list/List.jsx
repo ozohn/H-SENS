@@ -27,7 +27,7 @@ const Item = styled.div`
   overflow-x: hidden;
   overflow-y: scroll;
   height: 80vh;
-  width: 33.333333333333%;
+  width: 25%;
   border: 1px solid #bbb;
   display: inline-block;
   &::-webkit-scrollbar {
@@ -44,17 +44,25 @@ export default function List() {
   const firLine = useRef(null);
   const secLine = useRef(null);
   const trdLine = useRef(null);
+  const forthLine = useRef(null);
 
   const multiScroll = e => {
     if (e.target === firLine.current) {
       secLine.current.scrollTo(0, firLine.current.scrollTop);
       trdLine.current.scrollTo(0, firLine.current.scrollTop);
+      forthLine.current.scrollTo(0, firLine.current.scrollTop);
     } else if (e.target === secLine.current) {
       firLine.current.scrollTo(0, secLine.current.scrollTop);
       trdLine.current.scrollTo(0, secLine.current.scrollTop);
-    } else {
+      forthLine.current.scrollTo(0, secLine.current.scrollTop);
+    } else if (e.target === trdLine.current) {
       firLine.current.scrollTo(0, trdLine.current.scrollTop);
       secLine.current.scrollTo(0, trdLine.current.scrollTop);
+      forthLine.current.scrollTo(0, trdLine.current.scrollTop);
+    } else {
+      firLine.current.scrollTo(0, forthLine.current.scrollTop);
+      secLine.current.scrollTo(0, forthLine.current.scrollTop);
+      trdLine.current.scrollTo(0, forthLine.current.scrollTop);
     }
   };
 
@@ -102,6 +110,20 @@ export default function List() {
           size="small"
         />
       </Item>
+      <ReverseItem ref={forthLine}>
+        <ReverseImage
+          src="https://react.semantic-ui.com/images/wireframe/image.png"
+          size="small"
+        />
+        <ReverseImage
+          src="https://react.semantic-ui.com/images/wireframe/image.png"
+          size="small"
+        />
+        <ReverseImage
+          src="https://react.semantic-ui.com/images/wireframe/image.png"
+          size="small"
+        />
+      </ReverseItem>
     </ListContainer>
   );
 }

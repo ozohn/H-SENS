@@ -69,23 +69,23 @@ const Button = styled.button`
 `;
 
 export default function WorksList({ setEditing, editing }) {
-  const { state, viewWork } = useContext(WorkContext);
+  const { state, showWork } = useContext(WorkContext);
   return (
     <>
       <Button onClick={() => setEditing(!editing)}>create</Button>
       <Works>
         {state &&
-          state.map(work => <Work key={work._id} work={work} viewWork={viewWork} />)}
+          state.map(work => <Work key={work._id} work={work} showWork={showWork} />)}
       </Works>
     </>
   );
 }
 
-function Work({ work, viewWork }) {
+function Work({ work, showWork }) {
   return (
     <ItemContainer>
       <CustomImage
-        onClick={() => viewWork(work._id)}
+        onClick={() => showWork(work)}
         src={work.workimage}
         verticalAlign="top"
         size="medium"

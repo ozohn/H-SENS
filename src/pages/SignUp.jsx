@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useReducer } from 'react';
 import { Link } from 'react-router-dom';
 import {
   WholeContainer,
@@ -7,14 +7,25 @@ import {
   SignUpForm,
 } from '../component/user/SignForm';
 import fetchData from '../component/fetchData';
+import {
+  signUpReducer,
+  setIdInput,
+  setPasswordInput,
+  setRePasswordInput,
+  setNameInput,
+  setCorrectState,
+  setLoadingState,
+} from '../context/authorization/signUpReducer';
 
 const SignUp = () => {
-  const [id, setId] = useState({ b: true, data: '' });
-  const [pw, setPw] = useState({ b: true, data: '' });
-  const [rePw, setRePw] = useState({ b: true });
-  const [name, setName] = useState({ b: true, data: '' });
-  const [bLoading, setBLoading] = useState(false);
-  const [bCorrect, setBCorrect] = useState(true);
+  const [state, dispatch] = useReducer(signUpReducer, {
+    id: { b: true },
+    pw: { b: true },
+    name: { b: true },
+    rePw: true,
+    bLoading: false,
+    bCorrect: true,
+  });
 
   const checkOverlap = async curVal => {
     const body = {
@@ -31,9 +42,9 @@ const SignUp = () => {
       JSON.stringify(body),
     );
     if (res.message === 'OK') {
-      setId({ b: true, data: curVal });
+      dispatch(setIdInput({ b: true, data: curVal }));
     } else {
-      setId({ b: false, data: curVal });
+      dispatch(setIdInput({ b: false, data: curVal }));
     }
   };
 
@@ -42,7 +53,7 @@ const SignUp = () => {
     const idRegExp = /^[A-Za-z0-9]{6,12}$/;
 
     if (!idRegExp.test(curVal)) {
-      setId({ b: idRegExp.test(curVal), data: curVal });
+      dispatch(setIdInput({ b: idRegExp.test(curVal), data: curVal }));
     } else {
       checkOverlap(curVal);
     }
@@ -51,39 +62,43 @@ const SignUp = () => {
   const checkPw = e => {
     const curVal = e.target.value;
     const pwRegExp = /^.*(?=^.{8,15}$)(?=.*\d)(?=.*[a-zA-Z])(?=.*[!@#$%^&+=]).*$/;
-    setPw({ b: pwRegExp.test(curVal), data: curVal });
+    dispatch(setPasswordInput({ b: pwRegExp.test(curVal), data: curVal }));
   };
 
   const checkRePw = e => {
     const curVal = e.target.value;
-    return pw.data === curVal ? setRePw({ b: true }) : setRePw({ b: false });
+    return state.pw.data === curVal
+      ? dispatch(setRePasswordInput(true))
+      : dispatch(setRePasswordInput(false));
   };
 
   const checkName = e => {
     const curVal = e.target.value;
     return curVal.length > 0
-      ? setName({ b: true, data: curVal })
-      : setName({ b: false, data: curVal });
+      ? dispatch(setNameInput({ b: true, data: curVal }))
+      : dispatch(setNameInput({ b: false, data: curVal }));
   };
 
   const submit = async e => {
     e.preventDefault();
-    if (!(id.b && pw.b && name.b && rePw.b)) {
-      setBCorrect(false);
+    if (!(state.id.b && state.pw.b && state.name.b && state.rePw) || !state.id.data) {
+      dispatch(setCorrectState(false));
       return;
     }
-    setBLoading(true);
+    dispatch(setLoadingState(true));
     const jsonHeader = {
       'Content-Type': 'application/json',
     };
     const body = {
-      userid: id.data,
-      password: pw.data,
-      username: name.data,
+      userid: state.id.data,
+      password: state.pw.data,
+      username: state.name.data,
     };
     const signUpUrl = `${process.env.REACT_APP_SERVER_URL}/users/signup`;
     const res = await fetchData(signUpUrl, 'POST', jsonHeader, JSON.stringify(body));
     if (res.error) {
+      dispatch(setLoadingState(false));
+      dispatch(setCorrectState(false));
       throw res.error;
     } else {
       window.localStorage.token = res.token;
@@ -97,7 +112,7 @@ const SignUp = () => {
       <Container>
         <SignUpForm
           Fns={{ checkId, checkPw, checkRePw, checkName, submit }}
-          Datas={{ id, pw, rePw, name, bLoading, bCorrect }}
+          state={state}
         />
       </Container>
     </WholeContainer>

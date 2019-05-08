@@ -21,7 +21,7 @@ const StyledInput = styled.input`
   padding: 0;
   border: 0;
   color: #011627;
-  border-bottom: 1px solid ${props => (props.error ? '#ff4100' : '#011627')};
+  border-bottom: 0.2rem solid ${props => (props.error ? '#ff4100' : '#95bfb4')};
   outline: none;
   width: 100%;
   height: 5vh;

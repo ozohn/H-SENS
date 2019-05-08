@@ -1,53 +1,47 @@
-import React, { useRef } from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import { Image } from 'semantic-ui-react';
 
 const StyledImage = styled(Image)`
   &&& {
     width: 100%;
-    height: 40vh;
+  }
+`;
+const ReverseImage = styled(StyledImage)`
+  &&& {
+    transform: rotate(180deg);
   }
 `;
 const ListContainer = styled.div`
-  height: 80vh;
+  height: 85vh;
   width: 100%;
   margin: 0 auto;
-  overflow: hidden;
-`;
-
-const Item = styled.div`
-  overflow-x: hidden;
   overflow-y: scroll;
-  height: 80vh;
-  width: 33.333333333333%;
+`;
+const Item = styled.div`
+  height: 85vh;
+  width: 25%;
   border: 1px solid #bbb;
   display: inline-block;
+  &::-webkit-scrollbar {
+    -webkit-appearance: none;
+    width: 0px;
+  }
+`;
+
+const ReverseItem = styled(Item)`
+  transform: rotate(180deg) translateY(-${props => props.height * 2}px);
 `;
 
 export default function List() {
-  const firLine = useRef(null);
-  const secLine = useRef(null);
-  const trdLine = useRef(null);
-
+  const [scroll, setScroll] = useState('');
   const multiScroll = e => {
-    if (e.target === firLine.current) {
-      const sum = firLine.current.clientHeight + firLine.current.scrollTop;
-      secLine.current.scrollTop = firLine.current.scrollHeight - sum;
-      trdLine.current.scrollTop = firLine.current.scrollTop;
-    } else if (e.target === secLine.current) {
-      const sum = secLine.current.clientHeight + secLine.current.scrollTop;
-      firLine.current.scrollTop = secLine.current.scrollHeight - sum;
-      trdLine.current.scrollTop = secLine.current.scrollHeight - sum;
-    } else {
-      const sum = trdLine.current.clientHeight + trdLine.current.scrollTop;
-      firLine.current.scrollTop = trdLine.current.scrollTop;
-      secLine.current.scrollTop = secLine.current.scrollHeight - sum;
-    }
+    setScroll(e.target.scrollTop);
   };
 
   return (
     <ListContainer onScroll={multiScroll}>
-      <Item ref={firLine}>
+      <Item>
         <StyledImage
           src="https://react.semantic-ui.com/images/wireframe/image.png"
           size="small"
@@ -61,7 +55,21 @@ export default function List() {
           size="small"
         />
       </Item>
-      <Item ref={secLine}>
+      <ReverseItem height={scroll}>
+        <ReverseImage
+          src="https://react.semantic-ui.com/images/wireframe/image.png"
+          size="small"
+        />
+        <ReverseImage
+          src="https://react.semantic-ui.com/images/wireframe/image.png"
+          size="small"
+        />
+        <ReverseImage
+          src="https://react.semantic-ui.com/images/wireframe/image.png"
+          size="small"
+        />
+      </ReverseItem>
+      <Item>
         <StyledImage
           src="https://react.semantic-ui.com/images/wireframe/image.png"
           size="small"
@@ -75,20 +83,20 @@ export default function List() {
           size="small"
         />
       </Item>
-      <Item ref={trdLine}>
-        <StyledImage
+      <ReverseItem height={scroll}>
+        <ReverseImage
           src="https://react.semantic-ui.com/images/wireframe/image.png"
           size="small"
         />
-        <StyledImage
+        <ReverseImage
           src="https://react.semantic-ui.com/images/wireframe/image.png"
           size="small"
         />
-        <StyledImage
+        <ReverseImage
           src="https://react.semantic-ui.com/images/wireframe/image.png"
           size="small"
         />
-      </Item>
+      </ReverseItem>
     </ListContainer>
   );
 }

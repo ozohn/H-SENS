@@ -1,48 +1,15 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext } from 'react';
 import List from '../component/list/List';
-import Header from '../component/header/header';
-import fetchData from '../component/fetchData';
+// import Header from '../component/header/header';
 
-const getWorksData = async () => {
-  const fetchedData = await fetchData(
-    `${process.env.REACT_APP_SERVER_URL}/main/works`,
-    'POST',
-  );
-  return fetchedData;
-};
-
-const getUserData = async () => {
-  const fetchedData = await fetchData(
-    `${process.env.REACT_APP_SERVER_URL}/creator`,
-    'POST',
-    {
-      Authorization: `Bearer ${localStorage.getItem('token')}`,
-    },
-  );
-  return fetchedData;
-};
+import { mainContext } from '../context/main/mainContext';
 
 const MainPage = () => {
-  const [userImage, setUserImage] = useState('');
-  const [authorData, setAuthorData] = useState('');
-
-  useEffect(() => {
-    const fetchedData = getWorksData();
-    fetchedData.then(user => {
-      setAuthorData(user);
-    });
-    const hasToken = !!window.localStorage.token;
-    if (hasToken) {
-      const fetchedUserData = getUserData();
-      fetchedUserData.then(user => {
-        setUserImage(user.userimage);
-      });
-    }
-  }, []);
-
+  const { state } = useContext(mainContext);
+  console.log(state);
   return (
     <>
-      <Header userImage={userImage} authors={authorData} />
+      {/* <Header userImage={userImage} authors={authorData} /> */}
       <List />
     </>
   );

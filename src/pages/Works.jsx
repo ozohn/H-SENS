@@ -2,9 +2,11 @@ import styled from 'styled-components';
 import React, { useState } from 'react';
 import WorksEditor from './WorksEditor';
 import WorksList from './WorksList';
+import WorkDetail from './WorkDetail';
 
 const WorksContainer = styled.div`
   position: fixed;
+  z-index: 1;
   top: 0;
   width: 100%;
   height: 100vh;
@@ -26,7 +28,10 @@ export default function Works() {
     <WorksContainer>
       <Heading2>PROJECTS</Heading2>
       {!editing ? (
-        <WorksList setEditing={setEditing} editing={editing} />
+        <>
+          <WorkDetail />
+          <WorksList setEditing={setEditing} editing={editing} />
+        </>
       ) : (
         <WorksEditor setEditing={setEditing} editing={editing} />
       )}

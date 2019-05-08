@@ -6,7 +6,7 @@ const StyledSearchBtn = styled(Link)`
   &&& {
     display: flex;
     align-items: center;
-    background: center / 80% url(./image/searchBtnHover.png) no-repeat;
+    background: center url(./image/searchBtnHover.png) no-repeat;
     width: 10%;
     height: 100%;
     color: #011627;
@@ -15,7 +15,7 @@ const StyledSearchBtn = styled(Link)`
     margin-right: 2.5%;
   }
   &&&:hover {
-    background: center/80% url(./image/searchBtn.png) no-repeat;
+    background: center url(./image/searchBtn.png) no-repeat;
     transition: background 0.3s;
   }
 `;

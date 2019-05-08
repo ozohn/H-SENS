@@ -4,7 +4,6 @@ import 'codemirror/lib/codemirror.css';
 import 'tui-editor/dist/tui-editor.min.css';
 import 'tui-editor/dist/tui-editor-contents.min.css';
 import { Editor } from '@toast-ui/react-editor';
-import fetchData from '../component/fetchData';
 import getBase64 from '../component/getBase64';
 import { WorkContext } from '../context/work/workContext';
 import InputForm from '../component/form/Input';
@@ -47,7 +46,7 @@ function WorksEditor({ setEditing, editing }) {
       <Button
         onClick={() => {
           addWork({
-            userdesc: workDesc.current.getInstance().getValue(),
+            workdesc: workDesc.current.getInstance().getValue(),
             workimage,
             worktitle,
           });

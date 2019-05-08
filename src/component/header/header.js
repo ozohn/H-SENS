@@ -12,7 +12,7 @@ const HeaderWrapper = styled.header`
   border: 1px solid #bbb;
   border-top: 0.4rem solid #2EC4B6
   padding: 1%;
-  height: 8rem;
+  height: 15vh;
   background-color: #EFFFE9
 `;
 
@@ -24,7 +24,7 @@ const Logo = styled.div`
 
 const LinkStyled = styled(Link)`
   display:block;
-  background-image: url("${props => props.user || './image/person.jpg'}");
+  background-image: url("${props => props.user || './image/blank.png'}");
   background-size: contain;
   background-repeat: no-repeat;
   background-position: center center;

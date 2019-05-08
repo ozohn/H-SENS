@@ -3,7 +3,7 @@ const checkStatusNum = statusNum => {
     throw new Error('일치하는 정보 없음');
   } else if (statusNum >= 500) {
     throw new Error('서버 관련 에러');
-  } else if (statusNum >= 400 || statusNum < 500) {
+  } else if (statusNum >= 400 && statusNum < 500) {
     throw new Error('클라이언트 에러');
   }
 };

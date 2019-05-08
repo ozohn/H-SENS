@@ -1,5 +1,5 @@
 import React, { useReducer, useEffect } from 'react';
-import { workReducer, fetchInitial, fetchAdd } from './workReducer';
+import { workReducer, fetchInitial, fetchAdd, updateView } from './workReducer';
 import { workDetailReducer, updateWork } from './workDetailReducer';
 import fetchData from '../../component/fetchData';
 
@@ -46,8 +46,14 @@ function WorkProvider({ children }) {
     ).then(data => viewDispatch(updateWork(data)));
   }
 
+  function showWork(work) {
+    dispatch(updateView(work));
+  }
+
   return (
-    <WorkContext.Provider value={{ state, dispatch, addWork, viewState, viewWork }}>
+    <WorkContext.Provider
+      value={{ state, dispatch, addWork, showWork, viewState, viewWork }}
+    >
       {children}
     </WorkContext.Provider>
   );

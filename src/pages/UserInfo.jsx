@@ -5,10 +5,8 @@ import styled from 'styled-components';
 import { CreatorContext } from '../context/creator/creatorContext';
 
 const Container = styled.div`
-  position: absolute;
-  top: 0;
-  left: 0;
-  z-index: 9;
+  position: relative;
+  z-index: 3;
   background-color: #fff;
   padding: 3rem 2rem 0 2rem;
   height: 100vh;
@@ -63,13 +61,7 @@ export default function UserInfo() {
       </HeadingContainer>
       <ImageContainer src={userimage} verticalAlign="top" size="small" circular />
       <UserDesc>{userdesc}</UserDesc>
-      <CustomButton
-        to={{
-          pathname: '/usersetting',
-        }}
-      >
-        Edit
-      </CustomButton>
+      <CustomButton to="/usersetting">Edit</CustomButton>
     </Container>
   );
 }

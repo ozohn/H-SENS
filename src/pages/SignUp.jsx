@@ -81,7 +81,7 @@ const SignUp = () => {
 
   const submit = async e => {
     e.preventDefault();
-    if (!(state.id.b && state.pw.b && state.name.b && state.rePw)) {
+    if (!(state.id.b && state.pw.b && state.name.b && state.rePw) || !state.id.data) {
       dispatch(setCorrectState(false));
       return;
     }
@@ -97,6 +97,8 @@ const SignUp = () => {
     const signUpUrl = `${process.env.REACT_APP_SERVER_URL}/users/signup`;
     const res = await fetchData(signUpUrl, 'POST', jsonHeader, JSON.stringify(body));
     if (res.error) {
+      dispatch(setLoadingState(false));
+      dispatch(setCorrectState(false));
       throw res.error;
     } else {
       window.localStorage.token = res.token;

@@ -1,8 +1,5 @@
-// actions
-const INITIAL = 'INITIAL';
-const ADD = 'ADD';
-const EDIT = 'EDIT';
-const SHOW = 'SHOW';
+/* eslint-disable no-underscore-dangle */
+import { INITIAL, ADD, EDIT, SHOW } from '../actions';
 
 // action creators
 const fetchInitial = data => ({

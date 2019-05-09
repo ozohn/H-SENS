@@ -61,7 +61,11 @@ export default function UserInfo() {
       </HeadingContainer>
       <ImageContainer src={userimage} verticalAlign="top" size="small" circular />
       <UserDesc>{userdesc}</UserDesc>
-      <CustomButton to="/usersetting">Edit</CustomButton>
+      <CustomButton
+        to={{ pathname: '/usersetting', state: { submit: 'Edit', user: state } }}
+      >
+        Edit
+      </CustomButton>
     </Container>
   );
 }

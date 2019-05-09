@@ -75,7 +75,8 @@ const CustomButton = styled(Link)`
   }
 `;
 
-function UserSetting() {
+function UserSetting({ location }) {
+  const { userdesc, username } = location.state.user;
   const { modifyUserInfo } = useContext(CreatorContext);
   const [userName, setUserName] = useState();
   const [userDesc, setUserDesc] = useState();
@@ -89,6 +90,7 @@ function UserSetting() {
         placeholder="Name"
         label="Who are you?"
         type="text"
+        value={username}
       />
       <InputForm
         Tag={TextArea}
@@ -96,6 +98,7 @@ function UserSetting() {
         label="More"
         placeholder="What's up?"
         type="textarea"
+        value={userdesc}
       />
       <FileLabel>
         Profie Image

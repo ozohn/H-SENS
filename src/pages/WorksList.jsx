@@ -112,7 +112,7 @@ function Work({ work, showWork }) {
           }
         }}
       >
-        <Link to={{ pathname: '/worksetting', state: { submit: 'Edit' } }}>
+        <Link to={{ pathname: '/worksetting', state: { submit: 'Edit', work } }}>
           <Icon name="eraser" />
         </Link>
       </EditBtnContainer>

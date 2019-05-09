@@ -11,7 +11,7 @@ const Heading3 = styled.h3`
   font-size: 4rem;
 `;
 
-function InputForm({ Tag, cb, placeholder, label, type }) {
+function InputForm({ Tag, cb, placeholder, label, type, value }) {
   return (
     <>
       <Heading3>{label}</Heading3>
@@ -22,6 +22,7 @@ function InputForm({ Tag, cb, placeholder, label, type }) {
         onChange={e => {
           cb(e.target.value);
         }}
+        value={value}
       />
     </>
   );

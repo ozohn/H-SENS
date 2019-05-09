@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React, { useContext } from 'react';
 import styled from 'styled-components';
 import { Viewer } from '@toast-ui/react-editor';
 import { WorkContext } from '../context/work/workContext';
@@ -26,7 +26,7 @@ const WorkInformation = styled.div`
 export default function WorkDetail() {
   const { state, showWork } = useContext(WorkContext);
   const target = state.filter(v => v.workview)[0];
-  const { worktitle, workimage, workdesc } = target ? target : {};
+  const { worktitle, workimage, workdesc } = target || {};
   return (
     <WorkCover
       onClick={e => {

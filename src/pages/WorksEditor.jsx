@@ -1,13 +1,10 @@
 import React, { useState, useRef, useContext } from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
-import 'codemirror/lib/codemirror.css';
-import 'tui-editor/dist/tui-editor.min.css';
-import 'tui-editor/dist/tui-editor-contents.min.css';
-import { Editor } from '@toast-ui/react-editor';
 import getBase64 from '../component/getBase64';
 import { WorkContext } from '../context/work/workContext';
 import InputForm from '../component/form/Input';
+import TuiEditor from '../component/editor/Editor';
 
 const Button = styled(Link)`
   margin-top: 2rem;
@@ -37,11 +34,11 @@ const Input = styled.input`
 `;
 
 function WorksEditor({ location }) {
+  const { submit, work } = location.state;
   const { addWork } = useContext(WorkContext);
   const workDesc = useRef(null);
   const [workimage, setWorkimage] = useState('');
   const [worktitle, setWorktitle] = useState('');
-  const { submit } = location.state;
   return (
     <>
       <Button
@@ -62,29 +59,10 @@ function WorksEditor({ location }) {
         placeholder="Name"
         label="Who are you?"
         type="text"
+        value={work ? work.worktitle : ''}
       />
       <input type="file" onChange={e => getBase64(e.target.files[0], setWorkimage)} />
-      <Editor
-        initialValue="hello react editor world!"
-        previewStyle="vertical"
-        height="400px"
-        initialEditType="wysiwyg"
-        ref={workDesc}
-        exts={[
-          {
-            name: 'chart',
-            minWidth: 100,
-            maxWidth: 600,
-            minHeight: 100,
-            maxHeight: 300,
-          },
-          'scrollSync',
-          'colorSyntax',
-          'uml',
-          'mark',
-          'table',
-        ]}
-      />
+      <TuiEditor targetRef={workDesc} initialValue={work ? work.workdesc : ''} />
     </>
   );
 }

@@ -27,6 +27,12 @@ export default function WorkDetail() {
   const { state, showWork } = useContext(WorkContext);
   const target = state.filter(v => v.workview)[0];
   const { worktitle, workimage, workdesc } = target || {};
+  if (target) {
+    window.scrollTo(0, window.innerHeight);
+    document.body.style.overflowY = 'hidden';
+  } else {
+    document.body.style.overflowY = 'auto';
+  }
   return (
     <WorkCover
       onClick={e => {

@@ -87,7 +87,7 @@ export default function WorksList() {
   const { state, showWork } = useContext(WorkContext);
   return (
     <>
-      <Button to={{ pathname: '/worksetting', state: { submit: 'Add' } }}>create</Button>
+      <Button to={{ pathname: '/workeditor', state: { submit: 'Add' } }}>create</Button>
       <Works>
         {state &&
           state.map(work => <Work key={work._id} work={work} showWork={showWork} />)}
@@ -112,7 +112,7 @@ function Work({ work, showWork }) {
           }
         }}
       >
-        <Link to={{ pathname: '/worksetting', state: { submit: 'Edit', work } }}>
+        <Link to={{ pathname: '/workeditor', state: { submit: 'Edit', work } }}>
           <Icon name="eraser" />
         </Link>
       </EditBtnContainer>

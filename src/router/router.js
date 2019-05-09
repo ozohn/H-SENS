@@ -4,7 +4,7 @@ import SignIn from '../pages/SignIn';
 import SignUp from '../pages/SignUp';
 import UserPage from '../pages/User';
 import Searched from '../pages/Searched';
-import UserSetting from '../pages/UserSetting';
+import UserEditor from '../pages/UserEditor';
 import WorksEditor from '../pages/WorksEditor';
 import { MainProvider } from '../context/main/mainContext';
 import { CreatorProvider } from '../context/creator/creatorContext';
@@ -20,9 +20,9 @@ const Path = () => {
         <CreatorProvider>
           <WorkProvider>
             <Route path="/user" component={UserPage} />
-            <Route path="/worksetting" render={props => <WorksEditor {...props} />} />
+            <Route path="/workeditor" render={props => <WorksEditor {...props} />} />
           </WorkProvider>
-          <Route path="/usersetting" component={UserSetting} />
+          <Route path="/usereditor" component={UserEditor} />
         </CreatorProvider>
       </MainProvider>
       <Route path="/signin" render={() => (hasToken ? <App /> : <SignIn />)} />

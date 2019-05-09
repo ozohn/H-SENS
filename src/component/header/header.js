@@ -1,8 +1,9 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
 
 import styled from 'styled-components';
 import Search from '../search/Search';
+import { MainContext } from '../../context/main/mainContext';
 
 const HeaderWrapper = styled.header`
   display: flex;
@@ -34,14 +35,19 @@ const LinkStyled = styled(Link)`
   height: 4.5rem;
 `;
 
-const Header = ({ userImage, authors }) => {
+const Header = () => {
   const hasToken = !!window.localStorage.token;
+  const mainContext = useContext(MainContext);
+  const { user } = mainContext.state;
 
   return (
     <HeaderWrapper className="header">
       <Logo />
-      <Search authors={authors} userImage={userImage} />
-      <LinkStyled to={hasToken ? '/user' : '/signin'} user={userImage} />
+      <Search />
+      <LinkStyled
+        to={hasToken ? '/user' : '/signin'}
+        user={user ? user.userimage : user}
+      />
     </HeaderWrapper>
   );
 };

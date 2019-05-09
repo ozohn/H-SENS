@@ -1,15 +1,11 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import List from '../component/list/List';
-// import Header from '../component/header/header';
-
-import { mainContext } from '../context/main/mainContext';
+import Header from '../component/header/header';
 
 const MainPage = () => {
-  const { state } = useContext(mainContext);
-  console.log(state);
   return (
     <>
-      {/* <Header userImage={userImage} authors={authorData} /> */}
+      <Header />
       <List />
     </>
   );

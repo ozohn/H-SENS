@@ -5,6 +5,7 @@ import SignUp from '../pages/SignUp';
 import UserPage from '../pages/User';
 import Searched from '../pages/Searched';
 import UserSetting from '../pages/UserSetting';
+import WorksEditor from '../pages/WorksEditor';
 import { MainProvider } from '../context/main/mainContext';
 import { CreatorProvider } from '../context/creator/creatorContext';
 import App from '../App';
@@ -19,6 +20,7 @@ const Path = () => {
         <CreatorProvider>
           <WorkProvider>
             <Route path="/user" component={UserPage} />
+            <Route path="/worksetting" render={props => <WorksEditor {...props} />} />
           </WorkProvider>
           <Route path="/usersetting" component={UserSetting} />
         </CreatorProvider>

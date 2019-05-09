@@ -6,7 +6,7 @@ import { WorkContext } from '../context/work/workContext';
 const WorkCover = styled.div`
   display: ${props => (props.target ? 'block' : 'none')};
   position: absolute;
-  top: 2rem;
+  top: 0;
   left: 0;
   width: 100vw;
   height: 100vh;

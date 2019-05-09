@@ -1,4 +1,5 @@
 import React, { useState, useRef, useContext } from 'react';
+import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import 'codemirror/lib/codemirror.css';
 import 'tui-editor/dist/tui-editor.min.css';
@@ -8,7 +9,7 @@ import getBase64 from '../component/getBase64';
 import { WorkContext } from '../context/work/workContext';
 import InputForm from '../component/form/Input';
 
-const Button = styled.button`
+const Button = styled(Link)`
   margin-top: 2rem;
   border: 0;
   outline: none;
@@ -35,12 +36,12 @@ const Input = styled.input`
   color: #1f272f;
 `;
 
-function WorksEditor({ setEditing, editing }) {
+function WorksEditor({ location }) {
   const { addWork } = useContext(WorkContext);
   const workDesc = useRef(null);
   const [workimage, setWorkimage] = useState('');
   const [worktitle, setWorktitle] = useState('');
-
+  const { submit } = location.state;
   return (
     <>
       <Button
@@ -50,10 +51,10 @@ function WorksEditor({ setEditing, editing }) {
             workimage,
             worktitle,
           });
-          setEditing(!editing);
         }}
+        to="/user"
       >
-        submit
+        {submit}
       </Button>
       <InputForm
         Tag={Input}

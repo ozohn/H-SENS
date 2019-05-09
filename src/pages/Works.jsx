@@ -22,19 +22,11 @@ const Heading2 = styled.h2`
 `;
 
 export default function Works() {
-  const [editing, setEditing] = useState(false);
-
   return (
     <WorksContainer>
       <Heading2>PROJECTS</Heading2>
-      {!editing ? (
-        <>
-          <WorkDetail />
-          <WorksList setEditing={setEditing} editing={editing} />
-        </>
-      ) : (
-        <WorksEditor setEditing={setEditing} editing={editing} />
-      )}
+      <WorkDetail />
+      <WorksList />
     </WorksContainer>
   );
 }

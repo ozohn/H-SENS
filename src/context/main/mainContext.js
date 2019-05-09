@@ -6,13 +6,14 @@ const MainContext = React.createContext();
 
 const MainProvider = ({ children }) => {
   const [state, dispatch] = useReducer(mainReducer, []);
-  useEffect(async () => {
+  const fetchWorkData = async () => {
     const fetchedWorkData = await fetchData(
       `${process.env.REACT_APP_SERVER_URL}/main/works`,
       'POST',
     );
-    dispatch(getWorks(fetchedWorkData));
-
+    return fetchedWorkData;
+  };
+  const fetchUserData = async () => {
     const fetchedUserData = await fetchData(
       `${process.env.REACT_APP_SERVER_URL}/creator`,
       'POST',
@@ -20,8 +21,16 @@ const MainProvider = ({ children }) => {
         Authorization: `Bearer ${localStorage.getItem('token')}`,
       },
     );
-    console.log(fetchedUserData);
-    dispatch(getUserData(fetchedUserData));
+    if (typeof fetchedUserData === 'string') {
+      return undefined;
+    }
+    return fetchedUserData;
+  };
+  useEffect(() => {
+    const workData = fetchWorkData();
+    workData.then(res => dispatch(getWorks(res)));
+    const userData = fetchUserData();
+    userData.then(res => dispatch(getUserData(res)));
   }, []);
 
   return (

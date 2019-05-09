@@ -1,6 +1,6 @@
 // actions
 
-const FETCH_USER_DATA = 'GET_USER_DATA';
+const FETCH_USER_DATA = 'FETCH_USER_DATA';
 const FETCH_WORKS = 'FETCH_WORKS';
 
 // action creators
@@ -19,7 +19,7 @@ function mainReducer(state, action) {
       return { ...state, user: action.data };
     }
     case 'FETCH_WORKS': {
-      return { ...state, works: [...action.data] };
+      return { ...state, works: action.data };
     }
     default:
       return state;

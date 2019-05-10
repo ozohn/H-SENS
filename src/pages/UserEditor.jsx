@@ -1,7 +1,6 @@
 import React, { useState, useContext } from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
-import { Icon } from 'semantic-ui-react';
 import getBase64 from '../component/getBase64';
 import InputForm from '../component/form/Input';
 import { CreatorContext } from '../context/creator/creatorContext';

@@ -20,6 +20,7 @@ const updateView = data => ({
 });
 
 function workReducer(state, action) {
+  console.log(action.data);
   switch (action.type) {
     case 'INITIAL': {
       return [...action.data];
@@ -28,7 +29,12 @@ function workReducer(state, action) {
       return [...action.data];
     }
     case 'EDIT': {
-      return [];
+      return state.map(work => {
+        if (work._id === action.data._id) {
+          return action.data;
+        }
+        return work;
+      });
     }
     case 'SHOW': {
       return state.map(work => {

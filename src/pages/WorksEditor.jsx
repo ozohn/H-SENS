@@ -35,21 +35,28 @@ const Input = styled.input`
 
 function WorksEditor({ location }) {
   const { submit, work } = location.state;
-  const { addWork } = useContext(WorkContext);
-  const workDesc = useRef(null);
+  const { addWork, modifyWorkInfo } = useContext(WorkContext);
+  const workdesc = useRef(null);
   const [workimage, setWorkimage] = useState('');
-  const [worktitle, setWorktitle] = useState('');
+  const [worktitle, setWorktitle] = useState(work ? work.worktitle : '');
+
   return (
     <>
       <Button
+        to="/user"
         onClick={() => {
-          addWork({
-            workdesc: workDesc.current.getInstance().getValue(),
+          const body = {
+            id: work._id,
+            workdesc: workdesc.current.getInstance().getValue(),
             workimage,
             worktitle,
-          });
+          };
+          if (submit === 'Edit') {
+            modifyWorkInfo(body);
+          } else if (submit === 'Add') {
+            addWork(body);
+          }
         }}
-        to="/user"
       >
         {submit}
       </Button>
@@ -62,7 +69,7 @@ function WorksEditor({ location }) {
         value={work ? work.worktitle : ''}
       />
       <input type="file" onChange={e => getBase64(e.target.files[0], setWorkimage)} />
-      <TuiEditor targetRef={workDesc} initialValue={work ? work.workdesc : ''} />
+      <TuiEditor targetRef={workdesc} initialValue={work ? work.workdesc : ''} />
     </>
   );
 }

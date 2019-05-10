@@ -31,10 +31,6 @@ const Item = styled.div`
   }
 `;
 
-// const ReverseItem = styled(Item)`
-//   transform: rotate(180deg) translateY(-${props => props.height * 2}px);
-// `;
-
 const fillArray = (arr, num) => {
   if (arr === undefined) return [];
   const checkingArr = [...arr];
@@ -43,23 +39,9 @@ const fillArray = (arr, num) => {
     checkingArr.push({ _id: i });
     i += 1;
   }
-  console.log(checkingArr);
   return checkingArr;
 };
 
-// const ReverseLine = ({ splitedWork, scrollHeight }) => {
-//   return (
-//     <ReverseItem height={scrollHeight}>
-//       {splitedWork.map(v => {
-//         if (v.workimage === undefined) {
-//           const sourse = 'https://react.semantic-ui.com/images/wireframe/image.png';
-//           return <ReverseImage key={v._id} src={sourse} size="small" />;
-//         }
-//         return <ReverseImage key={v._id} src={v.workimage} size="small" />;
-//       })}
-//     </ReverseItem>
-//   );
-// };
 const Line = ({ works, scroll, reverse }) => {
   const sourse = 'https://react.semantic-ui.com/images/wireframe/image.png';
 
@@ -114,9 +96,9 @@ export default function List() {
       {works !== undefined ? (
         <>
           <Line works={lineWorks.firLine} />
-          <Line works={lineWorks.secLine} scroll={scroll} reverse="true" />
+          <Line works={lineWorks.secLine} scroll={scroll} reverse />
           <Line works={lineWorks.trdLine} />
-          <Line works={lineWorks.forthLine} scroll={scroll} reverse="true" />
+          <Line works={lineWorks.forthLine} scroll={scroll} reverse />
         </>
       ) : (
         <></>

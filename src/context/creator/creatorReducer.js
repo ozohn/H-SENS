@@ -1,7 +1,4 @@
-// actions
-
-const INITIAL = 'INITIAL';
-const EDIT = 'EDIT';
+import { INITIAL, EDIT } from '../actions';
 
 // action creators
 const fetchInitial = data => ({

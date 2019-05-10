@@ -1,21 +1,23 @@
 /* eslint-disable no-underscore-dangle */
 import styled from 'styled-components';
-import { Image } from 'semantic-ui-react';
+import { Image, Icon } from 'semantic-ui-react';
 import React, { useContext } from 'react';
+import { Link } from 'react-router-dom';
 import { WorkContext } from '../context/work/workContext';
 
 const Works = styled.ul`
   position: absolute;
   top: 50%;
   left: 0;
-  width: 60vh;
+  width: 50vh;
   height: 100vw;
   padding: 0;
   overflow-y: auto;
   overflow-x: scroll;
-  transform: rotate(-90deg) translateX(30%) translateY(-60vh);
+  transform: rotate(-90deg) translateX(30%) translateY(-50vh);
   transform-origin: right top;
   text-align: center;
+  background-color: transparent;
   font-size: 0;
   margin: 0;
   ::-webkit-scrollbar {
@@ -36,10 +38,7 @@ const ItemContainer = styled.li`
   transform: rotate(90deg);
   transform-origin: center center;
   transition: all 0.3s ease-in-out;
-  &:hover {
-    z-index: 9;
-    transform: rotate(90deg) scale(1.3);
-  }
+  overflow: hidden;
 `;
 
 const CustomImage = styled(Image)`
@@ -47,32 +46,49 @@ const CustomImage = styled(Image)`
     height: auto;
     width: 100%;
   }
-  &&&:hover {
-    mix-blend-mode: luminosity;
-  }
 `;
 
-const Button = styled.button`
+const Button = styled(Link)`
   margin-top: 2rem;
+  margin-right: 2rem;
   border: 0;
   outline: none;
   font-size: 2.2rem;
   background-color: transparent;
-  color: #ff4d4d;
+  color: #55fe47;
   cursor: pointer;
   &:hover {
-    border-bottom: 1px solid #ff4d4d;
+    color: #55fe47;
   }
   &&& {
     float: right;
   }
 `;
 
-export default function WorksList({ setEditing, editing }) {
+const EditBtnContainer = styled.div`
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 100%;
+  height: 20%;
+  margin: 0;
+  padding-top: 0.5rem;
+  padding-right: 0.25rem;
+  font-size: 1.3rem;
+  color: #eee;
+  text-align: right;
+  background-image: linear-gradient(
+    rgba(0, 0, 0, 0.6),
+    rgba(0, 0, 0, 0.4),
+    rgba(0, 0, 0, 0)
+  );
+`;
+
+export default function WorksList() {
   const { state, showWork } = useContext(WorkContext);
   return (
     <>
-      <Button onClick={() => setEditing(!editing)}>create</Button>
+      <Button to={{ pathname: '/workeditor', state: { submit: 'Add' } }}>create</Button>
       <Works>
         {state &&
           state.map(work => <Work key={work._id} work={work} showWork={showWork} />)}
@@ -90,6 +106,17 @@ function Work({ work, showWork }) {
         verticalAlign="top"
         size="medium"
       />
+      <EditBtnContainer
+        onClick={e => {
+          if (e.currentTarget === e.target) {
+            showWork(work);
+          }
+        }}
+      >
+        <Link to={{ pathname: '/workeditor', state: { submit: 'Edit', work } }}>
+          <Icon name="eraser" />
+        </Link>
+      </EditBtnContainer>
     </ItemContainer>
   );
 }

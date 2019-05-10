@@ -9,9 +9,12 @@ const Heading3 = styled.h3`
   margin: 0;
   margin-top: 1rem;
   font-size: 4rem;
+  color: #231f20;
+  display: inline-block;
+  vertical-align: top;
 `;
 
-function InputForm({ Tag, cb, placeholder, label, type }) {
+function InputForm({ Tag, cb, placeholder, label, type, value }) {
   return (
     <>
       <Heading3>{label}</Heading3>
@@ -22,6 +25,7 @@ function InputForm({ Tag, cb, placeholder, label, type }) {
         onChange={e => {
           cb(e.target.value);
         }}
+        defaultValue={value}
       />
     </>
   );

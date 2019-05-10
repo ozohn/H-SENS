@@ -57,7 +57,7 @@ function WorksEditor({ location }) {
         Tag={Input}
         cb={setWorktitle}
         placeholder="Name"
-        label="Who are you?"
+        label="Title"
         type="text"
         value={work ? work.worktitle : ''}
       />

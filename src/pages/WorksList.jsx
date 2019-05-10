@@ -50,14 +50,15 @@ const CustomImage = styled(Image)`
 
 const Button = styled(Link)`
   margin-top: 2rem;
+  margin-right: 2rem;
   border: 0;
   outline: none;
   font-size: 2.2rem;
   background-color: transparent;
-  color: #ff4d4d;
+  color: #55fe47;
   cursor: pointer;
   &:hover {
-    border-bottom: 1px solid #ff4d4d;
+    color: #55fe47;
   }
   &&& {
     float: right;

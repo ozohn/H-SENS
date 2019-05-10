@@ -15,15 +15,18 @@ const WorksContainer = styled.div`
 
 const Heading2 = styled.h2`
   display: inline-block;
-  font-size: 7rem;
-  color: #ff4d4d;
-  border-bottom: 1px solid #ff4d4d;
+  padding-left: 2rem;
+  font-size: 5rem;
+  color: #55fe47;
+  letter-spacing: -2px;
+  font-family: 'Gotham', san-serif;
+  font-weight: bold;
 `;
 
 export default function Works() {
   return (
     <WorksContainer>
-      <Heading2>PROJECTS</Heading2>
+      <Heading2>works</Heading2>
       <WorkDetail />
       <WorksList />
     </WorksContainer>

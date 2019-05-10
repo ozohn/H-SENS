@@ -9,6 +9,9 @@ const Heading3 = styled.h3`
   margin: 0;
   margin-top: 1rem;
   font-size: 4rem;
+  color: #231f20;
+  display: inline-block;
+  vertical-align: top;
 `;
 
 function InputForm({ Tag, cb, placeholder, label, type, value }) {
@@ -22,7 +25,7 @@ function InputForm({ Tag, cb, placeholder, label, type, value }) {
         onChange={e => {
           cb(e.target.value);
         }}
-        value={value}
+        defaultValue={value}
       />
     </>
   );

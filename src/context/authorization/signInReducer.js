@@ -1,9 +1,4 @@
-// actions
-
-const INPUT_ID = 'INPUT_ID';
-const INPUT_PASSWORD = 'INPUT_PASSWORD';
-const LOADING_STATE = 'LOADING_STATE';
-const CORRECT_STATE = 'CORRECT_STATE';
+import { INPUT_ID, INPUT_PASSWORD, LOADING_STATE, CORRECT_STATE } from '../actions';
 
 // action creators
 const setIdInput = data => ({

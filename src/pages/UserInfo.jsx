@@ -15,14 +15,13 @@ const Container = styled.div`
 const HeadingContainer = styled.div`
   display: flex;
   justify-content: space-between;
+  align-items: baseline;
   margin-bottom: 5rem;
-`;
-const Heading3 = styled.h3`
-  font-size: 4rem;
 `;
 const Heading2 = styled.h2`
   font-size: 5rem;
   margin: 0;
+  color: #231f20;
 `;
 const UserDesc = styled.p`
   font-size: 3rem;
@@ -38,15 +37,17 @@ const ImageContainer = styled(Image)`
 const CustomButton = styled(Link)`
   display: inline-block;
   color: #95bfb4;
-  margin-right: 3rem;
+  margin-right: 6rem;
   border: 0;
   outline: none;
   cursor: pointer;
-  font-size: 2rem;
+  font-size: 2.4rem;
   font-weight: bold;
-  background-color: transparent;
+  color: #231f20;
+  background-color: #55fe47;
+  letter-spacing: -1px;
   &:hover {
-    border-bottom: 1px solid #95bfb4;
+    color: #231f20;
   }
 `;
 
@@ -56,16 +57,15 @@ export default function UserInfo() {
   return (
     <Container>
       <HeadingContainer>
-        <Heading3>Stories</Heading3>
         <Heading2>{username}</Heading2>
+        <CustomButton
+          to={{ pathname: '/usereditor', state: { submit: 'Edit', user: state } }}
+        >
+          Edit
+        </CustomButton>
       </HeadingContainer>
       <ImageContainer src={userimage} verticalAlign="top" size="small" circular />
       <UserDesc>{userdesc}</UserDesc>
-      <CustomButton
-        to={{ pathname: '/usereditor', state: { submit: 'Edit', user: state } }}
-      >
-        Edit
-      </CustomButton>
     </Container>
   );
 }

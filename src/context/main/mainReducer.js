@@ -1,7 +1,4 @@
-// actions
-
-const FETCH_USER_DATA = 'FETCH_USER_DATA';
-const FETCH_WORKS = 'FETCH_WORKS';
+import { FETCH_USER_DATA, FETCH_WORKS } from '../actions';
 
 // action creators
 const getUserData = data => ({

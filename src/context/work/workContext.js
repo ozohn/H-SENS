@@ -1,13 +1,17 @@
 import React, { useReducer, useEffect } from 'react';
-import { workReducer, fetchInitial, fetchAdd, updateView } from './workReducer';
-import { workDetailReducer, updateWork } from './workDetailReducer';
+import {
+  workReducer,
+  fetchInitial,
+  fetchAdd,
+  fetchEdit,
+  updateView,
+} from './workReducer';
 import fetchData from '../../component/fetchData';
 
 const WorkContext = React.createContext();
 
 function WorkProvider({ children }) {
   const [state, dispatch] = useReducer(workReducer, []);
-  const [viewState, viewDispatch] = useReducer(workDetailReducer, {});
   useEffect(() => {
     fetchData(`${process.env.REACT_APP_SERVER_URL}/works`, 'POST', {
       Authorization: `Bearer ${localStorage.getItem('token')}`,
@@ -33,27 +37,33 @@ function WorkProvider({ children }) {
     ).then(data => dispatch(fetchAdd(data)));
   }
 
-  function viewWork(workid) {
-    const body = { workid };
+  function showWork(work) {
+    dispatch(updateView(work));
+  }
+
+  function modifyWorkInfo({ id, worktitle, workdesc, workimage }) {
+    const body = {
+      workid: id,
+      worktitle,
+      workdesc,
+      workimage,
+    };
+
     fetchData(
-      `${process.env.REACT_APP_SERVER_URL}/works/view`,
+      `${process.env.REACT_APP_SERVER_URL}/works/edit`,
       'POST',
       {
         Authorization: `Bearer ${localStorage.getItem('token')}`,
         'Content-Type': 'application/json',
       },
       JSON.stringify(body),
-    ).then(data => viewDispatch(updateWork(data)));
-  }
-
-  function showWork(work) {
-    dispatch(updateView(work));
+    ).then(data => {
+      dispatch(fetchEdit(data));
+    });
   }
 
   return (
-    <WorkContext.Provider
-      value={{ state, dispatch, addWork, showWork, viewState, viewWork }}
-    >
+    <WorkContext.Provider value={{ state, dispatch, addWork, showWork, modifyWorkInfo }}>
       {children}
     </WorkContext.Provider>
   );

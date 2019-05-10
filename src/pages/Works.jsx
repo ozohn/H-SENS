@@ -1,6 +1,5 @@
 import styled from 'styled-components';
-import React, { useState } from 'react';
-import WorksEditor from './WorksEditor';
+import React from 'react';
 import WorksList from './WorksList';
 import WorkDetail from './WorkDetail';
 
@@ -16,25 +15,20 @@ const WorksContainer = styled.div`
 
 const Heading2 = styled.h2`
   display: inline-block;
-  font-size: 7rem;
-  color: #ff4d4d;
-  border-bottom: 1px solid #ff4d4d;
+  padding-left: 2rem;
+  font-size: 5rem;
+  color: #55fe47;
+  letter-spacing: -2px;
+  font-family: 'Gotham', san-serif;
+  font-weight: bold;
 `;
 
 export default function Works() {
-  const [editing, setEditing] = useState(false);
-
   return (
     <WorksContainer>
-      <Heading2>PROJECTS</Heading2>
-      {!editing ? (
-        <>
-          <WorkDetail />
-          <WorksList setEditing={setEditing} editing={editing} />
-        </>
-      ) : (
-        <WorksEditor setEditing={setEditing} editing={editing} />
-      )}
+      <Heading2>works</Heading2>
+      <WorkDetail />
+      <WorksList />
     </WorksContainer>
   );
 }

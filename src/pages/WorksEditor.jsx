@@ -108,14 +108,14 @@ function WorksEditor({ location }) {
         to="/user"
         onClick={() => {
           const body = {
-            id: work._id,
+            id: work ? work._id : null,
             workdesc: workdesc.current.getInstance().getValue(),
-            workimage: workimage || work.workimage,
+            workimage: work ? work.workimage : workimage,
             worktitle,
           };
           if (submit === 'Edit') {
             modifyWorkInfo(body);
-          } else if (submit === 'Add') {
+          } else {
             addWork(body);
           }
         }}

@@ -26,6 +26,7 @@ function WorkProvider({ children }) {
       workimage,
       workdesc,
     };
+    console.log(body);
     fetchData(
       `${process.env.REACT_APP_SERVER_URL}/works/add`,
       'POST',
@@ -34,7 +35,9 @@ function WorkProvider({ children }) {
         'Content-Type': 'application/json',
       },
       JSON.stringify(body),
-    ).then(data => dispatch(fetchAdd(data)));
+    ).then(data => {
+      dispatch(fetchAdd(data));
+    });
   }
 
   function showWork(work) {

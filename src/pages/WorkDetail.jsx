@@ -22,6 +22,25 @@ const WorkInformation = styled.div`
   margin: 0 auto;
   background-color: #fff;
 `;
+const WorkHeader = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 1rem;
+  height: 12rem;
+  background-color: #231f20;
+  color: #55fe47;
+`;
+const WorkTitle = styled.h3`
+  font-size: 4rem;
+`;
+const WorkImg = styled.img`
+  height: 10rem;
+  width: auto;
+`;
+const ViewerContainer = styled.div`
+  padding: 3rem;
+`;
 
 export default function WorkDetail() {
   const { state, showWork } = useContext(WorkContext);
@@ -43,9 +62,13 @@ export default function WorkDetail() {
       target={target}
     >
       <WorkInformation>
-        <h3>{worktitle}</h3>
-        <img src={workimage} alt="this work" />
-        <Viewer initialValue={workdesc} previewStyle="vertical" height="600px" />
+        <WorkHeader>
+          <WorkTitle>{worktitle}</WorkTitle>
+          <WorkImg src={workimage} alt="this work" />
+        </WorkHeader>
+        <ViewerContainer>
+          <Viewer initialValue={workdesc} previewStyle="vertical" height="600px" />
+        </ViewerContainer>
       </WorkInformation>
     </WorkCover>
   );

@@ -48,7 +48,7 @@ function WorksEditor({ location }) {
           const body = {
             id: work._id,
             workdesc: workdesc.current.getInstance().getValue(),
-            workimage,
+            workimage: workimage || work.workimage,
             worktitle,
           };
           if (submit === 'Edit') {

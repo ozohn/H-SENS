@@ -20,7 +20,6 @@ const updateView = data => ({
 });
 
 function workReducer(state, action) {
-  console.log(action.data);
   switch (action.type) {
     case 'INITIAL': {
       return [...action.data];

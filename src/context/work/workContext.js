@@ -46,8 +46,9 @@ function WorkProvider({ children }) {
       workid: id,
       worktitle,
       workdesc,
-      workimage: workimage || state.workimage,
+      workimage,
     };
+
     fetchData(
       `${process.env.REACT_APP_SERVER_URL}/works/edit`,
       'POST',

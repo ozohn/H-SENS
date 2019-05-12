@@ -35,7 +35,7 @@ const LinkStyled = styled(Link)`
   height: 4.5rem;
 `;
 
-const Header = () => {
+const Header = ({ current }) => {
   const hasToken = !!window.localStorage.token;
   const mainContext = useContext(MainContext);
   const { user } = mainContext.state;
@@ -43,7 +43,7 @@ const Header = () => {
   return (
     <HeaderWrapper className="header">
       <Logo />
-      <Search />
+      <Search current={current} />
       <LinkStyled
         to={hasToken ? '/user' : '/signin'}
         user={user ? user.userimage : user}

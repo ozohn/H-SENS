@@ -1,10 +1,10 @@
 import React, { useContext, useEffect } from 'react';
 // import { Link } from 'react-router-dom';
 // import styled from 'styled-components';
-import Header from '../component/header/header';
+import Header from '../../container/header/header';
 
-import fetchData from '../component/fetchData';
-import { MainContext } from '../context/main/mainContext';
+import fetchData from '../../../util/fetchData';
+import { MainContext } from '../../../context/main/mainContext';
 
 const fetchSearched = async (selectedValue, searchValue) => {
   let searchUrl;

@@ -3,7 +3,7 @@ import React, { useState, useContext, useEffect, useRef } from 'react';
 import styled from 'styled-components';
 import { Image } from 'semantic-ui-react';
 
-import { MainContext } from '../../context/main/mainContext';
+import { MainContext } from '../../../context/main/mainContext';
 
 const StyledImage = styled(Image)`
   &&& {

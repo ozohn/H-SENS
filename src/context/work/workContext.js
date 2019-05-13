@@ -6,7 +6,7 @@ import {
   fetchEdit,
   updateView,
 } from './workReducer';
-import fetchData from '../../component/fetchData';
+import fetchData from '../../util/fetchData';
 
 const WorkContext = React.createContext();
 
@@ -26,7 +26,6 @@ function WorkProvider({ children }) {
       workimage,
       workdesc,
     };
-    console.log(body);
     fetchData(
       `${process.env.REACT_APP_SERVER_URL}/works/add`,
       'POST',

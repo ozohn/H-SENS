@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 
 import styled from 'styled-components';
 import Search from '../search/Search';
-import { MainContext } from '../../context/main/mainContext';
+import { MainContext } from '../../../context/main/mainContext';
 
 const HeaderWrapper = styled.header`
   display: flex;

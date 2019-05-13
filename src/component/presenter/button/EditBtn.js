@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import changeUserInfo from '../changeUserInfo';
+import changeUserInfo from '../../../util/changeUserInfo';
 
 export default const CustomButton = styled.button`
   color: #95bfb4;

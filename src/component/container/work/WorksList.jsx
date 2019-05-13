@@ -85,19 +85,26 @@ const EditBtnContainer = styled.div`
 `;
 
 export default function WorksList() {
-  const { state, showWork } = useContext(WorkContext);
+  const { state, showWork, removeWork } = useContext(WorkContext);
   return (
     <>
       <Button to={{ pathname: '/workeditor', state: { submit: 'Add' } }}>create</Button>
       <Works>
         {state &&
-          state.map(work => <Work key={work._id} work={work} showWork={showWork} />)}
+          state.map(work => (
+            <Work
+              key={work._id}
+              work={work}
+              showWork={showWork}
+              removeWork={removeWork}
+            />
+          ))}
       </Works>
     </>
   );
 }
 
-function Work({ work, showWork }) {
+function Work({ work, showWork, removeWork }) {
   return (
     <ItemContainer>
       <CustomImage
@@ -113,6 +120,7 @@ function Work({ work, showWork }) {
           }
         }}
       >
+        <Icon name="remove circle" onClick={() => removeWork({ workid: work._id })} />
         <Link to={{ pathname: '/workeditor', state: { submit: 'Edit', work } }}>
           <Icon name="eraser" />
         </Link>

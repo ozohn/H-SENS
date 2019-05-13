@@ -4,6 +4,7 @@ import {
   fetchInitial,
   fetchAdd,
   fetchEdit,
+  fetchRemove,
   updateView,
 } from './workReducer';
 import fetchData from '../../util/fetchData';
@@ -64,8 +65,25 @@ function WorkProvider({ children }) {
     });
   }
 
+  function removeWork({ workid }) {
+    const body = { workid };
+    fetchData(
+      `${process.env.REACT_APP_SERVER_URL}/works/remove`,
+      'POST',
+      {
+        Authorization: `Bearer ${localStorage.getItem('token')}`,
+        'Content-Type': 'application/json',
+      },
+      JSON.stringify(body),
+    ).then(data => {
+      dispatch(fetchRemove(data));
+    });
+  }
+
   return (
-    <WorkContext.Provider value={{ state, dispatch, addWork, showWork, modifyWorkInfo }}>
+    <WorkContext.Provider
+      value={{ state, dispatch, addWork, showWork, modifyWorkInfo, removeWork }}
+    >
       {children}
     </WorkContext.Provider>
   );

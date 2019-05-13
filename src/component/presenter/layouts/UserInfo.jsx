@@ -2,7 +2,7 @@ import React, { useContext } from 'react';
 import { Image } from 'semantic-ui-react';
 import styled from 'styled-components';
 import { CreatorContext } from '../../../context/creator/creatorContext';
-import LinkButton from '../button/LinkBtn';
+import LinkButton from '../buttons/LinkBtn';
 
 const Container = styled.div`
   position: relative;

@@ -4,7 +4,7 @@ import React, { useContext, useEffect } from 'react';
 import Header from '../../container/header/header';
 
 import fetchData from '../../../util/fetchData';
-import { MainContext } from '../../../context/main/mainContext';
+// import { MainContext } from '../../../context/main/mainContext';
 
 const fetchSearched = async (selectedValue, searchValue) => {
   let searchUrl;
@@ -12,8 +12,6 @@ const fetchSearched = async (selectedValue, searchValue) => {
     searchUrl = `${process.env.REACT_APP_SERVER_URL}/search/author`;
   } else if (selectedValue === 'Work') {
     searchUrl = `${process.env.REACT_APP_SERVER_URL}/search/work`;
-  } else {
-    return await new Promise(res => res('checkSelectBox'));
   }
   const jsonHeader = {
     'Content-Type': 'application/json',

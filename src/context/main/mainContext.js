@@ -1,5 +1,5 @@
 import React, { useReducer, useEffect } from 'react';
-import fetchData from '../../component/fetchData';
+import fetchData from '../../util/fetchData';
 import { mainReducer, getUserData, getWorks } from './mainReducer';
 
 const MainContext = React.createContext();

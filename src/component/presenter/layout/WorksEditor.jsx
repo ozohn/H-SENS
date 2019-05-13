@@ -2,10 +2,10 @@
 import React, { useState, useRef, useContext } from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
-import getBase64 from '../component/getBase64';
-import { WorkContext } from '../context/work/workContext';
-import InputForm from '../component/form/Input';
-import TuiEditor from '../component/editor/Editor';
+import getBase64 from '../../../util/getBase64';
+import { WorkContext } from '../../../context/work/workContext';
+import InputForm from '../form/Input';
+import TuiEditor from '../editor/Editor';
 
 const Container = styled.div`
   width: 60vw;

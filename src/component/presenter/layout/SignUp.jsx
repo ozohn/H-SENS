@@ -1,12 +1,7 @@
 import React, { useReducer } from 'react';
 import { Link } from 'react-router-dom';
-import {
-  WholeContainer,
-  SignLogo,
-  Container,
-  SignUpForm,
-} from '../component/user/SignForm';
-import fetchData from '../component/fetchData';
+import { WholeContainer, SignLogo, Container, SignUpForm } from '../user/SignForm';
+import fetchData from '../../../util/fetchData';
 import {
   signUpReducer,
   setIdInput,
@@ -15,7 +10,7 @@ import {
   setNameInput,
   setCorrectState,
   setLoadingState,
-} from '../context/authorization/signUpReducer';
+} from '../../../context/authorization/signUpReducer';
 
 const SignUp = () => {
   const [state, dispatch] = useReducer(signUpReducer, {

@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import styled from 'styled-components';
 import { Viewer } from '@toast-ui/react-editor';
-import { WorkContext } from '../context/work/workContext';
+import { WorkContext } from '../../../context/work/workContext';
 
 const WorkCover = styled.div`
   display: ${props => (props.target ? 'block' : 'none')};

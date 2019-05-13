@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { Image, Icon } from 'semantic-ui-react';
 import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
-import { WorkContext } from '../context/work/workContext';
+import { WorkContext } from '../../../context/work/workContext';
 
 const Works = styled.ul`
   position: absolute;

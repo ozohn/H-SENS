@@ -1,9 +1,9 @@
 import React, { useState, useContext } from 'react';
 import styled from 'styled-components';
-import getBase64 from '../component/getBase64';
-import InputForm from '../component/form/Input';
-import { CreatorContext } from '../context/creator/creatorContext';
-import LinkButton from '../component/button/LinkBtn';
+import getBase64 from '../../../util/getBase64';
+import InputForm from '../form/Input';
+import { CreatorContext } from '../../../context/creator/creatorContext';
+import LinkButton from '../button/LinkBtn';
 
 const FormContainer = styled.div`
   position: absolute;

@@ -1,11 +1,11 @@
 import React from 'react';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
-import SignIn from '../pages/SignIn';
-import SignUp from '../pages/SignUp';
-import UserPage from '../pages/User';
-import Searched from '../pages/Searched';
-import UserEditor from '../pages/UserEditor';
-import WorksEditor from '../pages/WorksEditor';
+import SignIn from '../component/presenter/layout/SignIn';
+import SignUp from '../component/presenter/layout/SignUp';
+import UserPage from '../component/presenter/layout/User';
+import Searched from '../component/presenter/layout/Searched';
+import UserEditor from '../component/presenter/layout/UserEditor';
+import WorksEditor from '../component/presenter/layout/WorksEditor';
 import { MainProvider } from '../context/main/mainContext';
 import { CreatorProvider } from '../context/creator/creatorContext';
 import App from '../App';

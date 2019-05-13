@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import React from 'react';
-import UserInfo from './UserInfo';
+import UserInfo from '../../container/user/UserInfo';
 import Works from './Works';
 
 const User = styled.div`

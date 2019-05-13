@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import React from 'react';
-import WorksList from './WorksList';
-import WorkDetail from './WorkDetail';
+import WorksList from '../../container/work/WorksList';
+import WorkDetail from '../../container/work/WorkDetail';
 
 const WorksContainer = styled.div`
   position: fixed;

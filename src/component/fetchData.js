@@ -1,8 +1,10 @@
 const checkStatusNum = statusNum => {
-  if (statusNum >= 400 && statusNum < 500) {
-    throw new Error('잘못된 요청입니다.');
+  if (statusNum === 401) {
+    throw new Error('일치하는 정보 없음');
   } else if (statusNum >= 500) {
-    throw new Error('현재 서버가 박살난 상태입니다.');
+    throw new Error('서버 관련 에러');
+  } else if (statusNum >= 400 && statusNum < 500) {
+    throw new Error('클라이언트 에러');
   }
 };
 

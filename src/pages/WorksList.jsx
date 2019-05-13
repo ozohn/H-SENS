@@ -1,19 +1,25 @@
 /* eslint-disable no-underscore-dangle */
 import styled from 'styled-components';
-import { Image } from 'semantic-ui-react';
-import React, { useState } from 'react';
-import { Viewer } from '@toast-ui/react-editor';
-import fetchData from '../component/fetchData';
+import { Image, Icon } from 'semantic-ui-react';
+import React, { useContext } from 'react';
+import { Link } from 'react-router-dom';
+import { WorkContext } from '../context/work/workContext';
 
 const Works = styled.ul`
-  position: relative;
-  margin-top: 10rem;
-  max-width: 100%;
-  overflow-x: scroll;
-  overflow-y: hidden;
-  height: 40vh;
-  white-space: nowrap;
+  position: absolute;
+  top: 50%;
+  left: 0;
+  width: 50vh;
+  height: 100vw;
   padding: 0;
+  overflow-y: auto;
+  overflow-x: scroll;
+  transform: rotate(-90deg) translateX(30%) translateY(-50vh);
+  transform-origin: right top;
+  text-align: center;
+  background-color: transparent;
+  font-size: 0;
+  margin: 0;
   ::-webkit-scrollbar {
     width: 0px;
     height: 0px;
@@ -21,93 +27,96 @@ const Works = styled.ul`
 `;
 
 const ItemContainer = styled.li`
-  margin: 0;
-  height: 100%;
-  vertical-align: top;
+  position: relative;
+  top: 0;
+  left: 0;
+  width: 20rem;
+  height: 20rem;
+  margin-bottom: 5rem;
   display: inline-block;
-  overflow: hidden;
   cursor: pointer;
+  transform: rotate(90deg);
+  transform-origin: center center;
+  transition: all 0.3s ease-in-out;
+  overflow: hidden;
 `;
 
 const CustomImage = styled(Image)`
   &&& {
-    height: 100%;
-    width: auto;
-  }
-  &&&:hover {
-    mix-blend-mode: luminosity;
+    height: auto;
+    width: 100%;
   }
 `;
 
-const WorkCover = styled.div``;
-
-function handleClick(work, setWorkInfo) {
-  const body = {
-    workid: work._id,
-  };
-  fetchData(
-    `${process.env.REACT_APP_SERVER_URL}/works/view`,
-    'POST',
-    {
-      Authorization: `Bearer ${localStorage.getItem('token')}`,
-      'Content-Type': 'application/json',
-    },
-    JSON.stringify(body),
-  ).then(workInfo => {
-    setWorkInfo(workInfo);
-  });
-}
-
-const Button = styled.button`
+const Button = styled(Link)`
   margin-top: 2rem;
+  margin-right: 2rem;
   border: 0;
   outline: none;
   font-size: 2.2rem;
   background-color: transparent;
-  color: #ff4d4d;
+  color: #55fe47;
   cursor: pointer;
   &:hover {
-    border-bottom: 1px solid #ff4d4d;
+    color: #55fe47;
   }
   &&& {
     float: right;
   }
 `;
 
-export default function WorksList({ works, setCreating, creating }) {
-  const [workInfo, setWorkInfo] = useState({});
+const EditBtnContainer = styled.div`
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 100%;
+  height: 20%;
+  margin: 0;
+  padding-top: 0.5rem;
+  padding-right: 0.25rem;
+  font-size: 1.3rem;
+  color: #eee;
+  text-align: right;
+  background-image: linear-gradient(
+    rgba(0, 0, 0, 0.6),
+    rgba(0, 0, 0, 0.4),
+    rgba(0, 0, 0, 0)
+  );
+`;
+
+export default function WorksList() {
+  const { state, showWork } = useContext(WorkContext);
   return (
     <>
-      <Button onClick={() => setCreating(!creating)}>create</Button>
-      <WorkView workInfo={workInfo} />
+      <Button to={{ pathname: '/workeditor', state: { submit: 'Add' } }}>create</Button>
       <Works>
-        {works.length &&
-          works.map((work, index) => (
-            <Work key={work._id} work={work} index={index} setWorkInfo={setWorkInfo} />
-          ))}
+        {state &&
+          state.map(work => <Work key={work._id} work={work} showWork={showWork} />)}
       </Works>
     </>
   );
 }
 
-function Work({ work, setWorkInfo, index }) {
+function Work({ work, showWork }) {
   return (
-    <ItemContainer
-      onClick={() => handleClick(work, setWorkInfo)}
-      index={index}
-      setWorkInfo={setWorkInfo}
-    >
-      <CustomImage src={work.workimage} verticalAlign="top" size="medium" />
+    <ItemContainer>
+      <CustomImage
+        onClick={() => showWork(work)}
+        src={work.workimage}
+        verticalAlign="top"
+        size="medium"
+      />
+      <EditBtnContainer
+        onClick={e => {
+          if (e.currentTarget === e.target) {
+            showWork(work);
+          }
+        }}
+      >
+        <Link to={{ pathname: '/workeditor', state: { submit: 'Edit', work } }}>
+          <Icon name="eraser" />
+        </Link>
+      </EditBtnContainer>
     </ItemContainer>
-  );
-}
-
-function WorkView({ workInfo }) {
-  return (
-    <WorkCover>
-      <Viewer initialValue={workInfo.workdesc} previewStyle="vertical" height="600px" />
-      <h3>{workInfo.worktitle}</h3>
-      <p>{workInfo.workdesc}</p>
-    </WorkCover>
   );
 }

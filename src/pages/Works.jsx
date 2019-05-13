@@ -1,11 +1,11 @@
 import styled from 'styled-components';
-import React, { useState, useEffect } from 'react';
-import WorksEditor from './WorksEditor';
-import fetchData from '../component/fetchData';
+import React from 'react';
 import WorksList from './WorksList';
+import WorkDetail from './WorkDetail';
 
 const WorksContainer = styled.div`
   position: fixed;
+  z-index: 1;
   top: 0;
   width: 100%;
   height: 100vh;
@@ -15,31 +15,20 @@ const WorksContainer = styled.div`
 
 const Heading2 = styled.h2`
   display: inline-block;
-  font-size: 7rem;
-  color: #ff4d4d;
-  border-bottom: 1px solid #ff4d4d;
+  padding-left: 2rem;
+  font-size: 5rem;
+  color: #55fe47;
+  letter-spacing: -2px;
+  font-family: 'Gotham', san-serif;
+  font-weight: bold;
 `;
 
 export default function Works() {
-  const [works, setWorks] = useState([]);
-  const [creating, setCreating] = useState(false);
-
-  useEffect(() => {
-    fetchData(`${process.env.REACT_APP_SERVER_URL}/works`, 'POST', {
-      Authorization: `Bearer ${localStorage.getItem('token')}`,
-    }).then(workInfo => {
-      setWorks(workInfo);
-    });
-  }, []);
-
   return (
     <WorksContainer>
-      <Heading2>PROJECTS</Heading2>
-      {!creating ? (
-        <WorksList works={works} setCreating={setCreating} creating={creating} />
-      ) : (
-        <WorksEditor setCreating={setCreating} creating={creating} />
-      )}
+      <Heading2>works</Heading2>
+      <WorkDetail />
+      <WorksList />
     </WorksContainer>
   );
 }

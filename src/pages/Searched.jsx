@@ -1,19 +1,42 @@
-import React from 'react';
+import React, { useContext, useEffect } from 'react';
 // import { Link } from 'react-router-dom';
 // import styled from 'styled-components';
-import Header from '../header';
-import Author from '../component/author/Author';
+import Header from '../component/header/header';
+
+import fetchData from '../component/fetchData';
+import { MainContext } from '../context/main/mainContext';
+
+const fetchSearched = async (selectedValue, searchValue) => {
+  let searchUrl;
+  if (selectedValue === 'Author') {
+    searchUrl = `${process.env.REACT_APP_SERVER_URL}/search/author`;
+  } else if (selectedValue === 'Work') {
+    searchUrl = `${process.env.REACT_APP_SERVER_URL}/search/work`;
+  } else {
+    return await new Promise(res => res('checkSelectBox'));
+  }
+  const jsonHeader = {
+    'Content-Type': 'application/json',
+  };
+  const userData = {
+    inputValue: searchValue,
+  };
+  const res = await fetchData(searchUrl, 'POST', jsonHeader, JSON.stringify(userData));
+  return res;
+};
 
 const Searched = ({ location }) => {
   const sentValue = location.state.value;
-  const authors = sentValue.authors.filter(author => {
-    return author.username.match(sentValue.inputValue);
-  });
+  // const { state } = useContext(MainContext);
+
+  useEffect(() => {
+    const searchedData = fetchSearched(sentValue.selectedValue, sentValue.inputValue);
+    console.log(searchedData);
+  }, [sentValue.inputValue]);
 
   return (
     <>
-      <Header userImage={sentValue.userImage} authors={sentValue.authors} />
-      <Author authors={authors} />
+      <Header current={sentValue.selectedValue} />
     </>
   );
 };

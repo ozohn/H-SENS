@@ -1,85 +1,128 @@
-import React, { useState, useRef } from 'react';
+/* eslint-disable no-underscore-dangle */
+import React, { useState, useRef, useContext } from 'react';
+import { Link } from 'react-router-dom';
 import styled from 'styled-components';
-import 'codemirror/lib/codemirror.css';
-import 'tui-editor/dist/tui-editor.min.css';
-import 'tui-editor/dist/tui-editor-contents.min.css';
-import { Editor } from '@toast-ui/react-editor';
-import fetchData from '../component/fetchData';
 import getBase64 from '../component/getBase64';
+import { WorkContext } from '../context/work/workContext';
+import InputForm from '../component/form/Input';
+import TuiEditor from '../component/editor/Editor';
 
-const Button = styled.button`
-  margin-top: 2rem;
-  border: 0;
-  outline: none;
-  font-size: 2.2rem;
-  background-color: transparent;
-  color: #ff4d4d;
-  cursor: pointer;
-  &:hover {
-    border-bottom: 1px solid #ff4d4d;
-  }
-  &&& {
-    float: right;
-  }
+const Container = styled.div`
+  width: 60vw;
+  padding: 4rem 4rem 4rem;
 `;
 
-function handleClick(inputName, workImage, inputDesc) {
-  const body = {
-    worktitle: inputName.current.value,
-    workimage: workImage,
-    workdesc: inputDesc.current.getInstance().getValue(),
-  };
-  fetchData(
-    `${process.env.REACT_APP_SERVER_URL}/works/add`,
-    'POST',
-    {
-      Authorization: `Bearer ${localStorage.getItem('token')}`,
-      'Content-Type': 'application/json',
-    },
-    JSON.stringify(body),
-  );
-}
+const Field = styled.div`
+  margin-bottom: 7rem;
+  border: ${props => (props.editor ? '0.2rem solid #231f20' : 0)};
+`;
 
-function WorksEditor({ setCreating, creating }) {
-  const inputName = useRef(null);
-  const inputDesc = useRef(null);
-  const [workImage, setWorkImage] = useState('');
+const Button = styled(Link)`
+  color: #95bfb4;
+  margin-left: 25rem;
+  display: inline-block;
+  vertical-align: bottom;
+  border: 0;
+  outline: none;
+  cursor: pointer;
+  font-size: 3rem;
+  font-weight: bold;
+  color: #231f20;
+  background-color: #55fe47;
+  &:hover {
+    color: #231f20;
+  }
+`;
+const Input = styled.input`
+  display: inline-block;
+  margin-left: 4rem;
+  padding-left: 1rem;
+  width: 22rem;
+  border: 0;
+  border-bottom: 0.2rem solid #231f20;
+  outline: 0;
+  font-size: 4rem;
+  font-weight: bold;
+  background: transparent;
+  color: #1f272f;
+  vertical-align: top;
+  &:focus {
+    border-bottom: 0.2rem solid #55fe47;
+  }
+`;
+const InputFile = styled.input`
+  position: absolute;
+  top: 0;
+  left: 0;
+  outline: 0;
+  opacity: 0;
+  pointer-events: none;
+  user-select: none;
+`;
+const FileLabel = styled.label`
+  padding: 3rem 0 2.4rem;
+  position: relative;
+  display: inline-block;
+  width: 14rem;
+  border: 2px solid #231f20;
+  background-color: #231f20;
+  font-size: 2rem;
+  font-weight: bold;
+  color: #54ff47;
+  transition: border 300ms ease;
+  cursor: pointer;
+  text-align: center;
+`;
+
+function WorksEditor({ location }) {
+  const { submit, work } = location.state;
+  const { addWork, modifyWorkInfo } = useContext(WorkContext);
+  const workdesc = useRef(null);
+  const [workimage, setWorkimage] = useState('');
+  const [worktitle, setWorktitle] = useState(work ? work.worktitle : '');
 
   return (
-    <>
+    <Container>
+      <Field>
+        <InputForm
+          Tag={Input}
+          cb={setWorktitle}
+          placeholder="Name"
+          label="Title"
+          type="text"
+          value={work ? work.worktitle : ''}
+        />
+      </Field>
+      <Field editor="editor">
+        <TuiEditor targetRef={workdesc} initialValue={work ? work.workdesc : ''} />
+      </Field>
+      <FileLabel>
+        Image
+        <InputFile
+          type="file"
+          accept=".jpg, .jpeg, .png"
+          onChange={e => getBase64(e.target.files[0], setWorkimage)}
+        />
+      </FileLabel>
       <Button
-        onClick={e => {
-          e.preventDefault();
-          handleClick(inputName, workImage, inputDesc);
-          setCreating(!creating);
+        to="/user"
+        onClick={() => {
+          const body = {
+            id: work ? work._id : null,
+            workdesc: workdesc.current.getInstance().getValue(),
+            workimage: work ? work.workimage : workimage,
+            worktitle,
+          };
+          if (submit === 'Edit') {
+            modifyWorkInfo(body);
+          } else {
+            addWork(body);
+          }
         }}
       >
-        submit
+        {submit}
       </Button>
-      <input type="text" ref={inputName} />
-      <input type="file" onChange={e => getBase64(e.target.files[0], setWorkImage)} />
-      <Editor
-        initialValue="hello react editor world!"
-        previewStyle="vertical"
-        height="400px"
-        initialEditType="wysiwyg"
-        ref={inputDesc}
-        exts={[
-          {
-            name: 'chart',
-            minWidth: 100,
-            maxWidth: 600,
-            minHeight: 100,
-            maxHeight: 300,
-          },
-          'scrollSync',
-          'colorSyntax',
-          'uml',
-          'mark',
-          'table',
-        ]}
-      />
-    </>
+    </Container>
   );
 }
 

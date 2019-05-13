@@ -1,8 +1,9 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
 
 import styled from 'styled-components';
-import Search from './component/search/Search';
+import Search from '../search/Search';
+import { MainContext } from '../../context/main/mainContext';
 
 const HeaderWrapper = styled.header`
   display: flex;
@@ -12,7 +13,7 @@ const HeaderWrapper = styled.header`
   border: 1px solid #bbb;
   border-top: 0.4rem solid #2EC4B6
   padding: 1%;
-  height: 8rem;
+  height: 15vh;
   background-color: #EFFFE9
 `;
 
@@ -24,7 +25,7 @@ const Logo = styled.div`
 
 const LinkStyled = styled(Link)`
   display:block;
-  background-image: url("${props => props.user || './image/person.jpg'}");
+  background-image: url("${props => props.user || './image/blank.png'}");
   background-size: contain;
   background-repeat: no-repeat;
   background-position: center center;
@@ -34,14 +35,19 @@ const LinkStyled = styled(Link)`
   height: 4.5rem;
 `;
 
-const Header = ({ userImage, authors }) => {
+const Header = ({ current }) => {
   const hasToken = !!window.localStorage.token;
+  const mainContext = useContext(MainContext);
+  const { user } = mainContext.state;
 
   return (
     <HeaderWrapper className="header">
       <Logo />
-      <Search authors={authors} userImage={userImage} />
-      <LinkStyled to={hasToken ? '/user' : '/signin'} user={userImage} />
+      <Search current={current} />
+      <LinkStyled
+        to={hasToken ? '/user' : '/signin'}
+        user={user ? user.userimage : user}
+      />
     </HeaderWrapper>
   );
 };

@@ -30,8 +30,6 @@ const Item = styled.div`
   }
 `;
 
-// transform: ${props =>
-//   props.reverse ? `rotate(180deg) translateY(-${props.height * 2}px)` : ''}}
 const fillArray = (arr, num) => {
   if (arr === undefined) return [];
   const checkingArr = [...arr];

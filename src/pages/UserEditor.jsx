@@ -1,9 +1,9 @@
 import React, { useState, useContext } from 'react';
-import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import getBase64 from '../component/getBase64';
 import InputForm from '../component/form/Input';
 import { CreatorContext } from '../context/creator/creatorContext';
+import LinkButton from '../component/button/LinkBtn';
 
 const FormContainer = styled.div`
   position: absolute;
@@ -81,23 +81,6 @@ const FileLabel = styled.label`
   text-align: center;
 `;
 
-const CustomButton = styled(Link)`
-  color: #95bfb4;
-  margin-left: 25rem;
-  display: inline-block;
-  vertical-align: bottom;
-  border: 0;
-  outline: none;
-  cursor: pointer;
-  font-size: 3rem;
-  font-weight: bold;
-  color: #231f20;
-  background-color: #55fe47;
-  &:hover {
-    color: #231f20;
-  }
-`;
-
 function UserSetting({ location }) {
   const { userdesc, username } = location.state.user;
   const { modifyUserInfo } = useContext(CreatorContext);
@@ -135,14 +118,13 @@ function UserSetting({ location }) {
           onChange={e => getBase64(e.target.files[0], setUserImage)}
         />
       </FileLabel>
-      <CustomButton
-        to="/user"
+      <LinkButton
+        pathname="/user"
+        text="Submit"
         onClick={() => {
           modifyUserInfo({ userDesc, userImage, userName });
         }}
-      >
-        Submit
-      </CustomButton>
+      />
     </FormContainer>
   );
 }

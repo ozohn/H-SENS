@@ -106,6 +106,7 @@ function WorksEditor({ location }) {
       </FileLabel>
       <Button
         to="/user"
+        text={submit}
         onClick={() => {
           const body = {
             id: work ? work._id : null,

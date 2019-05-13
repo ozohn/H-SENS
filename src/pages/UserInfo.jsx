@@ -1,8 +1,8 @@
 import React, { useContext } from 'react';
-import { Link } from 'react-router-dom';
 import { Image } from 'semantic-ui-react';
 import styled from 'styled-components';
 import { CreatorContext } from '../context/creator/creatorContext';
+import LinkButton from '../component/button/LinkBtn';
 
 const Container = styled.div`
   position: relative;
@@ -34,23 +34,6 @@ const ImageContainer = styled(Image)`
   }
 `;
 
-const CustomButton = styled(Link)`
-  display: inline-block;
-  color: #95bfb4;
-  margin-right: 6rem;
-  border: 0;
-  outline: none;
-  cursor: pointer;
-  font-size: 2.4rem;
-  font-weight: bold;
-  color: #231f20;
-  background-color: #55fe47;
-  letter-spacing: -1px;
-  &:hover {
-    color: #231f20;
-  }
-`;
-
 export default function UserInfo() {
   const { state } = useContext(CreatorContext);
   const { userimage, userdesc, username } = state;
@@ -58,11 +41,11 @@ export default function UserInfo() {
     <Container>
       <HeadingContainer>
         <Heading2>{username}</Heading2>
-        <CustomButton
-          to={{ pathname: '/usereditor', state: { submit: 'Edit', user: state } }}
-        >
-          Edit
-        </CustomButton>
+        <LinkButton
+          pathname="/usereditor"
+          state={{ submit: 'Edit', user: state }}
+          text="Edit"
+        />
       </HeadingContainer>
       <ImageContainer src={userimage} verticalAlign="top" size="small" circular />
       <UserDesc>{userdesc}</UserDesc>

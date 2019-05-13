@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import Selector from './Selector';
+import SelectBox from './SelectBox';
 import SearchBtn from './SearchBtn';
 
 const SearchWrapper = styled.div`
@@ -30,8 +30,8 @@ const Line = styled.div`
   height: 65%;
 `;
 
-export default function Search({ authors, userImage }) {
-  const [selectedValue, setSelectedValue] = useState('');
+export default function Search({ current }) {
+  const [selectedValue, setSelectedValue] = useState(current);
   const [inputValue, setInputValue] = useState('');
 
   const handleSelectorChange = (e, { value }) => {
@@ -46,9 +46,9 @@ export default function Search({ authors, userImage }) {
     <SearchWrapper>
       <SearchContainer>
         <SearchInputer placeholder="which? who?" onChange={handleInputChange} />
-        <SearchBtn value={{ selectedValue, inputValue, authors, userImage }} />
+        <SearchBtn value={{ selectedValue, inputValue }} />
         <Line />
-        <Selector handleChange={handleSelectorChange} selectedValue={selectedValue} />
+        <SelectBox handleChange={handleSelectorChange} selected={selectedValue} />
       </SearchContainer>
     </SearchWrapper>
   );

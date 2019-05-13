@@ -24,10 +24,10 @@ const Path = () => {
           </WorkProvider>
           <Route path="/usereditor" component={UserEditor} />
         </CreatorProvider>
+        <Route path="/searched" component={Searched} />
       </MainProvider>
       <Route path="/signin" render={() => (hasToken ? <App /> : <SignIn />)} />
       <Route path="/signup" render={() => (hasToken ? <App /> : <SignUp />)} />
-      <Route path="/searched" component={Searched} />
     </Router>
   );
 };

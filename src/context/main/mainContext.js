@@ -6,6 +6,7 @@ const MainContext = React.createContext();
 
 const MainProvider = ({ children }) => {
   const [state, dispatch] = useReducer(mainReducer, []);
+  console.log(state);
   const fetchWorkData = async () => {
     const fetchedWorkData = await fetchData(
       `${process.env.REACT_APP_SERVER_URL}/main/works`,

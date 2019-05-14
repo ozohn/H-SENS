@@ -67,6 +67,7 @@ const SearchList = ({ searchedData }) => {
       </SearchListContainer>
     );
   }
+  return <></>;
 };
 
 export default SearchList;

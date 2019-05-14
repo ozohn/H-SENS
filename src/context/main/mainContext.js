@@ -5,12 +5,17 @@ import { mainReducer, getUserData, getWorks } from './mainReducer';
 const MainContext = React.createContext();
 
 const MainProvider = ({ children }) => {
-  const [state, dispatch] = useReducer(mainReducer, []);
-  console.log(state);
-  const fetchWorkData = async () => {
-    const fetchedWorkData = await fetchData(
+  const [state, dispatch] = useReducer(mainReducer, { index: 0, works: [] });
+  const fetchWorkData = pageIndex => {
+    const body = { index: pageIndex };
+    const jsonHeader = {
+      'Content-Type': 'application/json',
+    };
+    const fetchedWorkData = fetchData(
       `${process.env.REACT_APP_SERVER_URL}/main/works`,
       'POST',
+      jsonHeader,
+      JSON.stringify(body),
     );
     return fetchedWorkData;
   };
@@ -28,14 +33,16 @@ const MainProvider = ({ children }) => {
     return fetchedUserData;
   };
   useEffect(() => {
-    const workData = fetchWorkData();
-    workData.then(res => dispatch(getWorks(res)));
+    const userWork = fetchWorkData(0);
+    userWork.then(res => dispatch(getWorks(res)));
     const userData = fetchUserData();
     userData.then(res => dispatch(getUserData(res)));
   }, []);
 
   return (
-    <MainContext.Provider value={{ state, dispatch }}>{children}</MainContext.Provider>
+    <MainContext.Provider value={{ state, dispatch, fetchWorkData, getWorks }}>
+      {children}
+    </MainContext.Provider>
   );
 };
 

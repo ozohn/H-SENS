@@ -1,7 +1,7 @@
 import React, { useState, useContext } from 'react';
 import styled from 'styled-components';
 import getBase64 from '../../../util/getBase64';
-import InputForm from '../../presenter/form/Input';
+import InputForm from '../../presenter/forms/Input';
 import { CreatorContext } from '../../../context/creator/creatorContext';
 import LinkButton from '../../presenter/buttons/LinkBtn';
 

@@ -1,6 +1,9 @@
 import React, { useReducer } from 'react';
 import { Link } from 'react-router-dom';
-import { WholeContainer, SignLogo, Container, SignUpForm } from '../user/SignForm';
+import InputContainer from '../../presenter/layouts/InputContainer';
+import SignLogo from '../../presenter/icons/SignLogo';
+import SignUpForm from './SignUpForm';
+
 import fetchData from '../../../util/fetchData';
 import {
   signUpReducer,
@@ -12,7 +15,7 @@ import {
   setLoadingState,
 } from '../../../context/authorization/signUpReducer';
 
-const SignUp = () => {
+const SignUpComponent = () => {
   const [state, dispatch] = useReducer(signUpReducer, {
     id: { b: true },
     pw: { b: true },
@@ -102,16 +105,16 @@ const SignUp = () => {
   };
 
   return (
-    <WholeContainer>
+    <>
       <SignLogo as={Link} to="/" />
-      <Container>
+      <InputContainer>
         <SignUpForm
           Fns={{ checkId, checkPw, checkRePw, checkName, submit }}
           state={state}
         />
-      </Container>
-    </WholeContainer>
+      </InputContainer>
+    </>
   );
 };
 
-export default SignUp;
+export default SignUpComponent;

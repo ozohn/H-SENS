@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import MainPage from './component/presenter/layout/Main';
+import MainPage from './component/presenter/layouts/Main';
 
 const dotenv = require('dotenv');
 const dotenvExpand = require('dotenv-expand');

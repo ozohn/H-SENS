@@ -1,6 +1,8 @@
 import React, { useReducer } from 'react';
 import { Link } from 'react-router-dom';
-import { SignInForm, SignLogo, Container, WholeContainer } from '../user/SignForm';
+import SignInForm from './SignInForm';
+import SignLogo from '../../presenter/icons/SignLogo';
+import InputContainer from '../../presenter/layouts/InputContainer';
 import fetchData from '../../../util/fetchData';
 import {
   signInReducer,
@@ -10,7 +12,7 @@ import {
   setCorrectState,
 } from '../../../context/authorization/signInReducer';
 
-const SignIn = () => {
+const SignInComponent = () => {
   const [state, dispatch] = useReducer(signInReducer, { bCorrect: true });
 
   const getId = e => {
@@ -46,13 +48,13 @@ const SignIn = () => {
   };
 
   return (
-    <WholeContainer>
+    <>
       <SignLogo as={Link} to="/" />
-      <Container>
+      <InputContainer>
         <SignInForm Fns={{ getId, getPw, submit }} state={state} />
-      </Container>
-    </WholeContainer>
+      </InputContainer>
+    </>
   );
 };
 
-export default SignIn;
+export default SignInComponent;

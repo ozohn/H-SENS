@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import styled from 'styled-components';
+import { MainContext } from '../../../context/main/mainContext';
 
 const ListContainer = styled.div`
   position: absolute;
@@ -42,31 +43,27 @@ const Header = styled.div`
   border-bottom: 1px solid #011627;
 `;
 
-const SelectBoxComponent = ({ title, list, handleChange, selected }) => {
+const SelectBoxComponent = ({ list }) => {
+  const { handleFilterChange, state } = useContext(MainContext);
   const [selectorOpen, setSelectorOpen] = useState(false);
 
-  const selectorOpenHandler = (e, item) => {
-    if (item) {
-      handleChange(e, item);
-    }
-    setSelectorOpen(!selectorOpen);
-  };
-
+  const selectorHandler = (e, item) =>
+    item ? handleFilterChange(e, item) : setSelectorOpen(!selectorOpen);
   return (
-    <Wrapper onClick={selectorOpenHandler}>
+    <Wrapper onClick={selectorHandler}>
       {selectorOpen ? (
         <>
-          <Header>{selected || title}</Header>
+          <Header>{state.searchFilter}</Header>
           <ListContainer>
             {list.map(item => (
-              <List key={item.id} onClick={e => selectorOpenHandler(e, item)}>
+              <List key={item.id} onClick={e => selectorHandler(e, item)}>
                 {item.title}
               </List>
             ))}
           </ListContainer>
         </>
       ) : (
-        <Header>{selected || title}</Header>
+        <Header>{state.searchFilter}</Header>
       )}
     </Wrapper>
   );

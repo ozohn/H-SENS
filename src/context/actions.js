@@ -1,13 +1,32 @@
-// actions
-export const INITIAL = 'INITIAL';
-export const ADD = 'ADD';
-export const EDIT = 'EDIT';
-export const SHOW = 'SHOW';
-export const FETCH_USER_DATA = 'FETCH_USER_DATA';
-export const FETCH_WORKS = 'FETCH_WORKS';
-export const INPUT_ID = 'INPUT_ID';
-export const INPUT_PASSWORD = 'INPUT_PASSWORD';
-export const INPUT_RE_PASSWORD = 'INPUT_RE_PASSWORD';
-export const INPUT_NAME = 'INPUT_NAME';
-export const LOADING_STATE = 'LOADING_STATE';
-export const CORRECT_STATE = 'CORRECT_STATE';
+const INITIAL = 'INITIAL';
+const ADD = 'ADD';
+const EDIT = 'EDIT';
+const SHOW = 'SHOW';
+const REMOVE = 'REMOVE';
+const FETCH_USER_DATA = 'FETCH_USER_DATA';
+const FETCH_WORKS = 'FETCH_WORKS';
+const INPUT_ID = 'INPUT_ID';
+const INPUT_PASSWORD = 'INPUT_PASSWORD';
+const INPUT_RE_PASSWORD = 'INPUT_RE_PASSWORD';
+const INPUT_NAME = 'INPUT_NAME';
+const LOADING_STATE = 'LOADING_STATE';
+const CORRECT_STATE = 'CORRECT_STATE';
+const INPUT_CHANGE = '';
+const FILTER_CHANGE = 'FILTER_CHANGE';
+export {
+  INITIAL,
+  ADD,
+  EDIT,
+  REMOVE,
+  SHOW,
+  INPUT_CHANGE,
+  FILTER_CHANGE,
+  FETCH_USER_DATA,
+  FETCH_WORKS,
+  INPUT_ID,
+  INPUT_PASSWORD,
+  INPUT_RE_PASSWORD,
+  INPUT_NAME,
+  LOADING_STATE,
+  CORRECT_STATE,
+};

@@ -84,8 +84,19 @@ const EditBtnContainer = styled.div`
   );
 `;
 
-export default function WorksList() {
+export default function WorksList({ searchedData }) {
   const { state, showWork } = useContext(WorkContext);
+  if (searchedData) {
+    console.log(searchedData);
+    return (
+      <Works>
+        {searchedData &&
+          searchedData.map(work => (
+            <Work key={work._id} work={work} showWork={showWork} searched />
+          ))}
+      </Works>
+    );
+  }
   return (
     <>
       <Button to={{ pathname: '/workeditor', state: { submit: 'Add' } }}>create</Button>
@@ -97,7 +108,19 @@ export default function WorksList() {
   );
 }
 
-function Work({ work, showWork }) {
+function Work({ work, showWork, searched }) {
+  if (searched) {
+    return (
+      <ItemContainer>
+        <CustomImage
+          onClick={() => showWork(work)}
+          src={work.workimage}
+          verticalAlign="top"
+          size="medium"
+        />
+      </ItemContainer>
+    );
+  }
   return (
     <ItemContainer>
       <CustomImage

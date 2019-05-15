@@ -34,9 +34,26 @@ const ImageContainer = styled(Image)`
   }
 `;
 
-export default function UserInfo() {
+export default function UserInfo({ searchedData }) {
   const { state } = useContext(CreatorContext);
   const { userimage, userdesc, username } = state;
+  if (searchedData) {
+    console.log(searchedData);
+    return (
+      <Container>
+        <HeadingContainer>
+          <Heading2>{searchedData.username}</Heading2>
+        </HeadingContainer>
+        <ImageContainer
+          src={searchedData.userimage}
+          verticalAlign="top"
+          size="small"
+          circular
+        />
+        <UserDesc>{searchedData.userdesc}</UserDesc>
+      </Container>
+    );
+  }
   return (
     <Container>
       <HeadingContainer>

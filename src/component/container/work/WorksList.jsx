@@ -84,8 +84,24 @@ const EditBtnContainer = styled.div`
   );
 `;
 
+<<<<<<< HEAD:src/component/container/work/WorksList.jsx
 export default function WorksList() {
   const { state, showWork, removeWork } = useContext(WorkContext);
+=======
+export default function WorksList({ searchedData }) {
+  const { state, showWork } = useContext(WorkContext);
+  if (searchedData) {
+    console.log(searchedData);
+    return (
+      <Works>
+        {searchedData &&
+          searchedData.map(work => (
+            <Work key={work._id} work={work} showWork={showWork} searched />
+          ))}
+      </Works>
+    );
+  }
+>>>>>>> df5d6e1c3bceaaa751f01ae3eb95979886ee4011:src/component/presenter/layouts/WorksList.jsx
   return (
     <>
       <Button to={{ pathname: '/workeditor', state: { submit: 'Add' } }}>create</Button>
@@ -104,7 +120,23 @@ export default function WorksList() {
   );
 }
 
+<<<<<<< HEAD:src/component/container/work/WorksList.jsx
 function Work({ work, showWork, removeWork }) {
+=======
+function Work({ work, showWork, searched }) {
+  if (searched) {
+    return (
+      <ItemContainer>
+        <CustomImage
+          onClick={() => showWork(work)}
+          src={work.workimage}
+          verticalAlign="top"
+          size="medium"
+        />
+      </ItemContainer>
+    );
+  }
+>>>>>>> df5d6e1c3bceaaa751f01ae3eb95979886ee4011:src/component/presenter/layouts/WorksList.jsx
   return (
     <ItemContainer>
       <CustomImage

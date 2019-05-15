@@ -1,5 +1,6 @@
 /* eslint-disable no-underscore-dangle */
 import React from 'react';
+import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
 const SearchListContainer = styled.div`
@@ -25,7 +26,19 @@ const DimLayer = styled.div`
   opacity: 0.5;
 `;
 
-const UserImage = styled.div`
+const UserLink = styled(Link)`
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  box-shadow: 1px 1px 13px -3px #000;
+  width: 40%;
+  height: 30vh;
+  background: center / contain no-repeat url(${props => props.background});
+  background-color: #fff;
+`;
+
+const WorkImage = styled.div`
   position: absolute;
   top: 50%;
   left: 50%;
@@ -46,7 +59,10 @@ const SearchList = ({ searchedData }) => {
           return (
             <UserDataContainer key={v._id} background={v.userimage}>
               <DimLayer />
-              <UserImage background={v.userimage} />
+              <UserLink
+                background={v.userimage}
+                to={{ pathname: '/searchedUser', state: { userid: v.userid } }}
+              />
             </UserDataContainer>
           );
         })}
@@ -60,7 +76,7 @@ const SearchList = ({ searchedData }) => {
           return (
             <UserDataContainer key={v._id} background={v.workimage}>
               <DimLayer />
-              <UserImage background={v.workimage} />
+              <WorkImage background={v.workimage} />
             </UserDataContainer>
           );
         })}

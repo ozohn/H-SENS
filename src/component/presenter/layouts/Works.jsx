@@ -23,7 +23,16 @@ const Heading2 = styled.h2`
   font-weight: bold;
 `;
 
-export default function Works() {
+export default function Works({ searchedData }) {
+  if (searchedData) {
+    return (
+      <WorksContainer>
+        <Heading2>works</Heading2>
+        <WorkDetail searchedData={searchedData} />
+        <WorksList searchedData={searchedData} />
+      </WorksContainer>
+    );
+  }
   return (
     <WorksContainer>
       <Heading2>works</Heading2>

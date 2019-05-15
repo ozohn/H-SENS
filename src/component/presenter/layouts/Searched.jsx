@@ -1,11 +1,10 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 // import { Link } from 'react-router-dom';
 // import styled from 'styled-components';
 import Header from '../../container/header/header';
-import SearchList from '../../container/serachList/SearchList';
+import SearchList from '../../container/searchList/SearchList';
 
 import fetchData from '../../../util/fetchData';
-import { MainContext } from '../../../context/main/mainContext';
 
 const fetchSearched = async (selectedValue, searchValue) => {
   let searchUrl;
@@ -29,7 +28,6 @@ const fetchSearched = async (selectedValue, searchValue) => {
 const Searched = ({ location }) => {
   const sentValue = location.state.value;
   const [curData, setCurData] = useState('');
-  // const { state } = useContext(MainContext);
 
   useEffect(() => {
     const searchedData = fetchSearched(sentValue.selectedValue, sentValue.inputValue);

@@ -1,5 +1,5 @@
 /* eslint-disable no-underscore-dangle */
-import { INITIAL, ADD, EDIT, SHOW } from '../actions';
+import { INITIAL, ADD, EDIT, REMOVE, SHOW } from '../actions';
 
 // action creators
 const fetchInitial = data => ({
@@ -12,6 +12,10 @@ const fetchAdd = data => ({
 });
 const fetchEdit = data => ({
   type: EDIT,
+  data,
+});
+const fetchRemove = data => ({
+  type: REMOVE,
   data,
 });
 const updateView = data => ({
@@ -43,10 +47,13 @@ function workReducer(state, action) {
         return work;
       });
     }
+    case 'REMOVE': {
+      return state.filter(work => work._id !== action.data._id);
+    }
     default: {
       return state;
     }
   }
 }
 
-export { workReducer, fetchInitial, fetchAdd, fetchEdit, updateView };
+export { workReducer, fetchInitial, fetchAdd, fetchEdit, updateView, fetchRemove };

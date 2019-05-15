@@ -1,49 +1,74 @@
 import React, { useReducer, useEffect } from 'react';
 import fetchData from '../../util/fetchData';
-import { mainReducer, getUserData, getWorks } from './mainReducer';
+import {
+  mainReducer,
+  getUserData,
+  getWorks,
+  filterChange,
+  inputChange,
+} from './mainReducer';
 
 const MainContext = React.createContext();
 
 const MainProvider = ({ children }) => {
-  const [state, dispatch] = useReducer(mainReducer, { index: 0, works: [] });
+  const [state, dispatch] = useReducer(mainReducer, {
+    pageIndex: 1,
+    works: [],
+    searchFilter: 'Works',
+    curData: [],
+  });
   const fetchWorkData = pageIndex => {
     const body = { index: pageIndex };
-    const jsonHeader = {
-      'Content-Type': 'application/json',
-    };
+    const jsonHeader = { 'Content-Type': 'application/json' };
     const fetchedWorkData = fetchData(
-      `${process.env.REACT_APP_SERVER_URL}/main/works`,
+      `${process.env.REACT_APP_MAIN_WORKS}`,
       'POST',
       jsonHeader,
       JSON.stringify(body),
     );
     return fetchedWorkData;
   };
-  const fetchUserData = async () => {
-    const fetchedUserData = await fetchData(
-      `${process.env.REACT_APP_SERVER_URL}/creator`,
+  const fetchUserData = () => {
+    const tokenHeader = {
+      Authorization: `Bearer ${localStorage.getItem('token')}`,
+    };
+    const fetchedUserData = fetchData(
+      `${process.env.REACT_APP_CREATOR}`,
       'POST',
-      {
-        Authorization: `Bearer ${localStorage.getItem('token')}`,
-      },
+      tokenHeader,
     );
-    if (typeof fetchedUserData === 'string') {
-      return undefined;
-    }
     return fetchedUserData;
   };
   useEffect(() => {
-    const userWork = fetchWorkData(1);
-    userWork.then(res => dispatch(getWorks(res)));
-    const userData = fetchUserData();
-    userData.then(res => dispatch(getUserData(res)));
+    fetchWorkData(state.pageIndex).then(res => dispatch(getWorks(res)));
+    fetchUserData().then(res => {
+      dispatch(getUserData(res));
+    });
   }, []);
 
+  const handleFilterChange = (e, { value }) => {
+    dispatch(filterChange(value));
+  };
+
+  const handleInputChange = e => {
+    dispatch(inputChange(e.target.value));
+  };
+
   return (
-    <MainContext.Provider value={{ state, dispatch, fetchWorkData, getWorks }}>
+    <MainContext.Provider
+      value={{
+        state,
+        dispatch,
+        fetchWorkData,
+        getWorks,
+        handleFilterChange,
+        handleInputChange,
+      }}
+    >
       {children}
     </MainContext.Provider>
   );
 };
 
 export { MainProvider, MainContext };
+// V

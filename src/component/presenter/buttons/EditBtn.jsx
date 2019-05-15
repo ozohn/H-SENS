@@ -1,8 +1,6 @@
-import React from 'react';
 import styled from 'styled-components';
-import changeUserInfo from '../../../util/changeUserInfo';
 
-export default const CustomButton = styled.button`
+const CustomButton = styled.button`
   color: #95bfb4;
   margin-right: 3rem;
   border: 0;
@@ -15,3 +13,5 @@ export default const CustomButton = styled.button`
     border-bottom: 1px solid #95bfb4;
   }
 `;
+
+export default CustomButton;

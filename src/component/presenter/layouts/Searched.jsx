@@ -1,14 +1,13 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import Header from '../../container/header/header';
 import SearchList from '../../container/searchList/SearchList';
 
 import fetchData from '../../../util/fetchData';
+import { MainContext } from '../../../context/main/mainContext';
 
 const fetchSearched = async (selectedValue, searchValue) => {
   let searchUrl;
-  if (selectedValue === 'Author') {
-    searchUrl = `${process.env.REACT_APP_SERVER_URL}/search/author`;
-  } else if (selectedValue === 'Works') {
+  if (selectedValue === 'Works') {
     searchUrl = `${process.env.REACT_APP_SERVER_URL}/search/work`;
   } else {
     searchUrl = `${process.env.REACT_APP_SERVER_URL}/search/author`;
@@ -23,19 +22,19 @@ const fetchSearched = async (selectedValue, searchValue) => {
   return res;
 };
 
-const Searched = ({ location }) => {
-  const sentValue = location.state;
-  const [curData, setCurData] = useState('');
+const Searched = () => {
+  const { state } = useContext(MainContext);
+
   useEffect(() => {
-    const searchedData = fetchSearched(sentValue.selectedValue, sentValue.inputValue);
+    const searchedData = fetchSearched(state.searchFilter, state.searchValue);
     searchedData.then(res => {
       setCurData(res);
     });
-  }, [sentValue]);
+  }, [state.searchValue, state.searchFilter]);
 
   return (
     <>
-      <Header current={sentValue.selectedValue} />
+      <Header />
       <SearchList searchedData={curData} />
     </>
   );

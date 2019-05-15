@@ -9,11 +9,7 @@ dotenvExpand(myEnv);
 
 class App extends Component {
   render() {
-    return (
-      <>
-        <MainPage />
-      </>
-    );
+    return <MainPage />;
   }
 }
 

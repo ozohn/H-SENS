@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
+import { MainContext } from '../../../context/main/mainContext';
 
 const StyledSearchBtn = styled(Link)`
   &&& {
@@ -20,8 +21,8 @@ const StyledSearchBtn = styled(Link)`
   }
 `;
 
-const SearchBtn = ({ value }) => {
-  return <StyledSearchBtn to={{ pathname: '/searched', state: {value} }} />;
+const SearchBtn = () => {
+  return <StyledSearchBtn to="/searched" />;
 };
 
 export default SearchBtn;

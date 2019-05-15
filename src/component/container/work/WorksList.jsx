@@ -85,9 +85,8 @@ const EditBtnContainer = styled.div`
 `;
 
 export default function WorksList({ searchedData }) {
-  const { state, showWork } = useContext(WorkContext);
+  const { state, showWork, removeWork } = useContext(WorkContext);
   if (searchedData) {
-    console.log(searchedData);
     return (
       <Works>
         {searchedData &&
@@ -102,13 +101,20 @@ export default function WorksList({ searchedData }) {
       <Button to={{ pathname: '/workeditor', state: { submit: 'Add' } }}>create</Button>
       <Works>
         {state &&
-          state.map(work => <Work key={work._id} work={work} showWork={showWork} />)}
+          state.map(work => (
+            <Work
+              key={work._id}
+              work={work}
+              showWork={showWork}
+              removeWork={removeWork}
+            />
+          ))}
       </Works>
     </>
   );
 }
 
-function Work({ work, showWork, searched }) {
+function Work({ work, showWork, removeWork, searched }) {
   if (searched) {
     return (
       <ItemContainer>
@@ -136,6 +142,7 @@ function Work({ work, showWork, searched }) {
           }
         }}
       >
+        <Icon name="remove circle" onClick={() => removeWork({ workid: work._id })} />
         <Link to={{ pathname: '/workeditor', state: { submit: 'Edit', work } }}>
           <Icon name="eraser" />
         </Link>

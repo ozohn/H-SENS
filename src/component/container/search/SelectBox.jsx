@@ -20,7 +20,7 @@ const SelectorContainer = styled.div`
   }
 `;
 
-const SelectBox = ({ handleChange, selected }) => {
+const SelectBox = () => {
   const selectorList = [
     {
       id: 1,
@@ -36,12 +36,7 @@ const SelectBox = ({ handleChange, selected }) => {
 
   return (
     <SelectorContainer>
-      <SelectBoxComponent
-        title="Choose"
-        list={selectorList}
-        handleChange={handleChange}
-        selected={selected}
-      />
+      <SelectBoxComponent list={selectorList} />
     </SelectorContainer>
   );
 };

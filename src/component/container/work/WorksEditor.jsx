@@ -4,8 +4,8 @@ import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import getBase64 from '../../../util/getBase64';
 import { WorkContext } from '../../../context/work/workContext';
-import InputForm from '../forms/Input';
-import TuiEditor from '../editors/Editor';
+import InputForm from '../../presenter/forms/Input';
+import TuiEditor from '../../presenter/editors/Editor';
 
 const Container = styled.div`
   width: 60vw;

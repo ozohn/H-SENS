@@ -115,8 +115,8 @@ export default function List() {
 
   return (
     <>
-      <NextButton onClick={handleNextBtn}>다음</NextButton>
-      <BefButton onClick={handleBefBtn}>이전</BefButton>
+      <NextButton onClick={handleNextBtn}>???</NextButton>
+      <BefButton onClick={handleBefBtn}>???</BefButton>
       <ListContainer onScroll={multiScroll}>
         {!mainLoading ? (
           <>

@@ -1,11 +1,6 @@
 import styled from 'styled-components';
-<<<<<<< HEAD
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import UserInfo from '../../container/user/UserInfo';
-=======
-import React, { useEffect, useState } from 'react';
-import UserInfo from './UserInfo';
->>>>>>> df5d6e1c3bceaaa751f01ae3eb95979886ee4011
 import Works from './Works';
 import fetchData from '../../../util/fetchData';
 

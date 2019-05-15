@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import styled from 'styled-components';
 import SelectBox from './SelectBox';
 import SearchBtn from './SearchBtn';
+import { MainContext } from '../../../context/main/mainContext';
 
 const SearchWrapper = styled.div`
   width: 60%;
@@ -30,25 +31,23 @@ const Line = styled.div`
   height: 65%;
 `;
 
-export default function Search({ current }) {
-  const [selectedValue, setSelectedValue] = useState(current);
-  const [inputValue, setInputValue] = useState('');
+export default function Search() {
+  const { handleInputChange } = useContext(MainContext);
+  const [curData, setCurData] = useState('');
 
-  const handleSelectorChange = (e, { value }) => {
-    setSelectedValue(value);
+  const handleSearchRequest = () => {
+    const searchedData = fetchSearched(state.searchFilter, state.searchValue);
+    searchedData.then(res => {
+      setCurData(res);
+    });
   };
-
-  const handleInputChange = e => {
-    setInputValue(e.target.value);
-  };
-
   return (
     <SearchWrapper>
       <SearchContainer>
         <SearchInputer placeholder="which? who?" onChange={handleInputChange} />
-        <SearchBtn value={{ selectedValue, inputValue }} />
+        <SearchBtn onClick={handleSearchRequest} curData={curData} />
         <Line />
-        <SelectBox handleChange={handleSelectorChange} selected={selectedValue} />
+        <SelectBox />
       </SearchContainer>
     </SearchWrapper>
   );

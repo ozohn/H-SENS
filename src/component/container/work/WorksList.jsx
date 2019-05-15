@@ -84,14 +84,9 @@ const EditBtnContainer = styled.div`
   );
 `;
 
-<<<<<<< HEAD:src/component/container/work/WorksList.jsx
-export default function WorksList() {
-  const { state, showWork, removeWork } = useContext(WorkContext);
-=======
 export default function WorksList({ searchedData }) {
-  const { state, showWork } = useContext(WorkContext);
+  const { state, showWork, removeWork } = useContext(WorkContext);
   if (searchedData) {
-    console.log(searchedData);
     return (
       <Works>
         {searchedData &&
@@ -101,7 +96,6 @@ export default function WorksList({ searchedData }) {
       </Works>
     );
   }
->>>>>>> df5d6e1c3bceaaa751f01ae3eb95979886ee4011:src/component/presenter/layouts/WorksList.jsx
   return (
     <>
       <Button to={{ pathname: '/workeditor', state: { submit: 'Add' } }}>create</Button>
@@ -120,10 +114,7 @@ export default function WorksList({ searchedData }) {
   );
 }
 
-<<<<<<< HEAD:src/component/container/work/WorksList.jsx
-function Work({ work, showWork, removeWork }) {
-=======
-function Work({ work, showWork, searched }) {
+function Work({ work, showWork, removeWork, searched }) {
   if (searched) {
     return (
       <ItemContainer>
@@ -136,7 +127,6 @@ function Work({ work, showWork, searched }) {
       </ItemContainer>
     );
   }
->>>>>>> df5d6e1c3bceaaa751f01ae3eb95979886ee4011:src/component/presenter/layouts/WorksList.jsx
   return (
     <ItemContainer>
       <CustomImage

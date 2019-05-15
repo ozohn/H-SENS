@@ -33,7 +33,7 @@ const MainProvider = ({ children }) => {
     return fetchedUserData;
   };
   useEffect(() => {
-    const userWork = fetchWorkData(0);
+    const userWork = fetchWorkData(1);
     userWork.then(res => dispatch(getWorks(res)));
     const userData = fetchUserData();
     userData.then(res => dispatch(getUserData(res)));

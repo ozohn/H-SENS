@@ -1,6 +1,4 @@
 import React, { useEffect, useState } from 'react';
-// import { Link } from 'react-router-dom';
-// import styled from 'styled-components';
 import Header from '../../container/header/header';
 import SearchList from '../../container/searchList/SearchList';
 
@@ -26,15 +24,14 @@ const fetchSearched = async (selectedValue, searchValue) => {
 };
 
 const Searched = ({ location }) => {
-  const sentValue = location.state.value;
+  const sentValue = location.state;
   const [curData, setCurData] = useState('');
-
   useEffect(() => {
     const searchedData = fetchSearched(sentValue.selectedValue, sentValue.inputValue);
     searchedData.then(res => {
       setCurData(res);
     });
-  }, [sentValue.inputValue]);
+  }, [sentValue]);
 
   return (
     <>

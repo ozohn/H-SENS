@@ -21,7 +21,7 @@ const StyledSearchBtn = styled(Link)`
 `;
 
 const SearchBtn = ({ value }) => {
-  return <StyledSearchBtn as={Link} to={{ pathname: '/searched', state: { value } }} />;
+  return <StyledSearchBtn to={{ pathname: '/searched', state: {value} }} />;
 };
 
 export default SearchBtn;

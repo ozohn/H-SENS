@@ -7,15 +7,17 @@ import UserLinkBtn from '../../presenter/buttons/UserLinkBtn';
 import { MainContext } from '../../../context/main/mainContext';
 
 const Header = () => {
-  const mainContext = useContext(MainContext);
-  const { user } = mainContext.state;
+  const { state, getCreatorWorks } = useContext(MainContext);
+  const { user } = state;
+  console.log(state);
   return (
     <HeaderContainer className="header">
       <MainLogo />
       <Search />
       <UserLinkBtn
-        to={user ? '/user' : '/signin'}
-        userimage={user ? user.userimage : null}
+        to={user.userInfo.username ? '/user' : '/signin'}
+        userimage={user.userInfo.userimage ? user.userimage : null}
+        onClick={() => getCreatorWorks(user.userInfo.userid)}
       />
     </HeaderContainer>
   );

@@ -8,6 +8,10 @@ import {
   getCurrentData,
   showWorkDetail,
   editUser,
+  fetchRemoveWork,
+  fetchAddWork,
+  fetchEditWork,
+  fetchCreatorWorks,
 } from './mainReducer';
 
 const MainContext = React.createContext();
@@ -17,6 +21,7 @@ const MainProvider = ({ children }) => {
     pageIndex: 1,
     searchFilter: 'Works',
     curData: [],
+    user: { userInfo: {}, userWorks: {} },
   });
   const fetchWorkData = pageIndex => {
     const body = { index: pageIndex };
@@ -58,21 +63,18 @@ const MainProvider = ({ children }) => {
   };
 
   useEffect(() => {
-    fetchWorkData(state.pageIndex).then(res => dispatch(getCurrentData(res)));
+    fetchWorkData(state.pageIndex).then(res => dispatch(getCurrentData({ works: res })));
     fetchUserData().then(res => {
       dispatch(getUserData(res));
     });
   }, []);
 
   function modifyUserInfo({ username, userdesc, userimage }) {
-    console.log('hi');
-    console.log(username, userdesc);
     const body = {
       username,
       userdesc,
       userimage: userimage || state.user.userimage,
     };
-    
     fetchData(
       `${process.env.REACT_APP_SERVER_URL}/creator/edit`,
       'POST',
@@ -102,18 +104,90 @@ const MainProvider = ({ children }) => {
   function showWork(work) {
     dispatch(showWorkDetail(work));
   }
+
+  function modifyWorkInfo({ workid, worktitle, workdesc, workimage }) {
+    const body = {
+      workid,
+      worktitle,
+      workdesc,
+      workimage,
+    };
+
+    fetchData(
+      `${process.env.REACT_APP_SERVER_URL}/works/edit`,
+      'POST',
+      {
+        Authorization: `Bearer ${localStorage.getItem('token')}`,
+        'Content-Type': 'application/json',
+      },
+      JSON.stringify(body),
+    ).then(data => {
+      dispatch(fetchEditWork(data));
+    });
+  }
+  function removeWork({ workid }) {
+    const body = { workid };
+    fetchData(
+      `${process.env.REACT_APP_SERVER_URL}/works/remove`,
+      'POST',
+      {
+        Authorization: `Bearer ${localStorage.getItem('token')}`,
+        'Content-Type': 'application/json',
+      },
+      JSON.stringify(body),
+    ).then(data => {
+      dispatch(fetchRemoveWork(data));
+    });
+  }
+
+  function addWork({ worktitle, workdesc, workimage }) {
+    const body = {
+      worktitle,
+      workimage,
+      workdesc,
+    };
+    fetchData(
+      `${process.env.REACT_APP_SERVER_URL}/works/add`,
+      'POST',
+      {
+        Authorization: `Bearer ${localStorage.getItem('token')}`,
+        'Content-Type': 'application/json',
+      },
+      JSON.stringify(body),
+    ).then(data => {
+      dispatch(fetchAddWork(data));
+    });
+  }
+
+  function getCreatorWorks(userid) {
+    const jsonHeader = {
+      'Content-Type': 'application/json',
+    };
+    const body = {
+      userid,
+    };
+    const pageUrl = `${process.env.REACT_APP_SERVER_URL}/search/author/pages`;
+    const res = fetchData(pageUrl, 'POST', jsonHeader, JSON.stringify(body));
+    res.then(creator => {
+      dispatch(fetchCreatorWorks(creator));
+    });
+  }
+
   return (
     <MainContext.Provider
       value={{
         state,
         dispatch,
         fetchWorkData,
+        modifyWorkInfo,
+        getCreatorWorks,
         showWork,
         handleFilterChange,
         handleInputChange,
         handleSearchBtn,
-        showWorkDetail,
         modifyUserInfo,
+        removeWork,
+        addWork,
       }}
     >
       {children}

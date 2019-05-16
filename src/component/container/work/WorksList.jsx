@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { Image, Icon } from 'semantic-ui-react';
 import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
-import { WorkContext } from '../../../context/work/workContext';
+import { MainContext } from '../../../context/main/mainContext';
 
 const Works = styled.ul`
   position: absolute;
@@ -85,36 +85,30 @@ const EditBtnContainer = styled.div`
 `;
 
 export default function WorksList({ searchedData }) {
-  const { state, showWork, removeWork } = useContext(WorkContext);
-  if (searchedData) {
-    return (
-      <Works>
-        {searchedData &&
-          searchedData.map(work => (
-            <Work key={work._id} work={work} showWork={showWork} searched />
-          ))}
-      </Works>
-    );
-  }
+  const { state } = useContext(MainContext);
+  console.log(state.curData);
+  // if (searchedData) {
+  //   return (
+  //     <Works>
+  //       {searchedData &&
+  //         searchedData.map(work => <Work key={work._id} work={work} searched />)}
+  //     </Works>
+  //   );
+  // }
   return (
     <>
+      {/* {state.user.userInfo.userid === state.curData} */}
       <Button to={{ pathname: '/workeditor', state: { submit: 'Add' } }}>create</Button>
       <Works>
-        {state &&
-          state.map(work => (
-            <Work
-              key={work._id}
-              work={work}
-              showWork={showWork}
-              removeWork={removeWork}
-            />
-          ))}
+        {state.curData.works &&
+          state.curData.works.map(work => <Work key={work._id} work={work} />)}
       </Works>
     </>
   );
 }
 
-function Work({ work, showWork, removeWork, searched }) {
+function Work({ work, searched }) {
+  const { showWork, fetchRemoveWork } = useContext(MainContext);
   if (searched) {
     return (
       <ItemContainer>
@@ -142,7 +136,10 @@ function Work({ work, showWork, removeWork, searched }) {
           }
         }}
       >
-        <Icon name="remove circle" onClick={() => removeWork({ workid: work._id })} />
+        <Icon
+          name="remove circle"
+          onClick={() => fetchRemoveWork({ workid: work._id })}
+        />
         <Link to={{ pathname: '/workeditor', state: { submit: 'Edit', work } }}>
           <Icon name="eraser" />
         </Link>

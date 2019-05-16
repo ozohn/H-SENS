@@ -44,7 +44,7 @@ const ViewerContainer = styled.div`
 
 export default function WorkDetail() {
   const { state, showWork } = useContext(MainContext);
-  const target = state.curData.filter(v => v.workview)[0];
+  const target = state.curData.works && state.curData.works.filter(v => v.workview)[0];
   const { worktitle, workimage, workdesc } = target || {};
   if (target) {
     window.scrollTo(0, window.innerHeight);

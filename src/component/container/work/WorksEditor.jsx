@@ -3,7 +3,7 @@ import React, { useState, useRef, useContext } from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import getBase64 from '../../../util/getBase64';
-import { WorkContext } from '../../../context/work/workContext';
+import { MainContext } from '../../../context/main/mainContext';
 import InputForm from '../../presenter/forms/Input';
 import TuiEditor from '../../presenter/editors/Editor';
 
@@ -76,7 +76,7 @@ const FileLabel = styled.label`
 
 function WorksEditor({ location }) {
   const { submit, work } = location.state;
-  const { addWork, modifyWorkInfo } = useContext(WorkContext);
+  const { addWork, modifyWorkInfo } = useContext(MainContext);
   const workdesc = useRef(null);
   const [workimage, setWorkimage] = useState('');
   const [worktitle, setWorktitle] = useState(work ? work.worktitle : '');
@@ -109,7 +109,7 @@ function WorksEditor({ location }) {
         text={submit}
         onClick={() => {
           const body = {
-            id: work ? work._id : null,
+            workid: work ? work._id : null,
             workdesc: workdesc.current.getInstance().getValue(),
             workimage: work ? work.workimage : workimage,
             worktitle,

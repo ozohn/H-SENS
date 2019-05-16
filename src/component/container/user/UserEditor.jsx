@@ -85,13 +85,11 @@ const FileLabel = styled.label`
 function UserSetting() {
   // const { userdesc, username } = location.state.user;
   const { state, modifyUserInfo } = useContext(MainContext);
-  const { userdesc, username } = state.user;
-  console.log(state.user);
+  const { userdesc, username } = state.user.userInfo;
   // const { modifyUserInfo } = useContext(CreatorContext);
   const [userName, setUserName] = useState(username);
   const [userDesc, setUserDesc] = useState(userdesc);
   const [userImage, setUserImage] = useState();
-
   return (
     <FormContainer>
       <Fields>
@@ -125,9 +123,13 @@ function UserSetting() {
       <LinkButton
         pathname="/user"
         text="Submit"
-        onClick={() => {
-          modifyUserInfo({ userDesc, userImage, userName });
-        }}
+        cb={() =>
+          modifyUserInfo({
+            userdesc: userDesc,
+            userimage: userImage,
+            username: userName,
+          })
+        }
       />
     </FormContainer>
   );

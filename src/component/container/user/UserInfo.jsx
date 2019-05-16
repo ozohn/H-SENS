@@ -3,6 +3,7 @@ import { Image } from 'semantic-ui-react';
 import styled from 'styled-components';
 import { CreatorContext } from '../../../context/creator/creatorContext';
 import LinkButton from '../../presenter/buttons/LinkBtn';
+import { MainContext } from '../../../context/main/mainContext';
 
 const Container = styled.div`
   position: relative;
@@ -34,26 +35,26 @@ const ImageContainer = styled(Image)`
   }
 `;
 
-export default function UserInfo({ searchedData }) {
-  const { state } = useContext(CreatorContext);
-  const { userimage, userdesc, username } = state;
-  if (searchedData) {
-    console.log(searchedData);
-    return (
-      <Container>
-        <HeadingContainer>
-          <Heading2>{searchedData.username}</Heading2>
-        </HeadingContainer>
-        <ImageContainer
-          src={searchedData.userimage}
-          verticalAlign="top"
-          size="small"
-          circular
-        />
-        <UserDesc>{searchedData.userdesc}</UserDesc>
-      </Container>
-    );
-  }
+export default function UserInfo() {
+  const { state } = useContext(MainContext);
+  console.log(state);
+  const { userimage, userdesc, username } = state.curData.user;
+  // if (searchedData) {
+  //   return (
+  //     <Container>
+  //       <HeadingContainer>
+  //         <Heading2>{searchedData.username}</Heading2>
+  //       </HeadingContainer>
+  //       <ImageContainer
+  //         src={searchedData.userimage}
+  //         verticalAlign="top"
+  //         size="small"
+  //         circular
+  //       />
+  //       <UserDesc>{searchedData.userdesc}</UserDesc>
+  //     </Container>
+  //   );
+  // }
   return (
     <Container>
       <HeadingContainer>

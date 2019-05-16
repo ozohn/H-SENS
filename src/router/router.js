@@ -7,9 +7,7 @@ import Searched from '../component/presenter/layouts/Searched';
 import UserEditor from '../component/container/user/UserEditor';
 import WorksEditor from '../component/container/work/WorksEditor';
 import { MainProvider } from '../context/mainContext';
-import { CreatorProvider } from '../context/creator/creatorContext';
 import App from '../App';
-import { WorkProvider } from '../context/work/workContext';
 
 const Path = () => {
   const hasToken = !!window.localStorage.token;

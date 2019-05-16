@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import styled from 'styled-components';
 import { Viewer } from '@toast-ui/react-editor';
-import { WorkContext } from '../../../context/work/workContext';
+import { MainContext } from '../../../context/main/mainContext';
 
 const WorkCover = styled.div`
   display: ${props => (props.target ? 'block' : 'none')};
@@ -43,8 +43,8 @@ const ViewerContainer = styled.div`
 `;
 
 export default function WorkDetail() {
-  const { state, showWork } = useContext(WorkContext);
-  const target = state.filter(v => v.workview)[0];
+  const { state, showWork } = useContext(MainContext);
+  const target = state.curData.filter(v => v.workview)[0];
   const { worktitle, workimage, workdesc } = target || {};
   if (target) {
     window.scrollTo(0, window.innerHeight);

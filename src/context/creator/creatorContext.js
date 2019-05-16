@@ -18,7 +18,7 @@ function CreatorProvider({ children }) {
     const body = {
       username: userName,
       userdesc: userDesc,
-      userimage: userImage || state.userimage,
+      userimage: userImage || state.user.userimage,
     };
     fetchData(
       `${process.env.REACT_APP_SERVER_URL}/creator/edit`,

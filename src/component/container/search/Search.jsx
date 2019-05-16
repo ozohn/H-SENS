@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React, { useContext } from 'react';
 import styled from 'styled-components';
 import SelectBox from './SelectBox';
 import SearchBtn from './SearchBtn';
@@ -33,19 +33,12 @@ const Line = styled.div`
 
 export default function Search() {
   const { handleInputChange } = useContext(MainContext);
-  const [curData, setCurData] = useState('');
 
-  const handleSearchRequest = () => {
-    const searchedData = fetchSearched(state.searchFilter, state.searchValue);
-    searchedData.then(res => {
-      setCurData(res);
-    });
-  };
   return (
     <SearchWrapper>
       <SearchContainer>
         <SearchInputer placeholder="which? who?" onChange={handleInputChange} />
-        <SearchBtn onClick={handleSearchRequest} curData={curData} />
+        <SearchBtn />
         <Line />
         <SelectBox />
       </SearchContainer>

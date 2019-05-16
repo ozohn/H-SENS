@@ -1,7 +1,8 @@
 /* eslint-disable no-underscore-dangle */
-import React from 'react';
+import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
+import { MainContext } from '../../../context/main/mainContext';
 
 const SearchListContainer = styled.div`
   height: 85vh;
@@ -51,6 +52,7 @@ const WorkImage = styled.div`
 `;
 
 const SearchList = ({ searchedData }) => {
+  const { showWork } = useContext(MainContext);
   if (searchedData[0] === undefined) return <></>;
   if (searchedData[0].userimage) {
     return (
@@ -74,7 +76,12 @@ const SearchList = ({ searchedData }) => {
       <SearchListContainer>
         {searchedData.map(v => {
           return (
-            <UserDataContainer key={v._id} background={v.workimage}>
+            <UserDataContainer
+              work={v}
+              onClick={e => showWork(v)}
+              key={v._id}
+              background={v.workimage}
+            >
               <DimLayer />
               <WorkImage background={v.workimage} />
             </UserDataContainer>

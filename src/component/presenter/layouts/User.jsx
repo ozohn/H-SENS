@@ -18,7 +18,6 @@ const User = styled.div`
 
 function UserPage() {
   const { state } = useContext(MainContext);
-  console.log(state);
   if (state.curData.user) {
     return (
       <User>

@@ -109,9 +109,9 @@ function mainReducer(state, action) {
     case 'REMOVE_WORK': {
       return {
         ...state,
-        user: {
-          ...state.user,
-          userWorks: state.user.userWorks.filter(work => work._id !== action.data._id),
+        curData: {
+          ...state.curData,
+          works: state.curData.works.filter(work => work._id !== action.data._id),
         },
       };
     }
@@ -127,7 +127,7 @@ function mainReducer(state, action) {
         curData: {
           ...state.curData,
           works: state.curData.works.map(work => {
-            if (work.workid === action.data.workid) {
+            if (work._id === action.data._id) {
               return action.data;
             }
             return work;

@@ -46,7 +46,7 @@ const EditBtnContainer = styled.div`
 `;
 
 export default function Work({ work }) {
-  const { showWork, fetchRemoveWork } = useContext(MainContext);
+  const { showWork, removeWork } = useContext(MainContext);
   return (
     <ItemContainer>
       <CustomImage
@@ -62,10 +62,7 @@ export default function Work({ work }) {
           }
         }}
       >
-        <Icon
-          name="remove circle"
-          onClick={() => fetchRemoveWork({ workid: work._id })}
-        />
+        <Icon name="remove circle" onClick={() => removeWork({ workid: work._id })} />
         <Link to={{ pathname: '/workeditor', state: { submit: 'Edit', work } }}>
           <Icon name="eraser" />
         </Link>

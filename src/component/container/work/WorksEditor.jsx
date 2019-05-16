@@ -80,7 +80,6 @@ function WorksEditor({ location }) {
   const workdesc = useRef(null);
   const [workimage, setWorkimage] = useState('');
   const [worktitle, setWorktitle] = useState(work ? work.worktitle : '');
-
   return (
     <Container>
       <Field>
@@ -109,9 +108,8 @@ function WorksEditor({ location }) {
         text={submit}
         onClick={() => {
           const body = {
-            workid: work ? work._id : null,
             workdesc: workdesc.current.getInstance().getValue(),
-            workimage: work ? work.workimage : workimage,
+            workimage: workimage || work.workimage,
             worktitle,
           };
           if (submit === 'Edit') {

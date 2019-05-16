@@ -69,14 +69,11 @@ const MainProvider = ({ children }) => {
   }, []);
 
   useEffect(() => {
-    console.log(1);
     const preState = localStorage.getItem('data');
     dispatch(getPreState(JSON.parse(preState)));
-    console.log(JSON.parse(preState), state);
   }, []);
 
   useEffect(() => {
-    console.log(2);
     localStorage.setItem('data', JSON.stringify(state));
   }, [state]);
 
@@ -157,6 +154,7 @@ const MainProvider = ({ children }) => {
       workimage,
       workdesc,
     };
+    console.log(body);
     fetchData(
       `${process.env.REACT_APP_SERVER_URL}/works/add`,
       'POST',

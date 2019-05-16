@@ -21,18 +21,18 @@ const MainProvider = ({ children }) => {
     pageIndex: 1,
     searchFilter: 'Works',
     curData: [],
+    searchedData: [],
     user: { userInfo: {}, userWorks: {} },
   });
-  const fetchWorkData = pageIndex => {
-    const body = { index: pageIndex };
+  const fetchWorkData = () => {
+    const body = { index: state.pageIndex };
     const jsonHeader = { 'Content-Type': 'application/json' };
-    const fetchedWorkData = fetchData(
+    fetchData(
       `${process.env.REACT_APP_MAIN_WORKS}`,
       'POST',
       jsonHeader,
       JSON.stringify(body),
-    );
-    return fetchedWorkData;
+    ).then(res => dispatch(getCurrentData({ works: res })));
   };
   const fetchUserData = () => {
     const tokenHeader = {
@@ -63,7 +63,6 @@ const MainProvider = ({ children }) => {
   };
 
   useEffect(() => {
-    fetchWorkData(state.pageIndex).then(res => dispatch(getCurrentData({ works: res })));
     fetchUserData().then(res => {
       dispatch(getUserData(res));
     });

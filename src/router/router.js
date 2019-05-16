@@ -22,7 +22,6 @@ const Path = () => {
             <Route path="/user" component={UserPage} />
             <Route path="/workeditor" render={props => <WorksEditor {...props} />} />
             <Route path="/searchedUser" component={UserPage} />
-
             <Route path="/usereditor" component={UserEditor} />
           </CreatorProvider>
           <Route path="/searched" component={Searched} />

@@ -5,7 +5,7 @@ import styled, { keyframes } from 'styled-components';
 import ListContainer from '../../presenter/layouts/ListContainer';
 import fillArray from './fillArray';
 import Line from './Line';
-import { MainContext } from '../../../context/main/mainContext';
+import { MainContext } from '../../../context/mainContext';
 
 const NextButton = styled.button`
   position: absolute;

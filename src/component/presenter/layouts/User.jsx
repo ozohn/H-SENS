@@ -1,9 +1,8 @@
 import styled from 'styled-components';
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useContext } from 'react';
 import UserInfo from '../../container/user/UserInfo';
 import Works from './Works';
-import fetchData from '../../../util/fetchData';
-import { MainContext } from '../../../context/main/mainContext';
+import { MainContext } from '../../../context/mainContext';
 
 const User = styled.div`
   position: relative;

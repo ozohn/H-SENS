@@ -2,7 +2,7 @@
 import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
-import { MainContext } from '../../../context/main/mainContext';
+import { MainContext } from '../../../context/mainContext';
 
 const SearchListContainer = styled.div`
   height: 85vh;

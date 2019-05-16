@@ -2,7 +2,7 @@ import React, { useContext } from 'react';
 import styled from 'styled-components';
 import SelectBox from './SelectBox';
 import SearchBtn from './SearchBtn';
-import { MainContext } from '../../../context/main/mainContext';
+import { MainContext } from '../../../context/mainContext';
 
 const SearchWrapper = styled.div`
   width: 60%;

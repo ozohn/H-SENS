@@ -2,7 +2,7 @@
 import styled from 'styled-components';
 import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
-import { MainContext } from '../../../context/main/mainContext';
+import { MainContext } from '../../../context/mainContext';
 import Work from './Work';
 
 const Works = styled.ul`

@@ -13,7 +13,7 @@ import {
   FETCH_CREATOR_WORKS,
   FETCH_EDIT_WORK,
   FETCH_SEARCH_DATA,
-} from '../actions';
+} from './actions';
 
 // action creators
 const getUserData = data => ({

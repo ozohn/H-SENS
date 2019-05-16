@@ -3,7 +3,7 @@ import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
 import { Image, Icon } from 'semantic-ui-react';
 import styled from 'styled-components';
-import { MainContext } from '../../../context/main/mainContext';
+import { MainContext } from '../../../context/mainContext';
 
 const ItemContainer = styled.li`
   position: relative;

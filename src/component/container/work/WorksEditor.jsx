@@ -3,7 +3,7 @@ import React, { useState, useRef, useContext } from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import getBase64 from '../../../util/getBase64';
-import { MainContext } from '../../../context/main/mainContext';
+import { MainContext } from '../../../context/mainContext';
 import InputForm from '../../presenter/forms/Input';
 import TuiEditor from '../../presenter/editors/Editor';
 
@@ -113,6 +113,7 @@ function WorksEditor({ location }) {
             worktitle,
           };
           if (submit === 'Edit') {
+            body.workid = work._id;
             modifyWorkInfo(body);
           } else {
             addWork(body);

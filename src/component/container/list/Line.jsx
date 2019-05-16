@@ -3,7 +3,7 @@ import React, { useEffect, useRef, useContext } from 'react';
 import styled from 'styled-components';
 
 import { Image } from 'semantic-ui-react';
-import { MainContext } from '../../../context/main/mainContext';
+import { MainContext } from '../../../context/mainContext';
 import ItemContainer from '../../presenter/layouts/ItemContainer';
 
 const StyledImage = styled(Image)`

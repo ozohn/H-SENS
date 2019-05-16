@@ -1,5 +1,5 @@
 import React, { useReducer, useEffect } from 'react';
-import fetchData from '../../util/fetchData';
+import fetchData from '../util/fetchData';
 import {
   mainReducer,
   getUserData,
@@ -154,7 +154,6 @@ const MainProvider = ({ children }) => {
       workimage,
       workdesc,
     };
-    console.log(body);
     fetchData(
       `${process.env.REACT_APP_SERVER_URL}/works/add`,
       'POST',

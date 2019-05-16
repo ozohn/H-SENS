@@ -2,7 +2,7 @@ import React, { useEffect, useContext } from 'react';
 import List from '../../container/list/List';
 import Header from '../../container/header/header';
 import WorkDetail from '../../container/work/WorkDetail';
-import { MainContext } from '../../../context/main/mainContext';
+import { MainContext } from '../../../context/mainContext';
 
 const MainPage = () => {
   const { fetchWorkData } = useContext(MainContext);

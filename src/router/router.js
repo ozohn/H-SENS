@@ -6,7 +6,7 @@ import UserPage from '../component/presenter/layouts/User';
 import Searched from '../component/presenter/layouts/Searched';
 import UserEditor from '../component/container/user/UserEditor';
 import WorksEditor from '../component/container/work/WorksEditor';
-import { MainProvider } from '../context/main/mainContext';
+import { MainProvider } from '../context/mainContext';
 import { CreatorProvider } from '../context/creator/creatorContext';
 import App from '../App';
 import { WorkProvider } from '../context/work/workContext';

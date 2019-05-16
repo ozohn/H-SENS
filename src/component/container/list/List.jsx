@@ -63,16 +63,16 @@ export default function List() {
   const [lineWorks, setLineWorks] = useState({});
   const [mainLoading, setMainLoading] = useState(true);
   const mainContext = useContext(MainContext);
-  const { works } = mainContext.state;
-  const { dispatch, fetchWorkData, getWorks } = mainContext;
+  const { curData } = mainContext.state;
+  const { dispatch, fetchWorkData, getCurrentData } = mainContext;
 
   useEffect(() => {
-    if (works.length === 0) {
+    if (curData.length === 0) {
       setMainLoading(true);
       return;
     }
     const listNum = 24;
-    const filledArr = fillArray(works, listNum);
+    const filledArr = fillArray(curData, listNum);
     setLineWorks({
       firLine: filledArr.slice(0, 6),
       secLine: filledArr.slice(6, 12),
@@ -80,7 +80,7 @@ export default function List() {
       forthLine: filledArr.slice(18, 24),
     });
     setMainLoading(false);
-  }, [works]);
+  }, [curData]);
 
   const handleNextBtn = async () => {
     setMainLoading(true);
@@ -91,7 +91,7 @@ export default function List() {
     setPageIndex(addIndex);
     const data = fetchWorkData(addIndex);
     data.then(res => {
-      dispatch(getWorks(res));
+      dispatch(getCurrentData(res));
       setMainLoading(false);
     });
   };
@@ -104,7 +104,7 @@ export default function List() {
     setPageIndex(subIndex);
     const data = fetchWorkData(subIndex);
     data.then(res => {
-      dispatch(getWorks(res));
+      dispatch(getCurrentData(res));
       setMainLoading(false);
     });
   };

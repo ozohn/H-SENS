@@ -22,7 +22,8 @@ const StyledSearchBtn = styled(Link)`
 `;
 
 const SearchBtn = () => {
-  return <StyledSearchBtn to="/searched" />;
+  const { handleSearchBtn } = useContext(MainContext);
+  return <StyledSearchBtn onClick={handleSearchBtn} to="/searched" />;
 };
 
 export default SearchBtn;

@@ -1,9 +1,9 @@
 /* eslint-disable no-underscore-dangle */
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useContext } from 'react';
 import styled from 'styled-components';
 
 import { Image } from 'semantic-ui-react';
-
+import { MainContext } from '../../../context/main/mainContext';
 import ItemContainer from '../../presenter/layouts/ItemContainer';
 
 const StyledImage = styled(Image)`
@@ -15,6 +15,7 @@ const StyledImage = styled(Image)`
 `;
 
 const Line = ({ works, scroll, reverse }) => {
+  const { state, showWork } = useContext(MainContext);
   const sourse = 'https://react.semantic-ui.com/images/wireframe/image.png';
   const scrollEl = useRef(null);
   useEffect(() => {
@@ -29,7 +30,13 @@ const Line = ({ works, scroll, reverse }) => {
           return v.workimage === undefined ? (
             <StyledImage key={v._id} src={sourse} size="small" reverse />
           ) : (
-            <StyledImage key={v._id} src={v.workimage} size="small" reverse />
+            <StyledImage
+              onClick={() => showWork(v)}
+              key={v._id}
+              src={v.workimage}
+              size="small"
+              reverse
+            />
           );
         })}
       </ItemContainer>
@@ -41,7 +48,12 @@ const Line = ({ works, scroll, reverse }) => {
         return v.workimage === undefined ? (
           <StyledImage key={v._id} src={sourse} size="small" />
         ) : (
-          <StyledImage key={v._id} src={v.workimage} size="small" />
+          <StyledImage
+            onClick={() => showWork(v)}
+            key={v._id}
+            src={v.workimage}
+            size="small"
+          />
         );
       })}
     </ItemContainer>

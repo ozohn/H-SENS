@@ -4,6 +4,7 @@ import getBase64 from '../../../util/getBase64';
 import InputForm from '../../presenter/forms/Input';
 import { CreatorContext } from '../../../context/creator/creatorContext';
 import LinkButton from '../../presenter/buttons/LinkBtn';
+import { MainContext } from '../../../context/main/mainContext';
 
 const FormContainer = styled.div`
   position: absolute;
@@ -81,9 +82,12 @@ const FileLabel = styled.label`
   text-align: center;
 `;
 
-function UserSetting({ location }) {
-  const { userdesc, username } = location.state.user;
-  const { modifyUserInfo } = useContext(CreatorContext);
+function UserSetting() {
+  // const { userdesc, username } = location.state.user;
+  const { state, modifyUserInfo } = useContext(MainContext);
+  const { userdesc, username } = state.user;
+  console.log(state.user);
+  // const { modifyUserInfo } = useContext(CreatorContext);
   const [userName, setUserName] = useState(username);
   const [userDesc, setUserDesc] = useState(userdesc);
   const [userImage, setUserImage] = useState();

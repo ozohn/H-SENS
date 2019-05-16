@@ -16,17 +16,19 @@ const Path = () => {
   return (
     <Router>
       <MainProvider>
-        <Route path="/" exact component={App} />
-        <CreatorProvider>
-          <WorkProvider>
+        <WorkProvider>
+          <Route path="/" exact component={App} />
+          <CreatorProvider>
             <Route path="/user" component={UserPage} />
             <Route path="/workeditor" render={props => <WorksEditor {...props} />} />
             <Route path="/searchedUser" component={UserPage} />
-          </WorkProvider>
-          <Route path="/usereditor" component={UserEditor} />
-        </CreatorProvider>
-        <Route path="/searched" component={Searched} />
+
+            <Route path="/usereditor" component={UserEditor} />
+          </CreatorProvider>
+          <Route path="/searched" component={Searched} />
+        </WorkProvider>
       </MainProvider>
+
       <Route path="/signin" render={() => (hasToken ? <App /> : <SignIn />)} />
       <Route path="/signup" render={() => (hasToken ? <App /> : <SignUp />)} />
     </Router>

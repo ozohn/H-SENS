@@ -12,6 +12,7 @@ import {
   fetchAddWork,
   fetchEditWork,
   fetchCreatorWorks,
+  getSearchedData,
 } from './mainReducer';
 
 const MainContext = React.createContext();
@@ -68,6 +69,8 @@ const MainProvider = ({ children }) => {
     });
   }, []);
 
+  function getSearchData() {}
+
   function modifyUserInfo({ username, userdesc, userimage }) {
     const body = {
       username,
@@ -90,7 +93,7 @@ const MainProvider = ({ children }) => {
   const handleSearchBtn = () => {
     const searchedData = fetchSearched(state.searchFilter, state.searchValue);
     searchedData.then(res => {
-      dispatch(getCurrentData(res));
+      dispatch(getSearchedData(res));
     });
   };
   const handleFilterChange = (e, { value }) => {

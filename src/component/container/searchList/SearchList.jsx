@@ -53,11 +53,11 @@ const WorkImage = styled.div`
 
 const SearchList = () => {
   const { state, showWork, getCreatorWorks } = useContext(MainContext);
-  if (state.curData[0] === undefined) return <></>;
-  if (state.curData[0].username) {
+  if (state.searchedData[0] === undefined) return <></>;
+  if (state.searchedData[0].username) {
     return (
       <SearchListContainer>
-        {state.curData.map(v => {
+        {state.searchedData.map(v => {
           return (
             <UserDataContainer key={v._id} background={v.userimage}>
               <DimLayer />
@@ -72,10 +72,10 @@ const SearchList = () => {
       </SearchListContainer>
     );
   }
-  if (state.curData.works.worktitle) {
+  if (state.searchedData.works.worktitle) {
     return (
       <SearchListContainer>
-        {state.curData.works.map(v => {
+        {state.searchedData.works.map(v => {
           return (
             <UserDataContainer
               work={v}

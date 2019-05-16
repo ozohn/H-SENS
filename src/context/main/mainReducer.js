@@ -11,6 +11,7 @@ import {
   FETCH_ADD_WORK,
   FETCH_CREATOR_WORKS,
   FETCH_EDIT_WORK,
+  FETCH_SEARCH_DATA,
 } from '../actions';
 
 // action creators
@@ -58,6 +59,10 @@ const fetchEditWork = data => ({
   type: FETCH_EDIT_WORK,
   data,
 });
+const getSearchedData = data => ({
+  type: FETCH_SEARCH_DATA,
+  data,
+});
 
 function mainReducer(state, action) {
   switch (action.type) {
@@ -72,6 +77,9 @@ function mainReducer(state, action) {
     }
     case 'FETCH_CURRENT_DATA': {
       return { ...state, curData: action.data };
+    }
+    case 'FETCH_SEARCH_DATA': {
+      return { ...state, searchedData: action.data };
     }
     case 'EDIT_USER': {
       return { ...state, user: action.data };
@@ -134,4 +142,5 @@ export {
   fetchCreatorWorks,
   fetchAddWork,
   fetchEditWork,
+  getSearchedData,
 };

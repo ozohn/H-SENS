@@ -1,7 +1,6 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { Image } from 'semantic-ui-react';
 import styled from 'styled-components';
-import { CreatorContext } from '../../../context/creator/creatorContext';
 import LinkButton from '../../presenter/buttons/LinkBtn';
 import { MainContext } from '../../../context/main/mainContext';
 
@@ -37,24 +36,8 @@ const ImageContainer = styled(Image)`
 
 export default function UserInfo() {
   const { state } = useContext(MainContext);
-  console.log(state);
   const { userimage, userdesc, username } = state.curData.user;
-  // if (searchedData) {
-  //   return (
-  //     <Container>
-  //       <HeadingContainer>
-  //         <Heading2>{searchedData.username}</Heading2>
-  //       </HeadingContainer>
-  //       <ImageContainer
-  //         src={searchedData.userimage}
-  //         verticalAlign="top"
-  //         size="small"
-  //         circular
-  //       />
-  //       <UserDesc>{searchedData.userdesc}</UserDesc>
-  //     </Container>
-  //   );
-  // }
+  useEffect(() => {});
   return (
     <Container>
       <HeadingContainer>

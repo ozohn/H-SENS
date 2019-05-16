@@ -13,6 +13,7 @@ import {
   fetchEditWork,
   fetchCreatorWorks,
   getSearchedData,
+  getPreState,
 } from './mainReducer';
 
 const MainContext = React.createContext();
@@ -64,10 +65,20 @@ const MainProvider = ({ children }) => {
   };
 
   useEffect(() => {
-    fetchUserData().then(res => {
-      dispatch(getUserData(res));
-    });
+    fetchUserData().then(res => dispatch(getUserData(res)));
   }, []);
+
+  useEffect(() => {
+    console.log(1);
+    const preState = localStorage.getItem('data');
+    dispatch(getPreState(JSON.parse(preState)));
+    console.log(JSON.parse(preState), state);
+  }, []);
+
+  useEffect(() => {
+    console.log(2);
+    localStorage.setItem('data', JSON.stringify(state));
+  }, [state]);
 
   function modifyUserInfo({ username, userdesc, userimage }) {
     const body = {

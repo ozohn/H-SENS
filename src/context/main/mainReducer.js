@@ -1,5 +1,6 @@
 /* eslint-disable no-underscore-dangle */
 import {
+  GET_PRE_STATE,
   FETCH_USER_DATA,
   FETCH_WORKS,
   INPUT_CHANGE,
@@ -63,9 +64,16 @@ const getSearchedData = data => ({
   type: FETCH_SEARCH_DATA,
   data,
 });
+const getPreState = data => ({
+  type: GET_PRE_STATE,
+  data,
+});
 
 function mainReducer(state, action) {
   switch (action.type) {
+    case 'GET_PRE_STATE': {
+      return { ...action.data };
+    }
     case 'FETCH_USER_DATA': {
       return { ...state, user: action.data };
     }
@@ -88,6 +96,7 @@ function mainReducer(state, action) {
       return {
         ...state,
         curData: {
+          ...state.curData,
           works: state.curData.works.map(work => {
             if (work._id === action.data._id) {
               return { ...work, workview: !work.workview };
@@ -132,6 +141,7 @@ function mainReducer(state, action) {
 }
 
 export {
+  getPreState,
   mainReducer,
   getUserData,
   getWorks,

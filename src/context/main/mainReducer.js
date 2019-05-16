@@ -1,3 +1,4 @@
+/* eslint-disable no-underscore-dangle */
 import {
   FETCH_USER_DATA,
   FETCH_WORKS,
@@ -6,8 +7,11 @@ import {
   FETCH_CURRENT_DATA,
   SHOW_WORK,
   EDIT_USER,
+  REMOVE_WORK,
+  FETCH_ADD_WORK,
+  FETCH_CREATOR_WORKS,
+  FETCH_EDIT_WORK,
 } from '../actions';
-import { isObject } from '../../util/checkType';
 
 // action creators
 const getUserData = data => ({
@@ -38,15 +42,28 @@ const editUser = data => ({
   type: EDIT_USER,
   data,
 });
+const fetchRemoveWork = data => ({
+  type: REMOVE_WORK,
+  data,
+});
+const fetchCreatorWorks = data => ({
+  type: FETCH_CREATOR_WORKS,
+  data,
+});
+const fetchAddWork = data => ({
+  type: FETCH_ADD_WORK,
+  data,
+});
+const fetchEditWork = data => ({
+  type: FETCH_EDIT_WORK,
+  data,
+});
 
 function mainReducer(state, action) {
   switch (action.type) {
     case 'FETCH_USER_DATA': {
-      return isObject(action.data) ? { ...state, user: action.data } : { ...state };
+      return { ...state, user: action.data };
     }
-    // case 'FETCH_WORKS': {
-    //   return { ...state, works: action.data };
-    // }
     case 'INPUT_CHANGE': {
       return { ...state, searchValue: action.data };
     }
@@ -70,6 +87,35 @@ function mainReducer(state, action) {
         }),
       };
     }
+    case 'REMOVE_WORK': {
+      return {
+        ...state,
+        user: {
+          ...state.user,
+          userWorks: state.user.userWorks.filter(work => work._id !== action.data._id),
+        },
+      };
+    }
+    case 'FETCH_CREATOR_WORKS': {
+      return { ...state, curData: action.data };
+    }
+    case 'FETCH_ADD_WORK': {
+      return { ...state, curData: { ...state.curData, works: action.data } };
+    }
+    case 'FETCH_EDIT_WORK': {
+      return {
+        ...state,
+        curData: {
+          ...state.curData,
+          works: state.curData.works.map(work => {
+            if (work.workid === action.data.workid) {
+              return action.data;
+            }
+            return work;
+          }),
+        },
+      };
+    }
     default:
       return state;
   }
@@ -84,4 +130,8 @@ export {
   getCurrentData,
   showWorkDetail,
   editUser,
+  fetchRemoveWork,
+  fetchCreatorWorks,
+  fetchAddWork,
+  fetchEditWork,
 };

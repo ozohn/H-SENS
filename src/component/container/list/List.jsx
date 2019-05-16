@@ -72,7 +72,7 @@ export default function List() {
       return;
     }
     const listNum = 24;
-    const filledArr = fillArray(curData, listNum);
+    const filledArr = fillArray(curData.works, listNum);
     setLineWorks({
       firLine: filledArr.slice(0, 6),
       secLine: filledArr.slice(6, 12),

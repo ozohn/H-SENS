@@ -51,19 +51,20 @@ const WorkImage = styled.div`
   background-color: #fff;
 `;
 
-const SearchList = ({ searchedData }) => {
-  const { showWork } = useContext(MainContext);
-  if (searchedData[0] === undefined) return <></>;
-  if (searchedData[0].userimage) {
+const SearchList = () => {
+  const { state, showWork, getCreatorWorks } = useContext(MainContext);
+  if (state.curData[0] === undefined) return <></>;
+  if (state.curData[0].username) {
     return (
       <SearchListContainer>
-        {searchedData.map(v => {
+        {state.curData.map(v => {
           return (
             <UserDataContainer key={v._id} background={v.userimage}>
               <DimLayer />
               <UserLink
                 background={v.userimage}
                 to={{ pathname: '/searchedUser', state: { userid: v.userid } }}
+                onClick={() => getCreatorWorks(v.userid)}
               />
             </UserDataContainer>
           );
@@ -71,14 +72,14 @@ const SearchList = ({ searchedData }) => {
       </SearchListContainer>
     );
   }
-  if (searchedData[0].worktitle) {
+  if (state.curData.works.worktitle) {
     return (
       <SearchListContainer>
-        {searchedData.map(v => {
+        {state.curData.works.map(v => {
           return (
             <UserDataContainer
               work={v}
-              onClick={e => showWork(v)}
+              onClick={() => showWork(v)}
               key={v._id}
               background={v.workimage}
             >

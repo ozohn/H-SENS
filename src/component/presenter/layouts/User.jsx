@@ -1,8 +1,9 @@
 import styled from 'styled-components';
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import UserInfo from '../../container/user/UserInfo';
 import Works from './Works';
 import fetchData from '../../../util/fetchData';
+import { MainContext } from '../../../context/main/mainContext';
 
 const User = styled.div`
   position: relative;
@@ -15,38 +16,17 @@ const User = styled.div`
   }
 `;
 
-function UserPage({ location }) {
-  const [pageLoading, setPageLoading] = useState(true);
-  const [searchedUserData, setSearchedUserData] = useState(null);
-  const [searchedWorksData, setSearchedWorksData] = useState(null);
-  useEffect(() => {
-    if (location.state) {
-      console.log(location);
-      const jsonHeader = {
-        'Content-Type': 'application/json',
-      };
-      const body = {
-        userid: location.state.userid,
-      };
-      const signUpUrl = `${process.env.REACT_APP_SERVER_URL}/search/author/pages`;
-      const res = fetchData(signUpUrl, 'POST', jsonHeader, JSON.stringify(body));
-      res.then(jsonData => {
-        setSearchedUserData(jsonData.user);
-        setSearchedWorksData(jsonData.works);
-        setPageLoading(false);
-      });
-    } else {
-      setPageLoading(false);
-    }
-  }, [location]);
-  return pageLoading ? (
-    <></>
-  ) : (
-    <User>
-      <UserInfo searchedData={searchedUserData} />
-      <Works searchedData={searchedWorksData} />
-    </User>
-  );
+function UserPage() {
+  const { state } = useContext(MainContext);
+  if (state.curData.user) {
+    return (
+      <User>
+        <UserInfo />
+        <Works />
+      </User>
+    );
+  }
+  return null;
 }
 
 export default UserPage;

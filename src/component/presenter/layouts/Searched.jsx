@@ -5,12 +5,11 @@ import WorkDetail from '../../container/work/WorkDetail';
 import { MainContext } from '../../../context/main/mainContext';
 
 const Searched = () => {
-  const { state } = useContext(MainContext);
   return (
     <>
       <Header />
       <WorkDetail />
-      <SearchList searchedData={state.curData} />
+      <SearchList />
     </>
   );
 };

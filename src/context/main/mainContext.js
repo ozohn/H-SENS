@@ -69,8 +69,6 @@ const MainProvider = ({ children }) => {
     });
   }, []);
 
-  function getSearchData() {}
-
   function modifyUserInfo({ username, userdesc, userimage }) {
     const body = {
       username,

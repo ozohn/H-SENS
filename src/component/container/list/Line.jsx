@@ -15,14 +15,14 @@ const StyledImage = styled(Image)`
 `;
 
 const Line = ({ works, scroll, reverse }) => {
-  const { state, showWork } = useContext(MainContext);
+  const { showWork } = useContext(MainContext);
   const sourse = 'https://react.semantic-ui.com/images/wireframe/image.png';
   const scrollEl = useRef(null);
   useEffect(() => {
     if (scrollEl.current === null) return;
     scrollEl.current.style.transform = `rotate(180deg) translateY(-${scroll * 2}px)`;
   }, [scroll]);
-  if (works === undefined) return <></>;
+  if (works === undefined) return null;
   if (reverse) {
     return (
       <ItemContainer ref={scrollEl} reverse>

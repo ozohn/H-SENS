@@ -87,12 +87,14 @@ function mainReducer(state, action) {
     case 'SHOW_WORK': {
       return {
         ...state,
-        curData: state.curData.map(work => {
-          if (work._id === action.data._id) {
-            return { ...work, workview: !work.workview };
-          }
-          return work;
-        }),
+        curData: {
+          works: state.curData.works.map(work => {
+            if (work._id === action.data._id) {
+              return { ...work, workview: !work.workview };
+            }
+            return work;
+          }),
+        },
       };
     }
     case 'REMOVE_WORK': {

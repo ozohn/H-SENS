@@ -41,17 +41,15 @@ const MainProvider = ({ children }) => {
     dispatch(changeIndex(1));
     return 1;
   };
-  const fetchWorkData = async indexData => {
+  const fetchWorkData = async (indexData, setLoader) => {
     let indexNum;
     if (indexData === 'init') {
       indexNum = await initIndex();
     }
     if (indexData === 'add') {
-      console.log('add');
       indexNum = await addIndex();
     }
     if (indexData === 'sub') {
-      console.log('sub');
       indexNum = await subIndex();
     }
     const body = { index: indexNum };
@@ -62,13 +60,10 @@ const MainProvider = ({ children }) => {
       jsonHeader,
       JSON.stringify(body),
     );
-    console.log(data);
+    if (setLoader) {
+      setLoader(false);
+    }
     dispatch(getCurrentData({ works: data }));
-    // .then(res => {
-    //   console.log('workDataFetched');
-    //   console.log(state.pageIndex);
-    //   dispatch(getCurrentData({ works: res }));
-    // });
   };
   const fetchUserData = () => {
     const tokenHeader = {

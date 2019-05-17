@@ -34,7 +34,9 @@ const MainProvider = ({ children }) => {
       'POST',
       jsonHeader,
       JSON.stringify(body),
-    ).then(res => dispatch(getCurrentData({ works: res })));
+    ).then(res => {
+      dispatch(getCurrentData({ works: res }));
+    });
   };
   const fetchUserData = () => {
     const tokenHeader = {
@@ -65,6 +67,7 @@ const MainProvider = ({ children }) => {
   };
 
   useEffect(() => {
+    if (localStorage.getItem('token') === null) return;
     fetchUserData().then(res => dispatch(getUserData(res)));
   }, []);
 

@@ -63,14 +63,7 @@ export default function List() {
   const [mainLoading, setMainLoading] = useState(true);
   const mainContext = useContext(MainContext);
   const { curData } = mainContext.state;
-  const {
-    dispatch,
-    fetchWorkData,
-    getCurrentData,
-    state,
-    subIndex,
-    addIndex,
-  } = mainContext;
+  const { fetchWorkData, state } = mainContext;
 
   useEffect(() => {
     if (curData === undefined) {

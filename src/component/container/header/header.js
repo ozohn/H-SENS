@@ -4,7 +4,7 @@ import Search from '../search/Search';
 import HeaderContainer from '../../presenter/layouts/HeaderContainer';
 import MainLogo from '../../presenter/icons/MainLogo';
 import UserLinkBtn from '../../presenter/buttons/UserLinkBtn';
-import { MainContext } from '../../../context/main/mainContext';
+import { MainContext } from '../../../context/mainContext';
 
 const Header = () => {
   const { state, getCreatorWorks } = useContext(MainContext);

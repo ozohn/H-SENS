@@ -1,5 +1,5 @@
 import React, { useReducer, useEffect } from 'react';
-import fetchData from '../../util/fetchData';
+import fetchData from '../util/fetchData';
 import {
   mainReducer,
   getUserData,
@@ -12,6 +12,8 @@ import {
   fetchAddWork,
   fetchEditWork,
   fetchCreatorWorks,
+  getSearchedData,
+  getPreState,
 } from './mainReducer';
 
 const MainContext = React.createContext();
@@ -21,18 +23,18 @@ const MainProvider = ({ children }) => {
     pageIndex: 1,
     searchFilter: 'Works',
     curData: [],
+    searchedData: [],
     user: { userInfo: {}, userWorks: {} },
   });
-  const fetchWorkData = pageIndex => {
-    const body = { index: pageIndex };
+  const fetchWorkData = () => {
+    const body = { index: state.pageIndex };
     const jsonHeader = { 'Content-Type': 'application/json' };
-    const fetchedWorkData = fetchData(
+    fetchData(
       `${process.env.REACT_APP_MAIN_WORKS}`,
       'POST',
       jsonHeader,
       JSON.stringify(body),
-    );
-    return fetchedWorkData;
+    ).then(res => dispatch(getCurrentData({ works: res })));
   };
   const fetchUserData = () => {
     const tokenHeader = {
@@ -63,11 +65,17 @@ const MainProvider = ({ children }) => {
   };
 
   useEffect(() => {
-    fetchWorkData(state.pageIndex).then(res => dispatch(getCurrentData({ works: res })));
-    fetchUserData().then(res => {
-      dispatch(getUserData(res));
-    });
+    fetchUserData().then(res => dispatch(getUserData(res)));
   }, []);
+
+  useEffect(() => {
+    const preState = localStorage.getItem('data');
+    dispatch(getPreState(JSON.parse(preState)));
+  }, []);
+
+  useEffect(() => {
+    localStorage.setItem('data', JSON.stringify(state));
+  }, [state]);
 
   function modifyUserInfo({ username, userdesc, userimage }) {
     const body = {
@@ -91,7 +99,7 @@ const MainProvider = ({ children }) => {
   const handleSearchBtn = () => {
     const searchedData = fetchSearched(state.searchFilter, state.searchValue);
     searchedData.then(res => {
-      dispatch(getCurrentData(res));
+      dispatch(getSearchedData(res));
     });
   };
   const handleFilterChange = (e, { value }) => {

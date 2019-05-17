@@ -26,6 +26,7 @@ const MainProvider = ({ children }) => {
     searchedData: [],
     user: { userInfo: {}, userWorks: {} },
   });
+
   const fetchWorkData = () => {
     const body = { index: state.pageIndex };
     const jsonHeader = { 'Content-Type': 'application/json' };
@@ -65,22 +66,7 @@ const MainProvider = ({ children }) => {
     const res = fetchData(searchUrl, 'POST', jsonHeader, JSON.stringify(userData));
     return res;
   };
-
-  useEffect(() => {
-    if (localStorage.getItem('token') === null) return;
-    fetchUserData().then(res => dispatch(getUserData(res)));
-  }, []);
-
-  useEffect(() => {
-    const preState = localStorage.getItem('data');
-    dispatch(getPreState(JSON.parse(preState)));
-  }, []);
-
-  useEffect(() => {
-    localStorage.setItem('data', JSON.stringify(state));
-  }, [state]);
-
-  function modifyUserInfo({ username, userdesc, userimage }) {
+  const modifyUserInfo = ({ username, userdesc, userimage }) => {
     const body = {
       username,
       userdesc,
@@ -97,33 +83,14 @@ const MainProvider = ({ children }) => {
     ).then(data => {
       dispatch(editUser(data));
     });
-  }
-
-  const handleSearchBtn = () => {
-    const searchedData = fetchSearched(state.searchFilter, state.searchValue);
-    searchedData.then(res => {
-      dispatch(getSearchedData(res));
-    });
   };
-  const handleFilterChange = (e, { value }) => {
-    dispatch(filterChange(value));
-  };
-
-  const handleInputChange = e => {
-    dispatch(inputChange(e.target.value));
-  };
-  function showWork(work) {
-    dispatch(showWorkDetail(work));
-  }
-
-  function modifyWorkInfo({ workid, worktitle, workdesc, workimage }) {
+  const modifyWorkInfo = ({ workid, worktitle, workdesc, workimage }) => {
     const body = {
       workid,
       worktitle,
       workdesc,
       workimage,
     };
-
     fetchData(
       `${process.env.REACT_APP_SERVER_URL}/works/edit`,
       'POST',
@@ -135,8 +102,8 @@ const MainProvider = ({ children }) => {
     ).then(data => {
       dispatch(fetchEditWork(data));
     });
-  }
-  function removeWork({ workid }) {
+  };
+  const removeWork = ({ workid }) => {
     const body = { workid };
     fetchData(
       `${process.env.REACT_APP_SERVER_URL}/works/remove`,
@@ -149,9 +116,8 @@ const MainProvider = ({ children }) => {
     ).then(data => {
       dispatch(fetchRemoveWork(data));
     });
-  }
-
-  function addWork({ worktitle, workdesc, workimage }) {
+  };
+  const addWork = ({ worktitle, workdesc, workimage }) => {
     const body = {
       worktitle,
       workimage,
@@ -168,9 +134,8 @@ const MainProvider = ({ children }) => {
     ).then(data => {
       dispatch(fetchAddWork(data));
     });
-  }
-
-  function getCreatorWorks(userid) {
+  };
+  const getCreatorWorks = userid => {
     const jsonHeader = {
       'Content-Type': 'application/json',
     };
@@ -182,7 +147,37 @@ const MainProvider = ({ children }) => {
     res.then(creator => {
       dispatch(fetchCreatorWorks(creator));
     });
-  }
+  };
+
+  useEffect(() => {
+    if (localStorage.getItem('token') === null) return;
+    fetchUserData().then(res => dispatch(getUserData(res)));
+  }, []);
+
+  useEffect(() => {
+    const preState = localStorage.getItem('data');
+    dispatch(getPreState(JSON.parse(preState)));
+  }, []);
+
+  useEffect(() => {
+    localStorage.setItem('data', JSON.stringify(state));
+  }, [state]);
+
+  const handleSearchBtn = () => {
+    const searchedData = fetchSearched(state.searchFilter, state.searchValue);
+    searchedData.then(res => {
+      dispatch(getSearchedData(res));
+    });
+  };
+  const handleFilterChange = (e, { value }) => {
+    dispatch(filterChange(value));
+  };
+  const handleInputChange = e => {
+    dispatch(inputChange(e.target.value));
+  };
+  const showWork = work => {
+    dispatch(showWorkDetail(work));
+  };
 
   return (
     <MainContext.Provider

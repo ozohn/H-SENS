@@ -72,7 +72,7 @@ const getPreState = data => ({
 function mainReducer(state, action) {
   switch (action.type) {
     case 'GET_PRE_STATE': {
-      return { ...action.data };
+      return { ...state, ...action.data };
     }
     case 'FETCH_USER_DATA': {
       return { ...state, user: action.data };

@@ -44,6 +44,7 @@ const ViewerContainer = styled.div`
 
 export default function WorkDetail() {
   const { state, showWork } = useContext(MainContext);
+  if (state.curData === undefined) return null;
   const target = state.curData.works && state.curData.works.filter(v => v.workview)[0];
   const { worktitle, workimage, workdesc } = target || {};
   if (target) {

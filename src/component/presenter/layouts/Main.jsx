@@ -5,8 +5,9 @@ import WorkDetail from '../../container/work/WorkDetail';
 import { MainContext } from '../../../context/mainContext';
 
 const MainPage = () => {
-  const { fetchWorkData } = useContext(MainContext);
+  const { fetchWorkData, initIndex } = useContext(MainContext);
   useEffect(() => {
+    initIndex();
     fetchWorkData();
   }, []);
 

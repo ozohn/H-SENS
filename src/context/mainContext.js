@@ -14,6 +14,7 @@ import {
   fetchCreatorWorks,
   getSearchedData,
   getPreState,
+  changeIndex,
 } from './mainReducer';
 
 const MainContext = React.createContext();
@@ -26,18 +27,48 @@ const MainProvider = ({ children }) => {
     searchedData: [],
     user: { userInfo: {}, userWorks: {} },
   });
-
-  const fetchWorkData = () => {
-    const body = { index: state.pageIndex };
+  const addIndex = () => {
+    const addedIndex = state.pageIndex + 1;
+    dispatch(changeIndex(addedIndex));
+    return addedIndex;
+  };
+  const subIndex = () => {
+    const subedIndex = state.pageIndex - 1;
+    dispatch(changeIndex(subedIndex));
+    return subedIndex;
+  };
+  const initIndex = () => {
+    dispatch(changeIndex(1));
+    return 1;
+  };
+  const fetchWorkData = async indexData => {
+    let indexNum;
+    if (indexData === 'init') {
+      indexNum = await initIndex();
+    }
+    if (indexData === 'add') {
+      console.log('add');
+      indexNum = await addIndex();
+    }
+    if (indexData === 'sub') {
+      console.log('sub');
+      indexNum = await subIndex();
+    }
+    const body = { index: indexNum };
     const jsonHeader = { 'Content-Type': 'application/json' };
-    fetchData(
+    const data = await fetchData(
       `${process.env.REACT_APP_MAIN_WORKS}`,
       'POST',
       jsonHeader,
       JSON.stringify(body),
-    ).then(res => {
-      dispatch(getCurrentData({ works: res }));
-    });
+    );
+    console.log(data);
+    dispatch(getCurrentData({ works: data }));
+    // .then(res => {
+    //   console.log('workDataFetched');
+    //   console.log(state.pageIndex);
+    //   dispatch(getCurrentData({ works: res }));
+    // });
   };
   const fetchUserData = () => {
     const tokenHeader = {
@@ -48,6 +79,7 @@ const MainProvider = ({ children }) => {
       'POST',
       tokenHeader,
     );
+    console.log('userDataFetched');
     return fetchedUserData;
   };
   const fetchSearched = (selectedValue, searchValue) => {
@@ -64,6 +96,7 @@ const MainProvider = ({ children }) => {
       inputValue: searchValue,
     };
     const res = fetchData(searchUrl, 'POST', jsonHeader, JSON.stringify(userData));
+    console.log('dataSearched');
     return res;
   };
   const modifyUserInfo = ({ username, userdesc, userimage }) => {
@@ -145,6 +178,7 @@ const MainProvider = ({ children }) => {
     const pageUrl = `${process.env.REACT_APP_SERVER_URL}/search/author/pages`;
     const res = fetchData(pageUrl, 'POST', jsonHeader, JSON.stringify(body));
     res.then(creator => {
+      console.log('getCreatorWorks');
       dispatch(fetchCreatorWorks(creator));
     });
   };
@@ -155,12 +189,19 @@ const MainProvider = ({ children }) => {
   }, []);
 
   useEffect(() => {
+    console.log('historyChange');
     const preState = localStorage.getItem('data');
     dispatch(getPreState(JSON.parse(preState)));
   }, []);
 
   useEffect(() => {
-    localStorage.setItem('data', JSON.stringify(state));
+    const stateObj = {
+      curData: state.curData,
+      searchedData: state.searchedData,
+      user: state.user,
+    };
+    console.log(state.pageIndex);
+    localStorage.setItem('data', JSON.stringify(stateObj));
   }, [state]);
 
   const handleSearchBtn = () => {
@@ -182,6 +223,9 @@ const MainProvider = ({ children }) => {
   return (
     <MainContext.Provider
       value={{
+        initIndex,
+        addIndex,
+        subIndex,
         state,
         dispatch,
         fetchWorkData,

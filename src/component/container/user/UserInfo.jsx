@@ -36,7 +36,7 @@ const ImageContainer = styled(Image)`
 
 export default function UserInfo() {
   const { state } = useContext(MainContext);
-  const { userimage, userdesc, username } = state.curData.user;
+  const { userimage, userdesc, username } = state.user.userInfo;
   useEffect(() => {});
   return (
     <Container>

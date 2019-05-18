@@ -27,74 +27,61 @@ const MainProvider = ({ children }) => {
     searchedData: [],
     user: { userInfo: {}, userWorks: {}, login: false },
   });
-  const addIndex = () => {
-    const addedIndex = state.pageIndex + 1;
-    dispatch(changeIndex(addedIndex));
-    return addedIndex;
+  const tokenInfo = {
+    Authorization: `Bearer ${localStorage.getItem('token')}`,
   };
-  const subIndex = () => {
-    const subedIndex = state.pageIndex - 1;
-    dispatch(changeIndex(subedIndex));
-    return subedIndex;
+  const contentJson = {
+    'Content-Type': 'application/json',
   };
-  const initIndex = () => {
-    dispatch(changeIndex(1));
-    return 1;
+
+  const changePageIndex = indexData => {
+    const pageIndex = {
+      init: 1,
+      add: state.pageIndex + 1,
+      sub: state.pageIndex - 1,
+    };
+    const indexNum = pageIndex[indexData];
+    dispatch(changeIndex(indexNum));
+    return indexNum;
   };
+
   const fetchWorkData = async (indexData, setLoader) => {
-    let indexNum;
-    if (indexData === 'init') {
-      indexNum = await initIndex();
-    }
-    if (indexData === 'add') {
-      indexNum = await addIndex();
-    }
-    if (indexData === 'sub') {
-      indexNum = await subIndex();
-    }
-    const body = { index: indexNum };
-    const jsonHeader = { 'Content-Type': 'application/json' };
+    const header = { ...contentJson };
+    const body = { index: changePageIndex(indexData) };
     const data = await fetchData(
       `${process.env.REACT_APP_MAIN_WORKS}`,
       'POST',
-      jsonHeader,
+      header,
       JSON.stringify(body),
     );
-    if (setLoader) {
-      setLoader(false);
-    }
+    if (setLoader) setLoader(false);
     dispatch(getCurrentData({ works: data }));
   };
   const fetchUserData = async () => {
-    const tokenHeader = {
-      Authorization: `Bearer ${localStorage.getItem('token')}`,
-    };
+    const header = { ...tokenInfo };
     const fetchedUserData = await fetchData(
       `${process.env.REACT_APP_CREATOR}`,
       'POST',
-      tokenHeader,
+      header,
     );
-    console.log(fetchedUserData);
     dispatch(getUserData(fetchedUserData));
   };
   const fetchSearched = (selectedValue, searchValue) => {
-    let searchUrl;
-    if (selectedValue === 'Works') {
-      searchUrl = `${process.env.REACT_APP_SERVER_URL}/search/work`;
-    } else {
-      searchUrl = `${process.env.REACT_APP_SERVER_URL}/search/author`;
-    }
-    const jsonHeader = {
-      'Content-Type': 'application/json',
+    const searchUrl = {
+      Works: `${process.env.REACT_APP_SERVER_URL}/search/work`,
+      Authors: `${process.env.REACT_APP_SERVER_URL}/search/author`,
     };
+    const header = { ...contentJson };
     const userData = {
       inputValue: searchValue,
     };
-    const res = fetchData(searchUrl, 'POST', jsonHeader, JSON.stringify(userData));
-    console.log('dataSearched');
-    return res;
+    return fetchData(searchUrl[selectedValue], 'POST', header, JSON.stringify(userData));
   };
   const modifyUserInfo = ({ username, userdesc, userimage }) => {
+    const header = {
+      ...tokenInfo,
+      ...contentJson,
+    };
     const body = {
       username,
       userdesc,
@@ -103,16 +90,17 @@ const MainProvider = ({ children }) => {
     fetchData(
       `${process.env.REACT_APP_SERVER_URL}/creator/edit`,
       'POST',
-      {
-        Authorization: `Bearer ${localStorage.getItem('token')}`,
-        'Content-Type': 'application/json',
-      },
+      header,
       JSON.stringify(body),
     ).then(data => {
       dispatch(editUser(data));
     });
   };
   const modifyWorkInfo = ({ workid, worktitle, workdesc, workimage }) => {
+    const header = {
+      ...tokenInfo,
+      ...contentJson,
+    };
     const body = {
       workid,
       worktitle,
@@ -122,30 +110,32 @@ const MainProvider = ({ children }) => {
     fetchData(
       `${process.env.REACT_APP_SERVER_URL}/works/edit`,
       'POST',
-      {
-        Authorization: `Bearer ${localStorage.getItem('token')}`,
-        'Content-Type': 'application/json',
-      },
+      header,
       JSON.stringify(body),
     ).then(data => {
       dispatch(fetchEditWork(data));
     });
   };
   const removeWork = ({ workid }) => {
+    const header = {
+      ...tokenInfo,
+      ...contentJson,
+    };
     const body = { workid };
     fetchData(
       `${process.env.REACT_APP_SERVER_URL}/works/remove`,
       'POST',
-      {
-        Authorization: `Bearer ${localStorage.getItem('token')}`,
-        'Content-Type': 'application/json',
-      },
+      header,
       JSON.stringify(body),
     ).then(data => {
       dispatch(fetchRemoveWork(data));
     });
   };
   const addWork = ({ worktitle, workdesc, workimage }) => {
+    const header = {
+      ...tokenInfo,
+      ...contentJson,
+    };
     const body = {
       worktitle,
       workimage,
@@ -154,37 +144,25 @@ const MainProvider = ({ children }) => {
     fetchData(
       `${process.env.REACT_APP_SERVER_URL}/works/add`,
       'POST',
-      {
-        Authorization: `Bearer ${localStorage.getItem('token')}`,
-        'Content-Type': 'application/json',
-      },
+      header,
       JSON.stringify(body),
     ).then(data => {
       dispatch(fetchAddWork(data));
     });
   };
   const getCreatorWorks = userid => {
-    const jsonHeader = {
-      'Content-Type': 'application/json',
-    };
+    const header = { ...contentJson };
     const body = {
       userid,
     };
     const pageUrl = `${process.env.REACT_APP_SERVER_URL}/search/author/pages`;
-    const res = fetchData(pageUrl, 'POST', jsonHeader, JSON.stringify(body));
+    const res = fetchData(pageUrl, 'POST', header, JSON.stringify(body));
     res.then(creator => {
-      console.log('getCreatorWorks');
       dispatch(fetchCreatorWorks(creator));
     });
   };
 
   useEffect(() => {
-    // if (localStorage.getItem('token') === null) return;
-    // fetchUserData().then(res => dispatch(getUserData(res)));
-  }, []);
-
-  useEffect(() => {
-    console.log('historyChange');
     const preState = localStorage.getItem('data');
     dispatch(getPreState(JSON.parse(preState)));
   }, []);
@@ -195,7 +173,6 @@ const MainProvider = ({ children }) => {
       searchedData: state.searchedData,
       user: state.user,
     };
-    console.log(state.pageIndex);
     localStorage.setItem('data', JSON.stringify(stateObj));
   }, [state]);
 
@@ -218,9 +195,6 @@ const MainProvider = ({ children }) => {
   return (
     <MainContext.Provider
       value={{
-        initIndex,
-        addIndex,
-        subIndex,
         state,
         dispatch,
         fetchWorkData,
@@ -242,4 +216,3 @@ const MainProvider = ({ children }) => {
 };
 
 export { MainProvider, MainContext };
-// V

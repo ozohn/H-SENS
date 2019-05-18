@@ -97,7 +97,7 @@ function mainReducer(state, action) {
     case 'EDIT_USER': {
       return {
         ...state,
-        user: { ...state.user, userInfo: action.data },
+        user: { ...state.user, userInfo: { ...state.user.userInfo, ...action.data } },
         curData: { ...state.curData, user: action.data },
       };
     }
@@ -145,7 +145,6 @@ function mainReducer(state, action) {
       };
     }
     case 'CHANGE_INDEX': {
-      console.log(action.data);
       return { ...state, pageIndex: action.data };
     }
     default:

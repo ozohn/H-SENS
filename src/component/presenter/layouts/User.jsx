@@ -1,8 +1,7 @@
 import styled from 'styled-components';
-import React, { useContext } from 'react';
+import React from 'react';
 import UserInfo from '../../container/user/UserInfo';
 import Works from './Works';
-import { MainContext } from '../../../context/mainContext';
 
 const User = styled.div`
   position: relative;
@@ -16,16 +15,12 @@ const User = styled.div`
 `;
 
 function UserPage() {
-  const { state } = useContext(MainContext);
-  if (state.curData.user) {
-    return (
-      <User>
-        <UserInfo />
-        <Works />
-      </User>
-    );
-  }
-  return null;
+  return (
+    <User>
+      <UserInfo />
+      <Works />
+    </User>
+  );
 }
 
 export default UserPage;

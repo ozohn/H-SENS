@@ -81,11 +81,9 @@ const FileLabel = styled.label`
   text-align: center;
 `;
 
-function UserSetting() {
-  // const { userdesc, username } = location.state.user;
+function UserEditor() {
   const { state, modifyUserInfo } = useContext(MainContext);
   const { userdesc, username } = state.user.userInfo;
-  // const { modifyUserInfo } = useContext(CreatorContext);
   const [userName, setUserName] = useState(username);
   const [userDesc, setUserDesc] = useState(userdesc);
   const [userImage, setUserImage] = useState();
@@ -134,4 +132,4 @@ function UserSetting() {
   );
 }
 
-export default UserSetting;
+export default UserEditor;

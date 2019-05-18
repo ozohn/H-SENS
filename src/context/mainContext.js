@@ -25,7 +25,7 @@ const MainProvider = ({ children }) => {
     searchFilter: 'Works',
     curData: [],
     searchedData: [],
-    user: { userInfo: {}, userWorks: {} },
+    user: { userInfo: {}, userWorks: {}, login: false },
   });
   const addIndex = () => {
     const addedIndex = state.pageIndex + 1;
@@ -65,17 +65,17 @@ const MainProvider = ({ children }) => {
     }
     dispatch(getCurrentData({ works: data }));
   };
-  const fetchUserData = () => {
+  const fetchUserData = async () => {
     const tokenHeader = {
       Authorization: `Bearer ${localStorage.getItem('token')}`,
     };
-    const fetchedUserData = fetchData(
+    const fetchedUserData = await fetchData(
       `${process.env.REACT_APP_CREATOR}`,
       'POST',
       tokenHeader,
     );
-    console.log('userDataFetched');
-    return fetchedUserData;
+    console.log(fetchedUserData);
+    dispatch(getUserData(fetchedUserData));
   };
   const fetchSearched = (selectedValue, searchValue) => {
     let searchUrl;
@@ -179,8 +179,8 @@ const MainProvider = ({ children }) => {
   };
 
   useEffect(() => {
-    if (localStorage.getItem('token') === null) return;
-    fetchUserData().then(res => dispatch(getUserData(res)));
+    // if (localStorage.getItem('token') === null) return;
+    // fetchUserData().then(res => dispatch(getUserData(res)));
   }, []);
 
   useEffect(() => {
@@ -224,6 +224,7 @@ const MainProvider = ({ children }) => {
         state,
         dispatch,
         fetchWorkData,
+        fetchUserData,
         modifyWorkInfo,
         getCreatorWorks,
         showWork,

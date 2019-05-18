@@ -1,18 +1,15 @@
 /* eslint-disable no-underscore-dangle */
 import React, { useEffect, useRef, useContext } from 'react';
 import styled from 'styled-components';
-
-import { Image } from 'semantic-ui-react';
 import { MainContext } from '../../../context/mainContext';
 import ItemContainer from '../../presenter/layouts/ItemContainer';
 
 const StyledImage = styled.div`
   display: block;
   width: 100%;
-  height: 28.3vh;
-  border: 1px solid #221e1f;
+  height: 42.5vh;
   transform: rotate(${props => (props.reverse ? '180deg' : '0')});
-  background: no-repeat center / 120% url(${props => props.src});
+  background: no-repeat center / 80% url(${props => props.src});
 `;
 
 const Line = ({ works, scroll, reverse }) => {

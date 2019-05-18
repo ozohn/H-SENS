@@ -83,7 +83,7 @@ const FileLabel = styled.label`
 
 function UserEditor() {
   const { state, modifyUserInfo } = useContext(MainContext);
-  const { userdesc, username } = state.user.userInfo;
+  const { userimage, userdesc, username } = state.curData.user;
   const [userName, setUserName] = useState(username);
   const [userDesc, setUserDesc] = useState(userdesc);
   const [userImage, setUserImage] = useState();
@@ -123,7 +123,7 @@ function UserEditor() {
         cb={() =>
           modifyUserInfo({
             userdesc: userDesc,
-            userimage: userImage,
+            userimage: userImage || userimage,
             username: userName,
           })
         }

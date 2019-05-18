@@ -72,9 +72,7 @@ const MainProvider = ({ children }) => {
       Authors: `${process.env.REACT_APP_SERVER_URL}/search/author`,
     };
     const header = { ...contentJson };
-    const userData = {
-      inputValue: searchValue,
-    };
+    const userData = { inputValue: searchValue };
     return fetchData(searchUrl[selectedValue], 'POST', header, JSON.stringify(userData));
   };
   const modifyUserInfo = ({ username, userdesc, userimage }) => {
@@ -150,16 +148,12 @@ const MainProvider = ({ children }) => {
       dispatch(fetchAddWork(data));
     });
   };
-  const getCreatorWorks = userid => {
+  const getCreatorWorks = async userid => {
     const header = { ...contentJson };
-    const body = {
-      userid,
-    };
+    const body = { userid };
     const pageUrl = `${process.env.REACT_APP_SERVER_URL}/search/author/pages`;
-    const res = fetchData(pageUrl, 'POST', header, JSON.stringify(body));
-    res.then(creator => {
-      dispatch(fetchCreatorWorks(creator));
-    });
+    const creator = await fetchData(pageUrl, 'POST', header, JSON.stringify(body));
+    dispatch(fetchCreatorWorks(creator));
   };
 
   useEffect(() => {
@@ -176,11 +170,9 @@ const MainProvider = ({ children }) => {
     localStorage.setItem('data', JSON.stringify(stateObj));
   }, [state]);
 
-  const handleSearchBtn = () => {
-    const searchedData = fetchSearched(state.searchFilter, state.searchValue);
-    searchedData.then(res => {
-      dispatch(getSearchedData(res));
-    });
+  const handleSearchBtn = async () => {
+    const searchedData = await fetchSearched(state.searchFilter, state.searchValue);
+    dispatch(getSearchedData(searchedData));
   };
   const handleFilterChange = (e, { value }) => {
     dispatch(filterChange(value));

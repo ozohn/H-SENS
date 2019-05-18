@@ -59,15 +59,14 @@ const Walking = styled.div`
 
 export default function List() {
   const [scroll, setScroll] = useState('');
-  const [pageIndex, setPageIndex] = useState(1);
   const [lineWorks, setLineWorks] = useState({});
   const [mainLoading, setMainLoading] = useState(true);
   const mainContext = useContext(MainContext);
   const { curData } = mainContext.state;
-  const { dispatch, fetchWorkData, getCurrentData } = mainContext;
+  const { fetchWorkData, state } = mainContext;
 
   useEffect(() => {
-    if (curData.length === 0) {
+    if (curData === undefined) {
       setMainLoading(true);
       return;
     }
@@ -87,26 +86,16 @@ export default function List() {
     if (mainLoading) {
       return;
     }
-    const addIndex = pageIndex + 1;
-    setPageIndex(addIndex);
-    const data = fetchWorkData(addIndex);
-    data.then(res => {
-      dispatch(getCurrentData(res));
-      setMainLoading(false);
-    });
+    await fetchWorkData('add');
+    await setMainLoading(false);
   };
-  const handleBefBtn = () => {
+  const handleBefBtn = async () => {
     setMainLoading(true);
     if (mainLoading) {
       return;
     }
-    const subIndex = pageIndex - 1;
-    setPageIndex(subIndex);
-    const data = fetchWorkData(subIndex);
-    data.then(res => {
-      dispatch(getCurrentData(res));
-      setMainLoading(false);
-    });
+    await fetchWorkData('sub');
+    await setMainLoading(false);
   };
 
   const multiScroll = e => {
@@ -115,8 +104,13 @@ export default function List() {
 
   return (
     <>
-      <NextButton onClick={handleNextBtn}>???</NextButton>
-      <BefButton onClick={handleBefBtn}>???</BefButton>
+      <NextButton onClick={handleNextBtn}>Next</NextButton>
+      <BefButton
+        onClick={handleBefBtn}
+        disabled={state.pageIndex <= 1 ? 'disabled' : null}
+      >
+        Before
+      </BefButton>
       <ListContainer onScroll={multiScroll}>
         {!mainLoading ? (
           <>

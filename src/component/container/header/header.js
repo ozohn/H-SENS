@@ -9,8 +9,8 @@ import { MainContext } from '../../../context/mainContext';
 const Header = () => {
   const { state, getCreatorWorks } = useContext(MainContext);
   const { user } = state;
-  console.log(state);
-  return (
+
+  return user.userInfo ? (
     <HeaderContainer className="header">
       <MainLogo />
       <Search />
@@ -20,6 +20,8 @@ const Header = () => {
         onClick={() => getCreatorWorks(user.userInfo.userid)}
       />
     </HeaderContainer>
+  ) : (
+    <></>
   );
 };
 

@@ -13,6 +13,7 @@ import {
   FETCH_CREATOR_WORKS,
   FETCH_EDIT_WORK,
   FETCH_SEARCH_DATA,
+  CHANGE_INDEX,
 } from './actions';
 
 // action creators
@@ -68,11 +69,15 @@ const getPreState = data => ({
   type: GET_PRE_STATE,
   data,
 });
+const changeIndex = data => ({
+  type: CHANGE_INDEX,
+  data,
+});
 
 function mainReducer(state, action) {
   switch (action.type) {
     case 'GET_PRE_STATE': {
-      return { ...action.data };
+      return { ...state, ...action.data };
     }
     case 'FETCH_USER_DATA': {
       return { ...state, user: action.data };
@@ -135,6 +140,10 @@ function mainReducer(state, action) {
         },
       };
     }
+    case 'CHANGE_INDEX': {
+      console.log(action.data);
+      return { ...state, pageIndex: action.data };
+    }
     default:
       return state;
   }
@@ -155,4 +164,5 @@ export {
   fetchAddWork,
   fetchEditWork,
   getSearchedData,
+  changeIndex,
 };

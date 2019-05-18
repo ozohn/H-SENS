@@ -12,6 +12,7 @@ const FILTER_CHANGE = 'FILTER_CHANGE';
 const SHOW_WORK = 'SHOW_WORK';
 const EDIT_USER = 'EDIT_USER';
 const REMOVE_WORK = 'REMOVE_WORK';
+const CHANGE_INDEX = 'CHANGE_INDEX';
 
 // auth context
 const INPUT_ID = 'INPUT_ID';
@@ -41,4 +42,5 @@ export {
   CORRECT_STATE,
   FETCH_CURRENT_DATA,
   EDIT_USER,
+  CHANGE_INDEX,
 };

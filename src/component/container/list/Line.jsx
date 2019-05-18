@@ -6,12 +6,13 @@ import { Image } from 'semantic-ui-react';
 import { MainContext } from '../../../context/mainContext';
 import ItemContainer from '../../presenter/layouts/ItemContainer';
 
-const StyledImage = styled(Image)`
-  &&& {
-    width: 100%;
-    height: 28.3vh;
-    transform: rotate(${props => (props.reverse ? '180deg' : '0')});
-  }
+const StyledImage = styled.div`
+  display: block;
+  width: 100%;
+  height: 28.3vh;
+  border: 1px solid #221e1f;
+  transform: rotate(${props => (props.reverse ? '180deg' : '0')});
+  background: no-repeat center / 120% url(${props => props.src});
 `;
 
 const Line = ({ works, scroll, reverse }) => {

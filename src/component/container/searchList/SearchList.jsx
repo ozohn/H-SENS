@@ -72,10 +72,10 @@ const SearchList = () => {
       </SearchListContainer>
     );
   }
-  if (state.searchedData.works.worktitle) {
+  if (state.searchedData[0].worktitle) {
     return (
       <SearchListContainer>
-        {state.searchedData.works.map(v => {
+        {state.searchedData.map(v => {
           return (
             <UserDataContainer
               work={v}

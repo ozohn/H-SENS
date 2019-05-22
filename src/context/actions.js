@@ -13,6 +13,7 @@ const SHOW_WORK = 'SHOW_WORK';
 const EDIT_USER = 'EDIT_USER';
 const REMOVE_WORK = 'REMOVE_WORK';
 const CHANGE_INDEX = 'CHANGE_INDEX';
+// 관련이 없는 것들이 있을 경우 분리할 것.
 
 // auth context
 const INPUT_ID = 'INPUT_ID';

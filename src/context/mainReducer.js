@@ -80,7 +80,7 @@ function mainReducer(state, action) {
       return { ...state, ...action.data };
     }
     case 'FETCH_USER_DATA': {
-      return { ...state, user: action.data };
+      return { ...state, user: { ...action.data, login: true } };
     }
     case 'INPUT_CHANGE': {
       return { ...state, searchValue: action.data };
@@ -95,7 +95,11 @@ function mainReducer(state, action) {
       return { ...state, searchedData: action.data };
     }
     case 'EDIT_USER': {
-      return { ...state, user: action.data };
+      return {
+        ...state,
+        user: { ...state.user, userInfo: { ...state.user.userInfo, ...action.data } },
+        curData: { ...state.curData, user: action.data },
+      };
     }
     case 'SHOW_WORK': {
       return {
@@ -141,7 +145,6 @@ function mainReducer(state, action) {
       };
     }
     case 'CHANGE_INDEX': {
-      console.log(action.data);
       return { ...state, pageIndex: action.data };
     }
     default:

@@ -10,18 +10,16 @@ const Header = () => {
   const { state, getCreatorWorks } = useContext(MainContext);
   const { user } = state;
 
-  return user.userInfo ? (
+  return (
     <HeaderContainer className="header">
       <MainLogo />
       <Search />
       <UserLinkBtn
-        to={user.userInfo.username ? '/user' : '/signin'}
-        userimage={user.userInfo.userimage ? user.userimage : null}
+        to={user.login ? '/user' : '/signin'}
+        userimage={user.login ? user.userimage : null}
         onClick={() => getCreatorWorks(user.userInfo.userid)}
       />
     </HeaderContainer>
-  ) : (
-    <></>
   );
 };
 

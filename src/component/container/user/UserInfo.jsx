@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useContext } from 'react';
 import { Image } from 'semantic-ui-react';
 import styled from 'styled-components';
 import LinkButton from '../../presenter/buttons/LinkBtn';
@@ -37,16 +37,11 @@ const ImageContainer = styled(Image)`
 export default function UserInfo() {
   const { state } = useContext(MainContext);
   const { userimage, userdesc, username } = state.curData.user;
-  useEffect(() => {});
   return (
     <Container>
       <HeadingContainer>
         <Heading2>{username}</Heading2>
-        <LinkButton
-          pathname="/usereditor"
-          state={{ submit: 'Edit', user: state }}
-          text="Edit"
-        />
+        <LinkButton pathname="/usereditor" state={{ submit: 'Edit' }} text="Edit" />
       </HeadingContainer>
       <ImageContainer src={userimage} verticalAlign="top" size="small" circular />
       <UserDesc>{userdesc}</UserDesc>

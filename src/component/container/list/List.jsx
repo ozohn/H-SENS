@@ -97,7 +97,6 @@ export default function List() {
     await fetchWorkData('sub');
     await setMainLoading(false);
   };
-
   const multiScroll = e => {
     setScroll(e.target.scrollTop);
   };

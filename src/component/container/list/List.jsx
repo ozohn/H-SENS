@@ -1,4 +1,6 @@
 /* eslint-disable no-underscore-dangle */
+// HTTP method
+// restfulUrl best practice;, restAPI
 import React, { useState, useContext, useEffect } from 'react';
 import styled, { keyframes } from 'styled-components';
 

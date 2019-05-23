@@ -7,8 +7,8 @@ const Searched = () => {
   return (
     <>
       <Header />
-      <WorkDetail />
-      <SearchList />
+      <WorkDetail searched />
+      <SearchList searched />
     </>
   );
 };

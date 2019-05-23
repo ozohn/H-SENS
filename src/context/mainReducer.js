@@ -7,6 +7,7 @@ import {
   FILTER_CHANGE,
   FETCH_CURRENT_DATA,
   SHOW_WORK,
+  SHOW_SEARCH_WORK_DETAIL,
   EDIT_USER,
   REMOVE_WORK,
   FETCH_ADD_WORK,
@@ -14,6 +15,8 @@ import {
   FETCH_EDIT_WORK,
   FETCH_SEARCH_DATA,
   CHANGE_INDEX,
+  SET_SEARCH_LOADING,
+  SET_USER_PAGE_LOADING,
 } from './actions';
 
 // action creators
@@ -73,6 +76,18 @@ const changeIndex = data => ({
   type: CHANGE_INDEX,
   data,
 });
+const setSearchLoading = data => ({
+  type: SET_SEARCH_LOADING,
+  data,
+});
+const showSearchWorkDetail = data => ({
+  type: SHOW_SEARCH_WORK_DETAIL,
+  data,
+});
+const setUserPageLoading = data => ({
+  type: SET_USER_PAGE_LOADING,
+  data,
+});
 
 function mainReducer(state, action) {
   switch (action.type) {
@@ -94,6 +109,12 @@ function mainReducer(state, action) {
     case 'FETCH_SEARCH_DATA': {
       return { ...state, searchedData: action.data };
     }
+    case 'SET_SEARCH_LOADING': {
+      return { ...state, searchLoading: action.data };
+    }
+    case 'SET_USER_PAGE_LOADING': {
+      return { ...state, userPageLoading: action.data };
+    }
     case 'EDIT_USER': {
       return {
         ...state,
@@ -113,6 +134,17 @@ function mainReducer(state, action) {
             return work;
           }),
         },
+      };
+    }
+    case 'SHOW_SEARCH_WORK_DETAIL': {
+      return {
+        ...state,
+        searchedData: state.searchedData.map(work => {
+          if (work._id === action.data._id) {
+            return { ...work, workview: !work.workview };
+          }
+          return work;
+        }),
       };
     }
     case 'REMOVE_WORK': {
@@ -161,6 +193,7 @@ export {
   filterChange,
   getCurrentData,
   showWorkDetail,
+  showSearchWorkDetail,
   editUser,
   fetchRemoveWork,
   fetchCreatorWorks,
@@ -168,4 +201,6 @@ export {
   fetchEditWork,
   getSearchedData,
   changeIndex,
+  setSearchLoading,
+  setUserPageLoading,
 };

@@ -42,10 +42,12 @@ const ViewerContainer = styled.div`
   padding: 3rem;
 `;
 
-export default function WorkDetail() {
+export default function WorkDetail({ searched }) {
   const { state, showWork } = useContext(MainContext);
   if (state.curData === undefined) return null;
-  const target = state.curData.works && state.curData.works.filter(v => v.workview)[0];
+  const target = searched
+    ? state.searchedData && state.searchedData.filter(v => v.workview)[0]
+    : state.curData.works && state.curData.works.filter(v => v.workview)[0];
   const { worktitle, workimage, workdesc } = target || {};
   if (target) {
     window.scrollTo(0, window.innerHeight);
@@ -57,7 +59,7 @@ export default function WorkDetail() {
     <WorkCover
       onClick={e => {
         if (e.target === e.currentTarget) {
-          showWork(target);
+          showWork(target, searched);
         }
       }}
       target={target}

@@ -155,6 +155,13 @@ const MainProvider = ({ children }) => {
     const creator = await fetchData(pageUrl, 'POST', header, JSON.stringify(body));
     dispatch(fetchCreatorWorks(creator));
   };
+  const syncCurDataByUserData = () => {
+    const UserObj = {
+      user: state.user.userInfo,
+      works: state.user.userWorks,
+    };
+    dispatch(getCurrentData(UserObj));
+  };
 
   useEffect(() => {
     const preState = localStorage.getItem('data');
@@ -200,6 +207,7 @@ const MainProvider = ({ children }) => {
         modifyUserInfo,
         removeWork,
         addWork,
+        syncCurDataByUserData,
       }}
     >
       {children}

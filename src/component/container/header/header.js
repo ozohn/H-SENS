@@ -7,7 +7,7 @@ import UserLinkBtn from '../../presenter/buttons/UserLinkBtn';
 import { MainContext } from '../../../context/mainContext';
 
 const Header = () => {
-  const { state, getCreatorWorks } = useContext(MainContext);
+  const { state, syncCurDataByUserData } = useContext(MainContext);
   const { user } = state;
 
   return (
@@ -17,7 +17,7 @@ const Header = () => {
       <UserLinkBtn
         to={user.login ? '/user' : '/signin'}
         userimage={user.login ? user.userimage : null}
-        onClick={() => getCreatorWorks(user.userInfo.userid)}
+        onClick={() => syncCurDataByUserData()}
       />
     </HeaderContainer>
   );

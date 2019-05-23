@@ -7,6 +7,7 @@ import {
   inputChange,
   getCurrentData,
   showWorkDetail,
+  showSearchWorkDetail,
   editUser,
   fetchRemoveWork,
   fetchAddWork,
@@ -15,6 +16,7 @@ import {
   getSearchedData,
   getPreState,
   changeIndex,
+  setSearchLoading,
 } from './mainReducer';
 
 const MainContext = React.createContext();
@@ -24,6 +26,7 @@ const MainProvider = ({ children }) => {
     pageIndex: 1,
     searchFilter: 'Works',
     curData: [],
+    searchLoading: false,
     searchedData: [],
     user: { userInfo: {}, userWorks: {}, login: false },
   });
@@ -178,8 +181,13 @@ const MainProvider = ({ children }) => {
   }, [state]);
 
   const handleSearchBtn = async () => {
+    if (state.searchLoading) {
+      return;
+    }
+    await dispatch(setSearchLoading(true));
     const searchedData = await fetchSearched(state.searchFilter, state.searchValue);
     dispatch(getSearchedData(searchedData));
+    await dispatch(setSearchLoading(false));
   };
   const handleFilterChange = (e, { value }) => {
     dispatch(filterChange(value));
@@ -187,7 +195,10 @@ const MainProvider = ({ children }) => {
   const handleInputChange = e => {
     dispatch(inputChange(e.target.value));
   };
-  const showWork = work => {
+  const showWork = (work, searched) => {
+    if (searched) {
+      dispatch(showSearchWorkDetail(work));
+    }
     dispatch(showWorkDetail(work));
   };
 

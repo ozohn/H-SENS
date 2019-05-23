@@ -41,7 +41,8 @@ export default function UserInfo() {
     <Container>
       <HeadingContainer>
         <Heading2>{username}</Heading2>
-        <LinkButton pathname="/usereditor" state={{ submit: 'Edit' }} text="Edit" />
+        {state.curData.user.userid === state.user.userInfo.userid ? <LinkButton pathname="/usereditor" state={{ submit: 'Edit' }} text="Edit" /> : null}
+        
       </HeadingContainer>
       <ImageContainer src={userimage} verticalAlign="top" size="small" circular />
       <UserDesc>{userdesc}</UserDesc>

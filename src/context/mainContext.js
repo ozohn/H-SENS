@@ -69,7 +69,7 @@ const MainProvider = ({ children }) => {
   const fetchSearched = (selectedValue, searchValue) => {
     const searchUrl = {
       Works: `${process.env.REACT_APP_SERVER_URL}/search/work`,
-      Authors: `${process.env.REACT_APP_SERVER_URL}/search/author`,
+      Author: `${process.env.REACT_APP_SERVER_URL}/search/author`,
     };
     const header = { ...contentJson };
     const userData = { inputValue: searchValue };

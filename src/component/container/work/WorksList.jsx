@@ -47,7 +47,9 @@ export default function WorksList() {
   const { state } = useContext(MainContext);
   return (
     <>
-      <Button to={{ pathname: '/workeditor', state: { submit: 'Add' } }}>create</Button>
+      {state.curData.user.userid === state.user.userInfo.userid ? (
+        <Button to={{ pathname: '/workeditor', state: { submit: 'Add' } }}>create</Button>
+      ) : null}
       <Works>
         {state.curData.works &&
           state.curData.works.map(work => <Work key={work._id} work={work} />)}

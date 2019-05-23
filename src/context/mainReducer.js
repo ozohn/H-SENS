@@ -16,6 +16,7 @@ import {
   FETCH_SEARCH_DATA,
   CHANGE_INDEX,
   SET_SEARCH_LOADING,
+  SET_USER_PAGE_LOADING,
 } from './actions';
 
 // action creators
@@ -83,6 +84,10 @@ const showSearchWorkDetail = data => ({
   type: SHOW_SEARCH_WORK_DETAIL,
   data,
 });
+const setUserPageLoading = data => ({
+  type: SET_USER_PAGE_LOADING,
+  data,
+});
 
 function mainReducer(state, action) {
   switch (action.type) {
@@ -106,6 +111,9 @@ function mainReducer(state, action) {
     }
     case 'SET_SEARCH_LOADING': {
       return { ...state, searchLoading: action.data };
+    }
+    case 'SET_USER_PAGE_LOADING': {
+      return { ...state, userPageLoading: action.data };
     }
     case 'EDIT_USER': {
       return {
@@ -194,4 +202,5 @@ export {
   getSearchedData,
   changeIndex,
   setSearchLoading,
+  setUserPageLoading,
 };

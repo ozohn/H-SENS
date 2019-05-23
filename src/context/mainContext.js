@@ -17,6 +17,7 @@ import {
   getPreState,
   changeIndex,
   setSearchLoading,
+  setUserPageLoading,
 } from './mainReducer';
 
 const MainContext = React.createContext();
@@ -27,6 +28,7 @@ const MainProvider = ({ children }) => {
     searchFilter: 'Works',
     curData: [],
     searchLoading: false,
+    userPageLoading: false,
     searchedData: [],
     user: { userInfo: {}, userWorks: {}, login: false },
   });
@@ -57,8 +59,8 @@ const MainProvider = ({ children }) => {
       header,
       JSON.stringify(body),
     );
-    if (setLoader) setLoader(false);
     dispatch(getCurrentData({ works: data }));
+    if (setLoader) setLoader(false);
   };
   const fetchUserData = async () => {
     const header = { ...tokenInfo };
@@ -78,7 +80,8 @@ const MainProvider = ({ children }) => {
     const userData = { inputValue: searchValue };
     return fetchData(searchUrl[selectedValue], 'POST', header, JSON.stringify(userData));
   };
-  const modifyUserInfo = ({ username, userdesc, userimage }) => {
+  const modifyUserInfo = async ({ username, userdesc, userimage }) => {
+    await dispatch(setUserPageLoading(true));
     const header = {
       ...tokenInfo,
       ...contentJson,
@@ -88,14 +91,14 @@ const MainProvider = ({ children }) => {
       userdesc,
       userimage: userimage || state.user.userimage,
     };
-    fetchData(
+    const data = await fetchData(
       `${process.env.REACT_APP_SERVER_URL}/creator/edit`,
       'POST',
       header,
       JSON.stringify(body),
-    ).then(data => {
-      dispatch(editUser(data));
-    });
+    );
+    await dispatch(editUser(data));
+    await dispatch(setUserPageLoading(false));
   };
   const modifyWorkInfo = ({ workid, worktitle, workdesc, workimage }) => {
     const header = {
@@ -198,7 +201,9 @@ const MainProvider = ({ children }) => {
   const showWork = (work, searched) => {
     if (searched) {
       dispatch(showSearchWorkDetail(work));
+      return;
     }
+    console.log(work);
     dispatch(showWorkDetail(work));
   };
 

@@ -4,6 +4,8 @@ import styled from 'styled-components';
 import LinkButton from '../../presenter/buttons/LinkBtn';
 import { MainContext } from '../../../context/mainContext';
 
+import PumpLoadingAni from '../../presenter/loaders/PumpLoadingAni';
+
 const Container = styled.div`
   position: relative;
   z-index: 3;
@@ -37,12 +39,18 @@ const ImageContainer = styled(Image)`
 export default function UserInfo() {
   const { state } = useContext(MainContext);
   const { userimage, userdesc, username } = state.curData.user;
-  return (
+
+  return state.userPageLoading ? (
+    <Container>
+      <PumpLoadingAni />
+    </Container>
+  ) : (
     <Container>
       <HeadingContainer>
         <Heading2>{username}</Heading2>
-        {state.curData.user.userid === state.user.userInfo.userid ? <LinkButton pathname="/usereditor" state={{ submit: 'Edit' }} text="Edit" /> : null}
-        
+        {state.curData.user.userid === state.user.userInfo.userid ? (
+          <LinkButton pathname="/usereditor" state={{ submit: 'Edit' }} text="Edit" />
+        ) : null}
       </HeadingContainer>
       <ImageContainer src={userimage} verticalAlign="top" size="small" circular />
       <UserDesc>{userdesc}</UserDesc>

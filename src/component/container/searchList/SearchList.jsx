@@ -4,6 +4,8 @@ import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import { MainContext } from '../../../context/mainContext';
 
+import MainLoadingAni from '../../presenter/loaders/MainLoadingAni';
+
 const SearchListContainer = styled.div`
   height: 85vh;
   width: 100%;
@@ -51,9 +53,12 @@ const WorkImage = styled.div`
   background-color: #fff;
 `;
 
-const SearchList = () => {
+const SearchList = ({searched}) => {
   const { state, showWork, getCreatorWorks } = useContext(MainContext);
-  if (state.searchedData[0] === undefined) return <></>;
+  if (!state.searchLoading && state.searchedData[0] === undefined)
+    return <div>검색결과없음</div>;
+  if (state.searchLoading || state.searchedData[0] === undefined)
+    return <MainLoadingAni />;
   if (state.searchedData[0].username) {
     return (
       <SearchListContainer>
@@ -79,7 +84,7 @@ const SearchList = () => {
           return (
             <UserDataContainer
               work={v}
-              onClick={() => showWork(v)}
+              onClick={() => showWork(v, searched)}
               key={v._id}
               background={v.workimage}
             >

@@ -1,8 +1,7 @@
 /* eslint-disable no-underscore-dangle */
-import React, { useContext } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
-import { MainContext } from '../../../context/mainContext';
 
 import MainLoadingAni from '../../presenter/loaders/MainLoadingAni';
 
@@ -54,10 +53,7 @@ const WorkImage = styled.div`
 `;
 
 const SearchList = ({ loading, searched }) => {
-  // const { state, showWork, getCreatorWorks } = useContext(MainContext);
-
   if (loading) return <MainLoadingAni />;
-  console.log(searched);
   if (!searched.searchWork && !searched.searchUser) return <div>검색결과없음</div>;
   if (searched.searchUser) {
     return (

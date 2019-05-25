@@ -7,12 +7,14 @@ import UserPage from '../component/presenter/layouts/User';
 import Searched from '../component/presenter/layouts/Searched';
 import UserEditor from '../component/container/user/UserEditor';
 import WorksEditor from '../component/container/work/WorksEditor';
-import { MainProvider } from '../context/mainContext';
+import Auth from '../component/container/auth/Auth';
 
 const AppPath = ({ isLoggedIn }) => (
   <Router>
     <Route path="/" exact component={MainPage} />
     <Route path="/search" component={Searched} />
+    <Route path="/signin" component={SignIn} />
+    <Route path="/signup" component={SignUp} />
     {/* <MainProvider>
       <Route path="/" exact component={MainPage} />
       <Route path="/user" component={UserPage} />

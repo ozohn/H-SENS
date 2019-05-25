@@ -12,6 +12,7 @@ import { MainProvider } from '../context/mainContext';
 const AppPath = ({ isLoggedIn }) => (
   <Router>
     <Route path="/" exact component={MainPage} />
+    <Route path="/search" component={Searched} />
     {/* <MainProvider>
       <Route path="/" exact component={MainPage} />
       <Route path="/user" component={UserPage} />

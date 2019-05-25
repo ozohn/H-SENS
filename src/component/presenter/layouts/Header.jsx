@@ -1,10 +1,12 @@
 import React from 'react';
 import styled from 'styled-components';
+import { withRouter } from 'react-router-dom';
 import { gql } from 'apollo-boost';
 import { useQuery } from 'react-apollo-hooks';
 
 import MainLogo from '../icons/MainLogo';
 import UserLinkBtn from '../buttons/UserLinkBtn';
+import Search from '../../container/search/Search';
 
 const HeaderContainer = styled.header`
   display: flex;
@@ -28,6 +30,7 @@ const QUERY = gql`
 
 const Header = ({ isloggedIn }) => {
   const { data, loading } = useQuery(QUERY);
+
   if (!loading) {
     const {
       currentUser: { userimage },
@@ -35,7 +38,7 @@ const Header = ({ isloggedIn }) => {
     return (
       <HeaderContainer className="header">
         <MainLogo />
-        {/* <Search /> */}
+        <Search />
         <UserLinkBtn
           to={isloggedIn ? '/user' : '/signin'}
           userimage={isloggedIn ? userimage : null}

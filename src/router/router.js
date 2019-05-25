@@ -11,7 +11,7 @@ import { MainProvider } from '../context/mainContext';
 
 const AppPath = ({ isLoggedIn }) => (
   <Router>
-    <Route path="/" exact render={() => <>Hello</>} />
+    <Route path="/" exact component={MainPage} />
     {/* <MainProvider>
       <Route path="/" exact component={MainPage} />
       <Route path="/user" component={UserPage} />

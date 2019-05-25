@@ -32,16 +32,13 @@ const Header = ({ isloggedIn }) => {
   const { data, loading } = useQuery(QUERY);
 
   if (!loading) {
-    const {
-      currentUser: { userimage },
-    } = data;
     return (
       <HeaderContainer className="header">
         <MainLogo />
         <Search />
         <UserLinkBtn
           to={isloggedIn ? '/user' : '/signin'}
-          userimage={isloggedIn ? userimage : null}
+          userimage={isloggedIn ? data.currentUser.userimage : null}
           // onClick={() => syncCurDataByUserData()}
         />
       </HeaderContainer>

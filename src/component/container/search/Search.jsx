@@ -46,7 +46,6 @@ const StyledSearchBtn = styled.button`
 `;
 
 const Search = ({ history }) => {
-  // const { handleInputChange } = useContext(MainContext);
   const [value, setValue] = useState('');
   const onSearchSubmit = e => {
     e.preventDefault();

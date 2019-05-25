@@ -53,23 +53,23 @@ const WorkImage = styled.div`
   background-color: #fff;
 `;
 
-const SearchList = ({searched}) => {
-  const { state, showWork, getCreatorWorks } = useContext(MainContext);
-  if (!state.searchLoading && state.searchedData[0] === undefined)
-    return <div>검색결과없음</div>;
-  if (state.searchLoading || state.searchedData[0] === undefined)
-    return <MainLoadingAni />;
-  if (state.searchedData[0].username) {
+const SearchList = ({ loading, searched }) => {
+  // const { state, showWork, getCreatorWorks } = useContext(MainContext);
+
+  if (loading) return <MainLoadingAni />;
+  console.log(searched);
+  if (!searched.searchWork && !searched.searchUser) return <div>검색결과없음</div>;
+  if (searched.searchUser) {
     return (
       <SearchListContainer>
-        {state.searchedData.map(v => {
+        {searched.searchUser.map(v => {
           return (
-            <UserDataContainer key={v._id} background={v.userimage}>
+            <UserDataContainer key={v.userid} background={v.userimage}>
               <DimLayer />
               <UserLink
                 background={v.userimage}
                 to={{ pathname: '/searchedUser', state: { userid: v.userid } }}
-                onClick={() => getCreatorWorks(v.userid)}
+                // onClick={() => getCreatorWorks(v.userid)}
               />
             </UserDataContainer>
           );
@@ -77,15 +77,15 @@ const SearchList = ({searched}) => {
       </SearchListContainer>
     );
   }
-  if (state.searchedData[0].worktitle) {
+  if (searched.searchWork) {
     return (
       <SearchListContainer>
-        {state.searchedData.map(v => {
+        {searched.searchWork.map(v => {
           return (
             <UserDataContainer
               work={v}
-              onClick={() => showWork(v, searched)}
-              key={v._id}
+              // onClick={() => showWork(v, searched)}
+              key={v.workid}
               background={v.workimage}
             >
               <DimLayer />

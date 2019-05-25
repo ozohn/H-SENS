@@ -3,6 +3,7 @@
 // restfulUrl best practice;, restAPI
 import React, { useState, useContext, useEffect } from 'react';
 import styled, { keyframes } from 'styled-components';
+import { gql } from 'apollo-boost';
 
 import ListContainer from '../../presenter/layouts/ListContainer';
 import fillArray from './fillArray';
@@ -57,6 +58,15 @@ const Walking = styled.div`
   background-repeat: no-repeat;
   background-size: 800%;
   animation: ${walkAni} 1s infinite steps(7);
+`;
+
+const QUERY = gql`
+  {
+    seeWorks {
+      worktitle
+      workimage
+    }
+  }
 `;
 
 export default function List() {

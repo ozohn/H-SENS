@@ -1,10 +1,10 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import styled from 'styled-components';
+import { gql } from 'apollo-boost';
+import { useQuery } from 'react-apollo-hooks';
 
-import Search from '../../container/search/Search';
 import MainLogo from '../icons/MainLogo';
 import UserLinkBtn from '../buttons/UserLinkBtn';
-import { MainContext } from '../../../context/mainContext';
 
 const HeaderContainer = styled.header`
   display: flex;
@@ -18,21 +18,33 @@ const HeaderContainer = styled.header`
   background-color: #EFFFE9
 `;
 
-const Header = () => {
-  const { state, syncCurDataByUserData } = useContext(MainContext);
-  const { user } = state;
+const QUERY = gql`
+  {
+    currentUser {
+      userimage
+    }
+  }
+`;
 
-  return (
-    <HeaderContainer className="header">
-      <MainLogo />
-      <Search />
-      <UserLinkBtn
-        to={user.login ? '/user' : '/signin'}
-        userimage={user.login ? user.userimage : null}
-        onClick={() => syncCurDataByUserData()}
-      />
-    </HeaderContainer>
-  );
+const Header = ({ isloggedIn }) => {
+  const { data, loading } = useQuery(QUERY);
+  if (!loading) {
+    const {
+      currentUser: { userimage },
+    } = data;
+    return (
+      <HeaderContainer className="header">
+        <MainLogo />
+        {/* <Search /> */}
+        <UserLinkBtn
+          to={isloggedIn ? '/user' : '/signin'}
+          userimage={isloggedIn ? userimage : null}
+          // onClick={() => syncCurDataByUserData()}
+        />
+      </HeaderContainer>
+    );
+  }
+  return null;
 };
 
 export default Header;

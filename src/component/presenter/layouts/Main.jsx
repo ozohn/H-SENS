@@ -5,33 +5,31 @@ import List from '../../container/list/List';
 import Header from './Header';
 import WorkDetail from '../../container/work/WorkDetail';
 import MainLoadingAni from '../loaders/MainLoadingAni';
-import { MainContext } from '../../../context/mainContext';
 
 const QUERY = gql`
   {
-    seeWorks {
-      worktitle
-      workimage
-    }
+    isLoggedIn @client
   }
 `;
 
 const MainPage = () => {
-  const { data } = useQuery(QUERY);
-  const [mainLoading, setMainLoading] = useState(false);
+  const {
+    data: { isLoggedIn },
+  } = useQuery(QUERY);
+  // const [mainLoading, setMainLoading] = useState();
   // useEffect(() => {
   //   fetchWorkData('init', setMainLoading);
   //   if (localStorage.getItem('token') === null) return;
   //   fetchUserData();
   // }, []);
 
-  return mainLoading ? (
+  return isLoggedIn ? (
     <MainLoadingAni />
   ) : (
     <>
-      <Header />
-      <WorkDetail />
-      <List />
+      <Header isLoggedIn={isLoggedIn} />
+      {/* <WorkDetail /> */}
+      {/* <List /> */}
     </>
   );
 };

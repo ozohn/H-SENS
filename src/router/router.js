@@ -7,7 +7,6 @@ import UserPage from '../component/presenter/layouts/User';
 import Searched from '../component/presenter/layouts/Searched';
 import UserEditor from '../component/container/user/UserEditor';
 import WorksEditor from '../component/container/work/WorksEditor';
-import Auth from '../component/container/auth/Auth';
 
 const AppPath = ({ isLoggedIn }) => (
   <Router>

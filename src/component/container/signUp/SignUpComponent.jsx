@@ -1,106 +1,83 @@
-import React, { useReducer } from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
+import { useMutation } from 'react-apollo-hooks';
 import InputContainer from '../../presenter/layouts/InputContainer';
 import SignLogo from '../../presenter/icons/SignLogo';
 import SignUpForm from './SignUpForm';
-
-import fetchData from '../../../util/fetchData';
-import {
-  signUpReducer,
-  setIdInput,
-  setPasswordInput,
-  setRePasswordInput,
-  setNameInput,
-  setCorrectState,
-  setLoadingState,
-} from '../../../context/authorization/signUpReducer';
+import { CREATE_ACCOUNT, CONFIRM_ID } from './SignUpQueries';
 
 const SignUpComponent = () => {
-  const [state, dispatch] = useReducer(signUpReducer, {
-    id: { b: true },
-    pw: { b: true },
-    name: { b: true },
-    rePw: true,
-    bLoading: false,
-    bCorrect: true,
+  const initialState = {
+    error: false,
+    value: '',
+  };
+  const [userid, setId] = useState(initialState);
+  const [pw, setPw] = useState(initialState);
+  const [rePw, setRePw] = useState(initialState);
+  const [username, setName] = useState(initialState);
+  const [action, setAction] = useState({ text: 'sign up', loading: false });
+
+  const checkOverlap = useMutation(CONFIRM_ID, {
+    variables: { userid: userid.value },
   });
 
-  const checkOverlap = async curVal => {
-    const body = {
-      userid: curVal,
-    };
-    const jsonHeader = {
-      'Content-Type': 'application/json',
-    };
-    const checkOverlapUrl = `${process.env.REACT_APP_SERVER_URL}/users/checkid`;
-    const res = await fetchData(
-      checkOverlapUrl,
-      'POST',
-      jsonHeader,
-      JSON.stringify(body),
-    );
-    if (res.message === 'OK') {
-      dispatch(setIdInput({ b: true, data: curVal }));
-    } else {
-      dispatch(setIdInput({ b: false, data: curVal }));
-    }
-  };
+  const getAccount = useMutation(CREATE_ACCOUNT, {
+    variables: {
+      userid: userid.value,
+      password: pw.value,
+      username: username.value,
+    },
+  });
 
-  const checkId = async e => {
-    const curVal = e.target.value;
+  const checkId = async _ => {
     const idRegExp = /^[A-Za-z0-9]{6,12}$/;
-
-    if (!idRegExp.test(curVal)) {
-      dispatch(setIdInput({ b: idRegExp.test(curVal), data: curVal }));
-    } else {
-      checkOverlap(curVal);
+    if (!idRegExp.test(userid.value)) setId({ ...userid, error: true });
+    else if (userid.value !== '') {
+      try {
+        const {
+          data: { confirmId },
+        } = await checkOverlap();
+        setId({ ...userid, error: confirmId });
+      } catch (error) {
+        console.error(error);
+      }
     }
   };
 
   const checkPw = e => {
     const curVal = e.target.value;
     const pwRegExp = /^.*(?=^.{8,15}$)(?=.*\d)(?=.*[a-zA-Z])(?=.*[!@#$%^&+=]).*$/;
-    dispatch(setPasswordInput({ b: pwRegExp.test(curVal), data: curVal }));
+    setPw({ error: !pwRegExp.test(curVal), value: curVal });
   };
 
-  const checkRePw = e => {
-    const curVal = e.target.value;
-    return state.pw.data === curVal
-      ? dispatch(setRePasswordInput(true))
-      : dispatch(setRePasswordInput(false));
-  };
+  const checkRePw = e => setRePw({ ...rePw, error: pw.value !== e.target.value });
 
-  const checkName = e => {
-    const curVal = e.target.value;
-    return curVal.length > 0
-      ? dispatch(setNameInput({ b: true, data: curVal }))
-      : dispatch(setNameInput({ b: false, data: curVal }));
-  };
+  const checkName = e =>
+    setName({ value: e.target.value, error: !e.target.value.length });
 
   const submit = async e => {
-    e.preventDefault();
-    if (!(state.id.b && state.pw.b && state.name.b && state.rePw) || !state.id.data) {
-      dispatch(setCorrectState(false));
-      return;
-    }
-    dispatch(setLoadingState(true));
-    const jsonHeader = {
-      'Content-Type': 'application/json',
-    };
-    const body = {
-      userid: state.id.data,
-      password: state.pw.data,
-      username: state.name.data,
-    };
-    const signUpUrl = `${process.env.REACT_APP_SERVER_URL}/users/signup`;
-    const res = await fetchData(signUpUrl, 'POST', jsonHeader, JSON.stringify(body));
-    if (res.error) {
-      dispatch(setLoadingState(false));
-      dispatch(setCorrectState(false));
-      throw res.error;
+    if (
+      userid.error ||
+      pw.error ||
+      username.error ||
+      rePw.error ||
+      userid.value === '' ||
+      pw.value === '' ||
+      username.value === ''
+    ) {
+      setAction({ ...action, text: 'Check Please' });
     } else {
-      window.localStorage.token = res.token;
-      window.location.replace(`${process.env.REACT_APP_CLIENT_URL}`);
+      setAction({ ...action, loading: true });
+      const {
+        data: {
+          createAccount: { userid },
+        },
+      } = await getAccount();
+      if (!userid) {
+        throw new Error('signup fail');
+      } else {
+        setAction({ loading: false, text: 'Success' });
+      }
     }
   };
 
@@ -109,8 +86,8 @@ const SignUpComponent = () => {
       <SignLogo as={Link} to="/" />
       <InputContainer>
         <SignUpForm
-          Fns={{ checkId, checkPw, checkRePw, checkName, submit }}
-          state={state}
+          Fns={{ checkId, setId, checkPw, checkRePw, checkName, submit }}
+          state={{ userid, pw, rePw, username, action }}
         />
       </InputContainer>
     </>

@@ -11,37 +11,32 @@ const SignUpForm = ({ state, Fns }) => {
       <AuthInputContainer
         placeholder="ID"
         onBlur={Fns.checkId}
-        error={state.id.b ? null : !state.id.b}
+        onChange={e => Fns.setId({ ...state.userid, value: e.target.value })}
+        error={state.userid.error}
         errorMessage={errorMessage.id}
       />
       <AuthInputContainer
         type="password"
         placeholder="PW"
         onChange={Fns.checkPw}
-        error={state.pw.b ? null : !state.pw.b}
+        error={state.pw.error}
         errorMessage={errorMessage.pw}
       />
       <AuthInputContainer
         type="password"
         placeholder="PW RE"
         onChange={Fns.checkRePw}
-        error={state.rePw ? null : !state.rePw}
+        error={state.rePw.error}
         errorMessage={errorMessage.rePw}
       />
       <AuthInputContainer
         placeholder="Name"
         onChange={Fns.checkName}
-        error={state.name.b ? null : !state.name.b}
+        error={state.username.error}
         errorMessage={errorMessage.username}
       />
       <SubmitBtn onClick={Fns.submit}>
-        {state.bLoading ? (
-          <PumpLoadingAni />
-        ) : state.bCorrect ? (
-          'sign up'
-        ) : (
-          'Check Please'
-        )}
+        {state.loading ? <PumpLoadingAni /> : state.action.text}
       </SubmitBtn>
     </>
   );

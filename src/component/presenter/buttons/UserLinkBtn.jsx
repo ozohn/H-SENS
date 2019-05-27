@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 
 const UserLinkStyled = styled(Link)`
   display:block;
-  background-image: url("${props => props.user || './image/blank.png'}");
+  background-image: url("${props => props.userimage || './image/blank.png'}");
   background-size: contain;
   background-repeat: no-repeat;
   background-position: center center;

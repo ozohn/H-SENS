@@ -203,7 +203,6 @@ const MainProvider = ({ children }) => {
       dispatch(showSearchWorkDetail(work));
       return;
     }
-    console.log(work);
     dispatch(showWorkDetail(work));
   };
 

@@ -1,3 +1,4 @@
+import React from 'react';
 import styled from 'styled-components';
 
 const AuthInput = styled.input`
@@ -17,5 +18,37 @@ const AuthInput = styled.input`
     transition: all 0.5s;
   }
 `;
+const AuthLabel = styled.label`
+  &:after {
+    display: ${props => (props.error ? 'block' : 'none')}
+    content: "${props => props.errorMessage}";
+    padding-top: 0.3rem;
+    height: 1.3rem;
+    width: 100%;
+    font-size: 1rem;
+    color: #ff4100;
+  }
+`;
 
-export default AuthInput;
+const AuthInputWrapper = ({
+  error,
+  errorMessage,
+  type,
+  placeholder,
+  onChange,
+  onBlur,
+}) => {
+  return (
+    <AuthLabel error={error} errorMessage={errorMessage}>
+      <AuthInput
+        error={error}
+        type={type}
+        placeholder={placeholder}
+        onChange={onChange}
+        onBlur={onBlur}
+      />
+    </AuthLabel>
+  );
+};
+
+export default AuthInputWrapper;

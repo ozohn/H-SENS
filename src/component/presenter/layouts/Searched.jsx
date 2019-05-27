@@ -13,20 +13,27 @@ export const SEARCH = gql`
       username
       userimage
     }
+    searchWork(term: $term) {
+      worktitle
+      workimage
+    }
   }
 `;
 
 const Searched = ({ location: { search } }) => {
-  const term = search.split('=')[1];
+  const query = search.split('=');
+  const term = query[1].split('&')[0];
+  const select = query[2];
   const { data, loading } = useQuery(SEARCH, {
     skip: term === undefined,
     variables: { term },
   });
+
   return (
     <>
       <Header />
       {/* <WorkDetail searched /> */}
-      <SearchList searched={data} loading={loading} />
+      <SearchList searched={data} loading={loading} filter={select} />
     </>
   );
 };

@@ -24,14 +24,12 @@ const Line = ({ works, scroll, reverse }) => {
   if (reverse) {
     return (
       <ItemContainer ref={scrollEl} reverse>
-        {works.map(v => {
-          return v.workimage === undefined ? (
-            <StyledImage key={v._id} src={sourse} size="small" reverse />
-          ) : (
+        {works.map(work => {
+          return (
             <StyledImage
-              onClick={() => showWork(v)}
-              key={v._id}
-              src={v.workimage}
+              onClick={() => showWork(work)}
+              key={work._id}
+              src={work.workimage ? work.workimage : sourse}
               size="small"
               reverse
             />

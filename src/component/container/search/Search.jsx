@@ -47,9 +47,10 @@ const StyledSearchBtn = styled.button`
 
 const Search = ({ history }) => {
   const [value, setValue] = useState('');
+  const [selector, setSelector] = useState('Works');
   const onSearchSubmit = e => {
     e.preventDefault();
-    history.push(`/search?term=${value}`);
+    history.push(`/search?term=${value}&select=${selector}`);
   };
   return (
     <SearchWrapper>
@@ -60,7 +61,7 @@ const Search = ({ history }) => {
       />
       <StyledSearchBtn onClick={onSearchSubmit} />
       <Line />
-      {/* <SelectBox /> */}
+      <SelectBox selector={selector} setSelector={setSelector} />
     </SearchWrapper>
   );
 };

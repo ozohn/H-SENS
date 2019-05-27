@@ -4,6 +4,7 @@
 import React, { useState, useContext, useEffect } from 'react';
 import styled, { keyframes } from 'styled-components';
 import { gql } from 'apollo-boost';
+import { useQuery } from 'react-apollo-hooks';
 
 import ListContainer from '../../presenter/layouts/ListContainer';
 import fillArray from './fillArray';
@@ -60,6 +61,26 @@ const Walking = styled.div`
   animation: ${walkAni} 1s infinite steps(7);
 `;
 
+const StyledImage = styled.div`
+  display: block;
+  width: 100%;
+  height: 42.5vh;
+  transform: rotate(${props => (props.reverse ? '180deg' : '0')});
+  background: no-repeat center / 80% url(${props => props.src});
+`;
+
+const ItemContainer = styled.div`
+  height: 85vh;
+  width: 25%;
+  display: inline-block;
+  background-color: #221e1f;
+  transform: rotate(${props => (props.reverse ? '180deg' : '0')});
+  &::-webkit-scrollbar {
+    -webkit-appearance: none;
+    width: 0px;
+  }
+`;
+
 const QUERY = gql`
   {
     seeWorks {
@@ -70,60 +91,68 @@ const QUERY = gql`
 `;
 
 export default function List() {
-  const [scroll, setScroll] = useState('');
-  const [lineWorks, setLineWorks] = useState({});
-  const [mainLoading, setMainLoading] = useState(true);
-  const mainContext = useContext(MainContext);
-  const { curData } = mainContext.state;
-  const { fetchWorkData, state } = mainContext;
+  const [pagenation, setPaging] = useState(1);
+  const { data, loading } = useQuery(QUERY);
+  console.log(data);
+  // const [scroll, setScroll] = useState('');
+  // const [lineWorks, setLineWorks] = useState({});
+  // const [mainLoading, setMainLoading] = useState(true);
+  // const mainContext = useContext(MainContext);
+  // const { curData } = mainContext.state;
+  // const { fetchWorkData, state } = mainContext;
 
-  useEffect(() => {
-    if (curData === undefined) {
-      setMainLoading(true);
-      return;
-    }
-    const listNum = 24;
-    const filledArr = fillArray(curData.works, listNum);
-    setLineWorks({
-      firLine: filledArr.slice(0, 6),
-      secLine: filledArr.slice(6, 12),
-      trdLine: filledArr.slice(12, 18),
-      forthLine: filledArr.slice(18, 24),
-    });
-    setMainLoading(false);
-  }, [curData]);
+  // useEffect(() => {
+  //   if (curData === undefined) {
+  //     setMainLoading(true);
+  //     return;
+  //   }
+  //   const listNum = 24;
+  //   const filledArr = fillArray(curData.works, listNum);
+  //   setLineWorks({
+  //     firLine: filledArr.slice(0, 6),
+  //     secLine: filledArr.slice(6, 12),
+  //     trdLine: filledArr.slice(12, 18),
+  //     forthLine: filledArr.slice(18, 24),
+  //   });
+  //   setMainLoading(false);
+  // }, [curData]);
 
   const handleNextBtn = async () => {
-    setMainLoading(true);
-    if (mainLoading) {
-      return;
-    }
-    await fetchWorkData('add');
-    await setMainLoading(false);
+    setPaging(pagenation + 1);
+    // setMainLoading(true);
+    // if (mainLoading) {
+    //   return;
+    // }
+    // await fetchWorkData('add');
+    // await setMainLoading(false);
   };
   const handleBefBtn = async () => {
-    setMainLoading(true);
-    if (mainLoading) {
-      return;
-    }
-    await fetchWorkData('sub');
-    await setMainLoading(false);
+    setPaging(pagenation - 1);
+    // setMainLoading(true);
+    // if (mainLoading) {
+    //   return;
+    // }
+    // await fetchWorkData('sub');
+    // await setMainLoading(false);
   };
-  const multiScroll = e => {
-    setScroll(e.target.scrollTop);
-  };
+  // const multiScroll = e => {
+  //   setScroll(e.target.scrollTop);
+  // };
 
   return (
     <>
       <NextButton onClick={handleNextBtn}>Next</NextButton>
-      <BefButton
-        onClick={handleBefBtn}
-        disabled={state.pageIndex <= 1 ? 'disabled' : null}
-      >
+      <BefButton onClick={handleBefBtn} disabled={pagenation <= 1 ? 'disabled' : null}>
         Before
       </BefButton>
-      <ListContainer onScroll={multiScroll}>
-        {!mainLoading ? (
+      <ListContainer>
+        <ItemContainer>
+          {!loading &&
+            data.seeWorks.map((work, index) => (
+              <StyledImage key="1" src={work.workimage} size="small" />
+            ))}
+        </ItemContainer>
+        {/* {!mainLoading ? (
           <>
             <Line works={lineWorks.firLine} />
             <Line works={lineWorks.secLine} scroll={scroll} reverse />
@@ -136,7 +165,7 @@ export default function List() {
               <Walking />
             </MainLoader>
           </LoaderContainer>
-        )}
+        )} */}
       </ListContainer>
     </>
   );

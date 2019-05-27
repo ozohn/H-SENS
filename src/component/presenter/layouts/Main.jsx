@@ -29,7 +29,7 @@ const MainPage = () => {
     <>
       <Header isLoggedIn={isLoggedIn} />
       {/* <WorkDetail /> */}
-      {/* <List /> */}
+      <List />
     </>
   );
 };

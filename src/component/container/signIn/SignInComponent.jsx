@@ -42,7 +42,7 @@ const SignInComponent = () => {
     }
     window.localStorage.token = data.signIn;
     setAction({ ...action, loading: false, text: 'Success' });
-    window.location = process.env.REACT_APP_CLIENT_URL;
+    window.location.replace(`${process.env.REACT_APP_CLIENT_URL}`);
   };
 
   return (

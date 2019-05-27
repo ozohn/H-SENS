@@ -5,18 +5,14 @@ import AuthInput from '../../presenter/forms/AuthInput';
 import SignUpBtn from '../../presenter/buttons/SignUpBtn';
 import SignInSubmitBtn from './SignInSubmitBtn';
 
-const SignInForm = ({ Fns, state }) => (
+const SignInForm = ({ Fns, action }) => (
   <form>
     <AuthInput placeholder="ID" onChange={Fns.getId} />
     <AuthInput type="password" placeholder="PW" onChange={Fns.getPw} />
     <SignUpBtn as={Link} to="/signup">
       Sign Up
     </SignUpBtn>
-    <SignInSubmitBtn
-      submit={Fns.submit}
-      bLoading={state.bLoading}
-      bCorrect={state.bCorrect}
-    />
+    <SignInSubmitBtn submit={Fns.submit} action={action} />
   </form>
 );
 

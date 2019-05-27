@@ -3,10 +3,10 @@ import React from 'react';
 import PumpLoadingAni from '../../presenter/loaders/PumpLoadingAni';
 import SubmitBtn from '../../presenter/buttons/SubmitBtn';
 
-const SignInSubmitBtn = ({ submit, bLoading, bCorrect }) => {
+const SignInSubmitBtn = ({ submit, action }) => {
   return (
     <SubmitBtn onClick={submit}>
-      {bLoading ? <PumpLoadingAni /> : bCorrect ? 'sign in' : 'Check Please'}
+      {action.loading ? <PumpLoadingAni /> : action.text}
     </SubmitBtn>
   );
 };

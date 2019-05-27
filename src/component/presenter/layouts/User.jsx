@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import React, { useContext } from 'react';
+import { withRouter } from 'react-router-dom';
 import UserInfo from '../../container/user/UserInfo';
 import Works from './Works';
 import { MainContext } from '../../../context/mainContext';
@@ -15,17 +16,17 @@ const User = styled.div`
   }
 `;
 
-function UserPage() {
-  const { state } = useContext(MainContext);
-  if (state.curData.user) {
-    return (
-      <User>
-        <UserInfo />
-        <Works />
-      </User>
-    );
-  }
-  return null;
+function UserPage({
+  match: {
+    params: { userid },
+  },
+}) {
+  return (
+    <User>
+      <UserInfo userid={userid} />
+      {/* <Works userid={userid} /> */}
+    </User>
+  );
 }
 
-export default UserPage;
+export default withRouter(UserPage);

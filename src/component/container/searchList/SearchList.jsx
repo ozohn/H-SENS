@@ -1,6 +1,6 @@
 /* eslint-disable no-underscore-dangle */
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState } from 'react';
+import { Link, withRouter } from 'react-router-dom';
 import styled from 'styled-components';
 
 import MainLoadingAni from '../../presenter/loaders/MainLoadingAni';
@@ -28,7 +28,7 @@ const DimLayer = styled.div`
   opacity: 0.5;
 `;
 
-const UserLink = styled(Link)`
+const UserLink = styled.div`
   position: absolute;
   top: 50%;
   left: 50%;
@@ -52,20 +52,24 @@ const WorkImage = styled.div`
   background-color: #fff;
 `;
 
-const SearchList = ({ loading, searched, filter }) => {
+const SearchList = ({ history, loading, searched, filter }) => {
   if (loading) return <MainLoadingAni />;
-  if (!searched.searchWork && !searched.searchUser) return <div>검색결과없음</div>;
+  if (!searched.searchWork.length && !searched.searchUser.length)
+    return <div>검색결과없음</div>;
   if (filter === 'Author') {
+    const clickUser = userid => {
+      history.push(`/user=${userid}`);
+    };
     return (
       <SearchListContainer>
-        {searched.searchUser.map(v => {
+        {searched.searchUser.map(user => {
           return (
-            <UserDataContainer key={v.userid} background={v.userimage}>
+            <UserDataContainer key={user.userid} background={user.userimage}>
               <DimLayer />
               <UserLink
-                background={v.userimage}
-                to={{ pathname: '/searchedUser', state: { userid: v.userid } }}
-                // onClick={() => getCreatorWorks(v.userid)}
+                background={user.userimage}
+                // to={{ pathname: '/searchedUser', state: { userid: user.userid } }}
+                onClick={() => clickUser(user.userid)}
               />
             </UserDataContainer>
           );
@@ -76,23 +80,23 @@ const SearchList = ({ loading, searched, filter }) => {
   if (filter === 'Works') {
     return (
       <SearchListContainer>
-        {searched.searchWork.map(v => {
+        {searched.searchWork.map(work => {
           return (
             <UserDataContainer
-              work={v}
-              // onClick={() => showWork(v, searched)}
-              key={v.workid}
-              background={v.workimage}
+              work={work}
+              // onClick={() => showWork(work, searched)}
+              key={work.workid}
+              background={work.workimage}
             >
               <DimLayer />
-              <WorkImage background={v.workimage} />
+              <WorkImage background={work.workimage} />
             </UserDataContainer>
           );
         })}
       </SearchListContainer>
     );
   }
-  return <></>;
+  return null;
 };
 
-export default SearchList;
+export default withRouter(SearchList);

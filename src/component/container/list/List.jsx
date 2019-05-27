@@ -30,7 +30,7 @@ const QUERY = gql`
   }
 `;
 
-export default function List() {
+const List = () => {
   const [pagenation, setPaging] = useState(1);
   const [workLists, setList] = useState([]);
   const { data, loading } = useQuery(QUERY);
@@ -66,4 +66,6 @@ export default function List() {
       </ListContainer>
     </>
   );
-}
+};
+
+export default List;

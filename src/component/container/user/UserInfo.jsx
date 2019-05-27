@@ -36,24 +36,22 @@ const ImageContainer = styled(Image)`
   }
 `;
 
-export default function UserInfo() {
-  const { state } = useContext(MainContext);
-  const { userimage, userdesc, username } = state.curData.user;
+const UserInfo = userid => {
+  // const { state } = useContext(MainContext);
+  // const { userimage, userdesc, username } = state.curData.user;
 
-  return state.userPageLoading ? (
+  return (
     <Container>
-      <PumpLoadingAni />
-    </Container>
-  ) : (
-    <Container>
-      <HeadingContainer>
+      {/* <HeadingContainer>
         <Heading2>{username}</Heading2>
         {state.curData.user.userid === state.user.userInfo.userid ? (
           <LinkButton pathname="/usereditor" state={{ submit: 'Edit' }} text="Edit" />
         ) : null}
       </HeadingContainer>
       <ImageContainer src={userimage} verticalAlign="top" size="small" circular />
-      <UserDesc>{userdesc}</UserDesc>
+      <UserDesc>{userdesc}</UserDesc> */}
     </Container>
   );
-}
+};
+
+export default UserInfo;

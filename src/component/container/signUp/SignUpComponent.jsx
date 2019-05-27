@@ -29,7 +29,7 @@ const SignUpComponent = () => {
     },
   });
 
-  const checkId = async _ => {
+  const checkId = async () => {
     const idRegExp = /^[A-Za-z0-9]{6,12}$/;
     if (!idRegExp.test(userid.value)) setId({ ...userid, error: true });
     else if (userid.value !== '') {
@@ -55,7 +55,7 @@ const SignUpComponent = () => {
   const checkName = e =>
     setName({ value: e.target.value, error: !e.target.value.length });
 
-  const submit = async e => {
+  const submit = async () => {
     if (
       userid.error ||
       pw.error ||

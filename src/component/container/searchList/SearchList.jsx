@@ -52,10 +52,10 @@ const WorkImage = styled.div`
   background-color: #fff;
 `;
 
-const SearchList = ({ loading, searched }) => {
+const SearchList = ({ loading, searched, filter }) => {
   if (loading) return <MainLoadingAni />;
   if (!searched.searchWork && !searched.searchUser) return <div>검색결과없음</div>;
-  if (searched.searchUser) {
+  if (filter === 'Author') {
     return (
       <SearchListContainer>
         {searched.searchUser.map(v => {
@@ -73,7 +73,7 @@ const SearchList = ({ loading, searched }) => {
       </SearchListContainer>
     );
   }
-  if (searched.searchWork) {
+  if (filter === 'Works') {
     return (
       <SearchListContainer>
         {searched.searchWork.map(v => {

@@ -1,10 +1,7 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import { Link, withRouter } from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 import SelectBox from '../../presenter/forms/SelectBox';
-import SearchBtn from './SearchBtn';
-import InputForm from '../../presenter/forms/Input';
-import { MainContext } from '../../../context/mainContext';
 
 const SearchWrapper = styled.div`
   display: flex;

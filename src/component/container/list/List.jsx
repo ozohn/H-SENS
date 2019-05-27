@@ -1,6 +1,3 @@
-/* eslint-disable no-underscore-dangle */
-// HTTP method
-// restfulUrl best practice;, restAPI
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { gql } from 'apollo-boost';

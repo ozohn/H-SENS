@@ -8,9 +8,7 @@ const CONFIRM_ID = gql`
 
 const CREATE_ACCOUNT = gql`
   mutation createAccount($userid: String!, $username: String!, $password: String!) {
-    createAccount(userid: $userid, username: $username, password: $password) {
-      userid
-    }
+    createAccount(userid: $userid, username: $username, password: $password)
   }
 `;
 

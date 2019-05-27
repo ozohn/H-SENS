@@ -5,10 +5,15 @@ const ItemContainer = styled.div`
   width: 25%;
   display: inline-block;
   background-color: #221e1f;
-  transform: rotate(${props => (props.reverse ? '180deg' : '0')});
   &::-webkit-scrollbar {
     -webkit-appearance: none;
     width: 0px;
+  }
+  &:nth-child(2n) {
+    transform: rotate(180deg);
+    div {
+      transform: rotate(180deg);
+    }
   }
 `;
 

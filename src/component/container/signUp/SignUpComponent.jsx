@@ -69,14 +69,13 @@ const SignUpComponent = () => {
     } else {
       setAction({ ...action, loading: true });
       const {
-        data: {
-          createAccount: { userid },
-        },
+        data: { createAccount },
       } = await getAccount();
-      if (!userid) {
-        throw new Error('signup fail');
+      if (!createAccount) {
+        throw new Error('중복된 아이디입니다.');
       } else {
         setAction({ loading: false, text: 'Success' });
+        window.location.replace(`${process.env.REACT_APP_CLIENT_URL}`);
       }
     }
   };

@@ -1,57 +1,46 @@
-import React, { useReducer } from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
+import { useMutation } from 'react-apollo-hooks';
 import SignInForm from './SignInForm';
 import SignLogo from '../../presenter/icons/SignLogo';
 import InputContainer from '../../presenter/layouts/InputContainer';
-import fetchData from '../../../util/fetchData';
-import {
-  signInReducer,
-  setIdInput,
-  setPasswordInput,
-  setLoadingState,
-  setCorrectState,
-} from '../../../context/authorization/signInReducer';
+import SIGN_IN from './SignInQueries';
 
 const SignInComponent = () => {
-  const [state, dispatch] = useReducer(signInReducer, { bCorrect: true });
+  const [id, setId] = useState('');
+  const [pw, setPw] = useState('');
+  const [action, setAction] = useState({ text: 'sign in', loading: false });
 
   const getId = e => {
     const curVal = e.target.value;
-    dispatch(setIdInput(curVal));
+    setId(curVal);
   };
 
   const getPw = e => {
     const curVal = e.target.value;
-    dispatch(setPasswordInput(curVal));
+    setPw(curVal);
   };
+
+  const signIn = useMutation(SIGN_IN, {
+    variables: {
+      userid: id,
+      password: pw,
+    },
+  });
 
   const submit = async e => {
     e.preventDefault();
-    dispatch(setLoadingState(true));
-    const jsonHeader = {
-      Accept: 'application/json',
-      'Content-Type': 'application/json',
-    };
-    const userData = {
-      userid: state.id,
-      password: state.pw,
-    };
-    const signInUrl = `${process.env.REACT_APP_SERVER_URL}/users/signin`;
-    const res = await fetchData(signInUrl, 'POST', jsonHeader, JSON.stringify(userData));
-    if (typeof res === 'string') {
-      dispatch(setLoadingState(null));
-      dispatch(setCorrectState(false));
-    } else {
-      window.localStorage.token = res.token;
-      window.location.replace(`${process.env.REACT_APP_CLIENT_URL}`);
-    }
+    setAction({ ...action, loading: true });
+    const { data } = await signIn();
+    window.localStorage.token = data.signIn;
+    setAction({ ...action, loading: false });
   };
 
   return (
     <>
       <SignLogo as={Link} to="/" />
       <InputContainer>
-        <SignInForm Fns={{ getId, getPw, submit }} state={state} />
+        <SignInForm Fns={{ getId, getPw, submit }} action={action} />
       </InputContainer>
     </>
   );

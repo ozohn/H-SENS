@@ -6,4 +6,10 @@ const SIGN_IN = gql`
   }
 `;
 
-export default SIGN_IN;
+const LOCAL_SIGN_IN = gql`
+  mutation logUserIn($token: String!) {
+    logUserIn(token: $token) @client
+  }
+`;
+
+export { SIGN_IN, LOCAL_SIGN_IN };

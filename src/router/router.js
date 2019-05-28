@@ -14,6 +14,10 @@ const AppPath = ({ isLoggedIn }) => (
     <Route path="/search" component={Searched} />
     <Route path="/signin" component={SignIn} />
     <Route path="/signup" component={SignUp} />
+    <Route path="/:userid" exact component={UserPage} />
+    <Route path="/:userid/editor" component={UserEditor} />
+    <Route path="/workeditor" render={props => <WorksEditor {...props} />} />
+
     {/* <MainProvider>
       <Route path="/" exact component={MainPage} />
       <Route path="/user" component={UserPage} />

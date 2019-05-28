@@ -23,12 +23,12 @@ const Heading2 = styled.h2`
   font-weight: bold;
 `;
 
-export default function Works() {
+export default function Works({ works }) {
   return (
     <WorksContainer>
       <Heading2>works</Heading2>
-      <WorkDetail />
-      <WorksList />
+      {/* <WorkDetail /> */}
+      <WorksList works={works} />
     </WorksContainer>
   );
 }

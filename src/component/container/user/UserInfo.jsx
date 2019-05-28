@@ -1,8 +1,9 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import { Image } from 'semantic-ui-react';
+import { useQuery } from 'react-apollo-hooks';
+import { gql } from 'apollo-boost';
 import styled from 'styled-components';
 import LinkButton from '../../presenter/buttons/LinkBtn';
-import { MainContext } from '../../../context/mainContext';
 
 import PumpLoadingAni from '../../presenter/loaders/PumpLoadingAni';
 
@@ -36,24 +37,21 @@ const ImageContainer = styled(Image)`
   }
 `;
 
-export default function UserInfo() {
-  const { state } = useContext(MainContext);
-  const { userimage, userdesc, username } = state.curData.user;
-
-  return state.userPageLoading ? (
-    <Container>
-      <PumpLoadingAni />
-    </Container>
-  ) : (
+const UserInfo = ({ userid, username, userdesc, userimage }) => {
+  return (
     <Container>
       <HeadingContainer>
         <Heading2>{username}</Heading2>
-        {state.curData.user.userid === state.user.userInfo.userid ? (
-          <LinkButton pathname="/usereditor" state={{ submit: 'Edit' }} text="Edit" />
-        ) : null}
+        <LinkButton
+          pathname={`/${userid}/editor`}
+          state={{ submit: 'Edit' }}
+          text="Edit"
+        />
       </HeadingContainer>
       <ImageContainer src={userimage} verticalAlign="top" size="small" circular />
       <UserDesc>{userdesc}</UserDesc>
     </Container>
   );
-}
+};
+
+export default UserInfo;

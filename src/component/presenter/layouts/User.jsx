@@ -1,5 +1,8 @@
 import styled from 'styled-components';
 import React, { useContext } from 'react';
+import { withRouter } from 'react-router-dom';
+import { useQuery } from 'react-apollo-hooks';
+import { gql } from 'apollo-boost';
 import UserInfo from '../../container/user/UserInfo';
 import Works from './Works';
 import { MainContext } from '../../../context/mainContext';
@@ -15,17 +18,39 @@ const User = styled.div`
   }
 `;
 
-function UserPage() {
-  const { state } = useContext(MainContext);
-  if (state.curData.user) {
-    return (
-      <User>
-        <UserInfo />
-        <Works />
-      </User>
-    );
+const QUERY = gql`
+  query seeUser($userid: String!) {
+    seeUser(userid: $userid) {
+      userdesc
+      username
+      userimage
+      works {
+        workimage
+      }
+    }
   }
-  return null;
+`;
+
+function UserPage({
+  match: {
+    params: { userid },
+  },
+}) {
+  const { data, loading } = useQuery(QUERY, {
+    variables: { userid },
+  });
+  if (loading) return null;
+  return (
+    <User>
+      <UserInfo
+        userid={userid}
+        username={data.seeUser.username}
+        userdesc={data.seeUser.userdesc}
+        userimage={data.seeUser.userimage}
+      />
+      <Works works={data.seeUser.works} />
+    </User>
+  );
 }
 
-export default UserPage;
+export default withRouter(UserPage);

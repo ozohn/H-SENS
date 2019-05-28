@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter as Router, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Redirect, Switch } from 'react-router-dom';
 import MainPage from '../component/presenter/layouts/Main';
 import SignIn from '../component/presenter/layouts/SignIn';
 import SignUp from '../component/presenter/layouts/SignUp';
@@ -10,13 +10,15 @@ import WorksEditor from '../component/container/work/WorksEditor';
 
 const AppPath = ({ isLoggedIn }) => (
   <Router>
-    <Route path="/" exact component={MainPage} />
-    <Route path="/search" component={Searched} />
-    <Route path="/signin" component={SignIn} />
-    <Route path="/signup" component={SignUp} />
-    <Route path="/:userid" exact component={UserPage} />
-    <Route path="/:userid/editor" component={UserEditor} />
-    <Route path="/workeditor" render={props => <WorksEditor {...props} />} />
+    <Switch>
+      <Route path="/" exact component={MainPage} />
+      <Route path="/search" component={Searched} />
+      <Route path="/signin" component={SignIn} />
+      <Route path="/signup" component={SignUp} />
+      <Route path="/:userid" exact component={UserPage} />
+      <Route path="/:userid/editor" component={UserEditor} />
+      {/* <Route path="/workeditor" render={props => <WorksEditor {...props} />} /> */}
+    </Switch>
 
     {/* <MainProvider>
       <Route path="/" exact component={MainPage} />

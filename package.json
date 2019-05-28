@@ -20,7 +20,8 @@
     "semantic-ui-css": "^2.4.1",
     "semantic-ui-react": "^0.86.0",
     "styled-components": "^4.2.0",
-    "tui-editor": "^1.4.0"
+    "tui-editor": "^1.4.0",
+    "use-react-router": "^1.0.7"
   },
   "scripts": {
     "start": "react-scripts start",

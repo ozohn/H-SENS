@@ -7,7 +7,7 @@ const fillArray = ({ arr, num, targetNum }) => {
       depth += 1;
       newArr.push([]);
     }
-    newArr[depth].push(arr[i] ? arr[i] : null);
+    newArr[depth].push(arr[i] ? arr[i] : { id: i });
   }
   return newArr;
 };

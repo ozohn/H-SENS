@@ -21,12 +21,12 @@ const Line = ({ works, scroll }) => {
 
   return (
     <ItemContainer ref={scroll ? scrollEl : null}>
-      {works.map((work, i) => {
+      {works.map(work => {
         return (
           <StyledImage
             // onClick={() => showWork(work)}
-            key={i}
-            src={work ? work.workimage : sourse}
+            key={work.id}
+            src={work.workimage ? work.workimage : sourse}
             size="small"
           />
         );

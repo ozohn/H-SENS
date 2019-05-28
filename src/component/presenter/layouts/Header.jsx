@@ -23,23 +23,22 @@ const HeaderContainer = styled.header`
 const QUERY = gql`
   {
     currentUser {
+      userid
       userimage
     }
   }
 `;
 
-const Header = ({ isloggedIn }) => {
+const Header = ({ isLoggedIn }) => {
   const { data, loading } = useQuery(QUERY);
-
   if (!loading) {
     return (
       <HeaderContainer className="header">
         <MainLogo as={Link} to="/" />
         <Search />
         <UserLinkBtn
-          to={isloggedIn ? '/user' : '/signin'}
-          userimage={isloggedIn ? data.currentUser.userimage : null}
-          // onClick={() => syncCurDataByUserData()}
+          to={isLoggedIn ? `/${data.currentUser.userid}` : '/signin'}
+          userimage={isLoggedIn ? data.currentUser.userimage : null}
         />
       </HeaderContainer>
     );

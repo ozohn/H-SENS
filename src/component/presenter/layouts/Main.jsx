@@ -16,6 +16,7 @@ const MainPage = () => {
   const {
     data: { isLoggedIn },
   } = useQuery(QUERY);
+
   // const [mainLoading, setMainLoading] = useState();
   // useEffect(() => {
   //   fetchWorkData('init', setMainLoading);

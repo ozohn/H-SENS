@@ -4,7 +4,7 @@ import { useMutation } from 'react-apollo-hooks';
 import SignInForm from './SignInForm';
 import SignLogo from '../../presenter/icons/SignLogo';
 import InputContainer from '../../presenter/layouts/InputContainer';
-import SIGN_IN from './SignInQueries';
+import { SIGN_IN, LOCAL_SIGN_IN } from './SignInQueries';
 
 const SignInComponent = () => {
   const [id, setId] = useState(null);
@@ -27,6 +27,7 @@ const SignInComponent = () => {
       password: pw,
     },
   });
+  const localSignIn = useMutation(LOCAL_SIGN_IN);
 
   const submit = async e => {
     e.preventDefault();
@@ -40,8 +41,9 @@ const SignInComponent = () => {
       setAction({ ...action, loading: false, text: 'Please check id or password' });
       return;
     }
-    window.localStorage.token = data.signIn;
+    const token = data.signIn;
     setAction({ ...action, loading: false, text: 'Success' });
+    localSignIn({ variables: { token } });
     window.location.replace(`${process.env.REACT_APP_CLIENT_URL}`);
   };
 

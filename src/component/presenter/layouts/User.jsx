@@ -25,6 +25,7 @@ const QUERY = gql`
       username
       userimage
       works {
+        id
         workimage
       }
     }
@@ -48,7 +49,7 @@ function UserPage({
         userdesc={data.seeUser.userdesc}
         userimage={data.seeUser.userimage}
       />
-      <Works works={data.seeUser.works} />
+      <Works works={data.seeUser.works} userid={userid} />
     </User>
   );
 }

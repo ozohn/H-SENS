@@ -58,7 +58,7 @@ const SearchList = ({ history, loading, searched, filter }) => {
     return <div>검색결과없음</div>;
   if (filter === 'Author') {
     const clickUser = userid => {
-      history.push(`/user=${userid}`);
+      history.push(`/${userid}`);
     };
     return (
       <SearchListContainer>

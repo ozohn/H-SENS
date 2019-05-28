@@ -46,29 +46,20 @@ const EditBtnContainer = styled.div`
 `;
 
 export default function Work({ work }) {
-  const { state, showWork, removeWork } = useContext(MainContext);
   return (
     <ItemContainer>
       <CustomImage
-        onClick={() => showWork(work)}
+        // onClick={() => showWork(work)}
         src={work.workimage}
         verticalAlign="top"
         size="medium"
       />
-      {state.curData.user.userid === state.user.userInfo.userid ? (
-        <EditBtnContainer
-          onClick={e => {
-            if (e.currentTarget === e.target) {
-              showWork(work);
-            }
-          }}
-        >
-          <Icon name="remove circle" onClick={() => removeWork({ workid: work._id })} />
-          <Link to={{ pathname: '/workeditor', state: { submit: 'Edit', work } }}>
-            <Icon name="eraser" />
-          </Link>
-        </EditBtnContainer>
-      ) : null}
+      <EditBtnContainer>
+        <Icon name="remove circle" />
+        <Link to={{ pathname: '/workeditor', state: { submit: 'Edit', work } }}>
+          <Icon name="eraser" />
+        </Link>
+      </EditBtnContainer>
     </ItemContainer>
   );
 }

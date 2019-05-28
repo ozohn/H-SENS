@@ -14,7 +14,7 @@ const Heading3 = styled.h3`
   vertical-align: top;
 `;
 
-function InputForm({ Tag, cb, placeholder, label, type, value }) {
+function InputForm({ Tag, cb, placeholder, label, type, value, textValue }) {
   return (
     <>
       <Heading3>{label}</Heading3>
@@ -26,6 +26,7 @@ function InputForm({ Tag, cb, placeholder, label, type, value }) {
           cb(e.target.value);
         }}
         defaultValue={value}
+        value={textValue}
       />
     </>
   );

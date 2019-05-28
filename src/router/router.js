@@ -18,6 +18,7 @@ const AppPath = ({ isLoggedIn }) => (
       <Route path="/:userid" exact component={UserPage} />
       <Route path="/:userid/editor" exact component={UserEditor} />
       <Route path="/:userid/workeditor" exact component={WorksEditor} />
+      <Route path="/:userid/:workid" exact component={UserPage} />
       <Route path="/:userid/:workid/workeditor" exact component={WorksEditor} />
     </Switch>
 

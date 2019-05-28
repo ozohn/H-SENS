@@ -50,6 +50,7 @@ const Work = ({
   match: {
     params: { userid },
   },
+  history,
   work,
 }) => {
   const deleteWork = useMutation(EDIT_WORK, {
@@ -58,7 +59,7 @@ const Work = ({
   return (
     <ItemContainer>
       <CustomImage
-        // onClick={() => showWork(work)}
+        onClick={() => history.push(`/${userid}/${work.id}`)}
         src={work.workimage}
         verticalAlign="top"
         size="medium"

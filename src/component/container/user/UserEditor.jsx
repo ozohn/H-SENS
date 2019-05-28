@@ -1,13 +1,11 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useEffect } from 'react';
 import { withRouter } from 'react-router-dom';
 import { useQuery, useMutation } from 'react-apollo-hooks';
 import { gql } from 'apollo-boost';
 import styled from 'styled-components';
 
-import { EDIT_USER } from './UserQueries';
+import EDIT_USER from './UserQueries';
 import getBase64 from '../../../util/getBase64';
-import InputForm from '../../presenter/forms/Input';
-import LinkButton from '../../presenter/buttons/LinkBtn';
 
 const FormContainer = styled.div`
   position: absolute;
@@ -98,6 +96,23 @@ const Heading3 = styled.h3`
   vertical-align: top;
 `;
 
+const Button = styled.button`
+  color: #95bfb4;
+  margin-left: 25rem;
+  display: inline-block;
+  vertical-align: bottom;
+  border: 0;
+  outline: none;
+  cursor: pointer;
+  font-size: 3rem;
+  font-weight: bold;
+  color: #231f20;
+  background-color: #55fe47;
+  &:hover {
+    color: #231f20;
+  }
+`;
+
 const QUERY = gql`
   query seeUser($userid: String!) {
     seeUser(userid: $userid) {
@@ -122,13 +137,14 @@ function UserEditor({
   const [userimage, setUserImage] = useState();
 
   const changeUserInfo = useMutation(EDIT_USER, {
-    variables: { userid, username, userdesc, userimage },
+    variables: { username, userdesc, userimage },
   });
 
   useEffect(() => {
     if (loading) return;
     setUserDesc(data.seeUser.userdesc);
     setUserName(data.seeUser.username);
+    setUserImage(data.seeUser.userimage);
   }, [data.seeUser]);
 
   return (
@@ -165,7 +181,14 @@ function UserEditor({
               onChange={e => getBase64(e.target.files[0], setUserImage)}
             />
           </FileLabel>
-          <LinkButton pathname={`/${userid}`} text="Submit" cb={changeUserInfo} />
+          <Button
+            onClick={() => {
+              changeUserInfo();
+              window.location.replace(`${process.env.REACT_APP_CLIENT_URL}/${userid}`);
+            }}
+          >
+            Submit
+          </Button>
         </>
       )}
     </FormContainer>

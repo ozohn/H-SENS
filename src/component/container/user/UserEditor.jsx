@@ -1,9 +1,13 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
+import { withRouter } from 'react-router-dom';
+import { useQuery, useMutation } from 'react-apollo-hooks';
+import { gql } from 'apollo-boost';
 import styled from 'styled-components';
+
+import { EDIT_USER } from './UserQueries';
 import getBase64 from '../../../util/getBase64';
 import InputForm from '../../presenter/forms/Input';
 import LinkButton from '../../presenter/buttons/LinkBtn';
-import { MainContext } from '../../../context/mainContext';
 
 const FormContainer = styled.div`
   position: absolute;
@@ -81,55 +85,91 @@ const FileLabel = styled.label`
   text-align: center;
 `;
 
-function UserEditor() {
-  const { state, modifyUserInfo } = useContext(MainContext);
-  const { userimage, userdesc, username } = state.curData.user;
-  const [userName, setUserName] = useState(username);
-  const [userDesc, setUserDesc] = useState(userdesc);
-  const [userImage, setUserImage] = useState();
+const Label = styled.label`
+  display: none;
+`;
+
+const Heading3 = styled.h3`
+  margin: 0;
+  margin-top: 1rem;
+  font-size: 4rem;
+  color: #231f20;
+  display: inline-block;
+  vertical-align: top;
+`;
+
+const QUERY = gql`
+  query seeUser($userid: String!) {
+    seeUser(userid: $userid) {
+      userdesc
+      username
+      userimage
+    }
+  }
+`;
+
+function UserEditor({
+  match: {
+    params: { userid },
+  },
+}) {
+  const { data, loading } = useQuery(QUERY, {
+    variables: { userid },
+  });
+
+  const [username, setUserName] = useState();
+  const [userdesc, setUserDesc] = useState();
+  const [userimage, setUserImage] = useState();
+
+  const changeUserInfo = useMutation(EDIT_USER, {
+    variables: { userid, username, userdesc, userimage },
+  });
+
+  useEffect(() => {
+    if (loading) return;
+    setUserDesc(data.seeUser.userdesc);
+    setUserName(data.seeUser.username);
+  }, [data.seeUser]);
+
   return (
     <FormContainer>
-      <Fields>
-        <InputForm
-          Tag={Input}
-          cb={setUserName}
-          placeholder="Name"
-          label="Who are you?"
-          type="text"
-          value={username}
-        />
-      </Fields>
-      <Fields>
-        <InputForm
-          Tag={TextArea}
-          cb={setUserDesc}
-          label="More"
-          placeholder="What's up?"
-          type="textarea"
-          value={userdesc}
-        />
-      </Fields>
-      <FileLabel>
-        Image
-        <InputFile
-          type="file"
-          accept=".jpg, .jpeg, .png"
-          onChange={e => getBase64(e.target.files[0], setUserImage)}
-        />
-      </FileLabel>
-      <LinkButton
-        pathname="/user"
-        text="Submit"
-        cb={() =>
-          modifyUserInfo({
-            userdesc: userDesc,
-            userimage: userImage || userimage,
-            username: userName,
-          })
-        }
-      />
+      {!loading && (
+        <>
+          <Fields>
+            <Heading3>Who are you?</Heading3>
+            <Input
+              type="text"
+              placeholder="Name"
+              onChange={e => {
+                setUserName(e.target.value);
+              }}
+              defaultValue={username}
+            />
+          </Fields>
+          <Fields>
+            <Heading3>More</Heading3>
+            <TextArea
+              type="textarea"
+              placeholder="More"
+              onChange={e => {
+                setUserDesc(e.target.value);
+              }}
+              value={userdesc || ''}
+            />
+          </Fields>
+          <FileLabel>
+            Image
+            <InputFile
+              type="file"
+              accept=".jpg, .jpeg, .png"
+              onChange={e => getBase64(e.target.files[0], setUserImage)}
+            />
+          </FileLabel>
+          <LinkButton pathname={`/${userid}`} text="Submit" cb={changeUserInfo} />
+        </>
+      )}
     </FormContainer>
   );
 }
 
-export default UserEditor;
+export default withRouter(UserEditor);

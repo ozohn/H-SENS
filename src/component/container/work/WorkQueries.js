@@ -31,8 +31,20 @@ const CREATE_WORK = gql`
 `;
 
 const EDIT_WORK = gql`
-  mutation editWork($worktitle: String!, $workdesc: String, $workimage: String) {
-    editWork(worktitle: $worktitle, workdesc: $workdesc, workimage: $workimage) {
+  mutation editWork(
+    $workid: String!
+    $worktitle: String!
+    $workdesc: String
+    $workimage: String
+    $action: String!
+  ) {
+    editWork(
+      workid: $workid
+      worktitle: $worktitle
+      workdesc: $workdesc
+      workimage: $workimage
+      action: $action
+    ) {
       worktitle
       workdesc
       workimage

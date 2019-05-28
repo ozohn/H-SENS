@@ -91,12 +91,13 @@ function WorksEditor({
     params: { userid, workid },
   },
 }) {
-  const submitText = workid ? 'Edit' : 'Create';
+  const action = workid ? 'EDIT' : 'CREATE';
   const workdesc = useRef(null);
   const [workimage, setWorkimage] = useState('');
   const [worktitle, setWorktitle] = useState('');
   const { data, loading } = useQuery(SEE_WORK, {
     variables: { workid },
+    action,
   });
 
   const createWork = useMutation(CREATE_WORK, {
@@ -108,9 +109,11 @@ function WorksEditor({
   });
   const editWork = useMutation(EDIT_WORK, {
     variables: {
+      workid,
       worktitle,
       workdesc: workdesc.current && workdesc.current.getInstance().getValue(),
       workimage,
+      action,
     },
   });
 
@@ -139,15 +142,15 @@ function WorksEditor({
       </FileLabel>
       <Button
         onClick={async () => {
-          if (submitText === 'Edit') {
+          if (action === 'EDIT') {
             await editWork();
-          } else if (submitText === 'Create') {
+          } else if (action === 'CREATE') {
             await createWork();
           }
           window.location.replace(`${process.env.REACT_APP_CLIENT_URL}/${userid}`);
         }}
       >
-        {submitText}
+        {action.toLowerCase()}
       </Button>
     </Container>
   );

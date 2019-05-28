@@ -1,8 +1,7 @@
 /* eslint-disable no-underscore-dangle */
 import styled from 'styled-components';
-import React, { useContext } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
-import { MainContext } from '../../../context/mainContext';
 import Work from './Work';
 
 const Works = styled.ul`
@@ -49,7 +48,7 @@ export default function WorksList({ works }) {
       <Button to={{ pathname: '/workeditor', state: { submit: 'Add' } }}>create</Button>
       <Works>
         {works.map(work => (
-          <Work key={work._id} work={work} />
+          <Work key={work.id} work={work} />
         ))}
       </Works>
     </>

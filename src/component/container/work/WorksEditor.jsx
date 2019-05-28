@@ -1,11 +1,12 @@
 /* eslint-disable no-underscore-dangle */
 import React, { useState, useRef, useContext } from 'react';
-import { Link } from 'react-router-dom';
+import { withRouter, Link } from 'react-router-dom';
+import { useQuery, useMutation } from 'react-apollo-hooks';
 import styled from 'styled-components';
 import getBase64 from '../../../util/getBase64';
-import { MainContext } from '../../../context/mainContext';
 import InputForm from '../../presenter/forms/Input';
 import TuiEditor from '../../presenter/editors/Editor';
+import { EDIT_WORK } from './WorkQueries';
 
 const Container = styled.div`
   width: 60vw;
@@ -74,12 +75,19 @@ const FileLabel = styled.label`
   text-align: center;
 `;
 
-function WorksEditor({ location }) {
-  const { submit, work } = location.state;
-  const { addWork, modifyWorkInfo } = useContext(MainContext);
+function WorksEditor({
+  match: {
+    params: { workid, userid },
+  },
+}) {
   const workdesc = useRef(null);
   const [workimage, setWorkimage] = useState('');
-  const [worktitle, setWorktitle] = useState(work ? work.worktitle : '');
+  const [worktitle, setWorktitle] = useState('');
+
+  const changeWorkInfo = useMutation(EDIT_WORK, {
+    variables: { worktitle, workdesc, workimage },
+  });
+
   return (
     <Container>
       <Field>
@@ -89,11 +97,11 @@ function WorksEditor({ location }) {
           placeholder="Name"
           label="Title"
           type="text"
-          value={work ? work.worktitle : ''}
+          // value={work ? work.worktitle : ''}
         />
       </Field>
       <Field editor="editor">
-        <TuiEditor targetRef={workdesc} initialValue={work ? work.workdesc : ''} />
+        {/* <TuiEditor targetRef={workdesc} initialValue={work ? work.workdesc : ''} /> */}
       </Field>
       <FileLabel>
         Image
@@ -105,25 +113,25 @@ function WorksEditor({ location }) {
       </FileLabel>
       <Button
         to="/user"
-        text={submit}
+        // text={submit}
         onClick={() => {
           const body = {
             workdesc: workdesc.current.getInstance().getValue(),
-            workimage: workimage || work.workimage,
+            // workimage: workimage || work.workimage,
             worktitle,
           };
-          if (submit === 'Edit') {
-            body.workid = work._id;
-            modifyWorkInfo(body);
-          } else {
-            addWork(body);
-          }
+          // if (submit === 'Edit') {
+          //   body.workid = work._id;
+          //   modifyWorkInfo(body);
+          // } else {
+          //   addWork(body);
+          // }
         }}
       >
-        {submit}
+        {/* {submit} */}
       </Button>
     </Container>
   );
 }
 
-export default WorksEditor;
+export default withRouter(WorksEditor);

@@ -17,13 +17,6 @@ const MainPage = () => {
     data: { isLoggedIn },
   } = useQuery(QUERY);
 
-  // const [mainLoading, setMainLoading] = useState();
-  // useEffect(() => {
-  //   fetchWorkData('init', setMainLoading);
-  //   if (localStorage.getItem('token') === null) return;
-  //   fetchUserData();
-  // }, []);
-
   // return isLoggedIn ? (
   //   <MainLoadingAni />
   // ) :

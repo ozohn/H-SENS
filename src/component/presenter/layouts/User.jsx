@@ -25,6 +25,7 @@ const QUERY = gql`
       username
       userimage
       works {
+        id
         workimage
       }
     }

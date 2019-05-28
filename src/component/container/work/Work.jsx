@@ -1,9 +1,10 @@
 /* eslint-disable no-underscore-dangle */
-import React, { useContext } from 'react';
-import { Link } from 'react-router-dom';
+import React from 'react';
+import { Link, withRouter } from 'react-router-dom';
+import { useQuery, useMutation } from 'react-apollo-hooks';
 import { Image, Icon } from 'semantic-ui-react';
 import styled from 'styled-components';
-import { MainContext } from '../../../context/mainContext';
+import { DELETE_WORK, EDIT_WORK } from './WorkQueries';
 
 const ItemContainer = styled.li`
   position: relative;
@@ -45,7 +46,15 @@ const EditBtnContainer = styled.div`
   );
 `;
 
-export default function Work({ work }) {
+const Work = ({
+  match: {
+    params: { userid },
+  },
+  work,
+}) => {
+  const deleteWork = useMutation(EDIT_WORK, {
+    variables: { workid: work.id },
+  });
   return (
     <ItemContainer>
       <CustomImage
@@ -55,11 +64,18 @@ export default function Work({ work }) {
         size="medium"
       />
       <EditBtnContainer>
-        <Icon name="remove circle" />
-        <Link to={{ pathname: '/workeditor', state: { submit: 'Edit', work } }}>
+        <Icon name="remove circle" onClick={deleteWork} />
+        <Link
+          to={{
+            pathname: `/${userid}/${work.id}/editor`,
+            state: { submit: 'Edit', work },
+          }}
+        >
           <Icon name="eraser" />
         </Link>
       </EditBtnContainer>
     </ItemContainer>
   );
-}
+};
+
+export default withRouter(Work);

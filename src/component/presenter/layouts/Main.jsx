@@ -23,9 +23,10 @@ const MainPage = () => {
   //   fetchUserData();
   // }, []);
 
-  return isLoggedIn ? (
-    <MainLoadingAni />
-  ) : (
+  // return isLoggedIn ? (
+  //   <MainLoadingAni />
+  // ) :
+  return (
     <>
       <Header isLoggedIn={isLoggedIn} />
       {/* <WorkDetail /> */}

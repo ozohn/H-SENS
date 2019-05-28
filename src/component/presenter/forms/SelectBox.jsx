@@ -7,17 +7,6 @@ const SelectorContainer = styled.div`
   width: 15%;
   height: 100%;
   margin-left: 2.5%;
-  &::after {
-    position: absolute;
-    top: 55%;
-    right: 0;
-    content: '';
-    width: 0.5rem;
-    height: 0.5rem;
-    transform: rotate(45deg);
-    border-right: 0.2rem solid #011627;
-    border-bottom: 0.2rem solid #011627;
-  }
 `;
 
 const ListContainer = styled.div`
@@ -40,6 +29,7 @@ const Wrapper = styled.select`
   align-items: center;
   text-align: center;
   position: relative;
+  outline: none;
 `;
 
 const List = styled.option`

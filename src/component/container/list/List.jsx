@@ -22,8 +22,8 @@ const BefButton = styled.button`
 `;
 
 const QUERY = gql`
-  {
-    seeWorks {
+  query seeWorks($index: Int!) {
+    seeWorks(index: $index) {
       worktitle
       workimage
     }
@@ -36,11 +36,24 @@ const List = () => {
   const { data, loading } = useQuery(QUERY);
   const [scroll, setScroll] = useState('');
 
+  // const getList = useQuery(QUERY, {
+  //   variables: {
+  //     index: pagenation,
+  //   },
+  // });
+
+  // const setWorkList = async index => {
+  //   const list = await getList();
+
+  //   return getList;
+  //   // setList(workList);
+  // };
+  // console.log(data, loading);
   useEffect(() => {
-    if (loading) return;
+    // const works = setWorkList(pagenation);
     const works = data.seeWorks;
     setList(fillArray({ arr: works, num: 24, targetNum: 6 }));
-  }, [loading]);
+  }, []);
 
   const handleNextBtn = async () => {
     setPaging(pagenation + 1);

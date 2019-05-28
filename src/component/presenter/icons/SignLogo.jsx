@@ -4,7 +4,7 @@ const SignLogo = styled.div`
   display: flex;
   width: 14rem;
   padding-top: 15%;
-  background: no-repeat url('./image/H-SensEx.png');
+  background: no-repeat url('./image/HsensLogo.png');
   background-size: contain;
   margin: 0 auto;
   height: 0;

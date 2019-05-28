@@ -1,9 +1,12 @@
 import styled from 'styled-components';
 
 const MainLogo = styled.div`
-  border: 1px solid #011627;
-  width: 15%;
-  height: 80%;
+  width: 13rem;
+  height: 4rem;
+  background-position: center center;
+  background: no-repeat url('./image/HsensLogo.png');
+  background-size: contain;
+  margin: 0 auto;
 `;
 
 export default MainLogo;

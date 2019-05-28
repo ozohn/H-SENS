@@ -30,8 +30,6 @@ const SignInComponent = () => {
 
   const submit = async e => {
     e.preventDefault();
-    console.log(signIn);
-    return;
     setAction({ ...action, loading: true });
     if (id === null || pw === null) {
       setAction({ ...action, loading: false, text: 'Please check blank' });

@@ -24,6 +24,7 @@ const BefButton = styled.button`
 const QUERY = gql`
   query seeWorks($index: Int!) {
     seeWorks(index: $index) {
+      id
       worktitle
       workimage
     }
@@ -62,9 +63,10 @@ const List = () => {
       </BefButton>
       <ListContainer onScroll={multiScroll}>
         {workLists.length &&
-          workLists.map((workList, i) => (
-            <Line key={i} works={workList} scroll={i % 2 && scroll} />
-          ))}
+          workLists.map((workList, i) => {
+            const firstWorkId = workList[0].id;
+            return <Line key={firstWorkId} works={workList} scroll={i % 2 && scroll} />;
+          })}
       </ListContainer>
     </>
   );

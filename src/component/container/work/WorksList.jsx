@@ -43,13 +43,13 @@ const Button = styled(Link)`
   }
 `;
 
-export default function WorksList({ works }) {
+export default function WorksList({ works, userid }) {
   return (
     <>
-      <Button to={{ pathname: '/workeditor', state: { submit: 'Add' } }}>create</Button>
+      <Button to={{ pathname: `/${userid}/workeditor` }}>create</Button>
       <Works>
         {works.map(work => (
-          <Work key={work._id} work={work} />
+          <Work key={work.id} work={work} />
         ))}
       </Works>
     </>

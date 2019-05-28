@@ -33,27 +33,16 @@ const QUERY = gql`
 const List = () => {
   const [pagenation, setPaging] = useState(1);
   const [workLists, setList] = useState([]);
-  const { data, loading } = useQuery(QUERY);
+  const { data, loading } = useQuery(QUERY, {
+    variables: { index: pagenation },
+  });
   const [scroll, setScroll] = useState('');
 
-  // const getList = useQuery(QUERY, {
-  //   variables: {
-  //     index: pagenation,
-  //   },
-  // });
-
-  // const setWorkList = async index => {
-  //   const list = await getList();
-
-  //   return getList;
-  //   // setList(workList);
-  // };
-  // console.log(data, loading);
   useEffect(() => {
-    // const works = setWorkList(pagenation);
+    if (loading) return;
     const works = data.seeWorks;
     setList(fillArray({ arr: works, num: 24, targetNum: 6 }));
-  }, []);
+  }, [data]);
 
   const handleNextBtn = async () => {
     setPaging(pagenation + 1);

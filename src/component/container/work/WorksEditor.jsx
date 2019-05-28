@@ -1,13 +1,13 @@
 /* eslint-disable no-underscore-dangle */
-import React, { useState, useRef, useContext } from 'react';
+import React, { useState, useRef } from 'react';
 import { useMutation, useQuery } from 'react-apollo-hooks';
 import { Link, withRouter } from 'react-router-dom';
-import useReactRouter from 'use-react-router';
+import { gql } from 'apollo-boost';
 import styled from 'styled-components';
 import getBase64 from '../../../util/getBase64';
 import InputForm from '../../presenter/forms/Input';
 import TuiEditor from '../../presenter/editors/Editor';
-import { EDIT_WORK, CREATE_WORK, SEE_WORK_BY_ID } from './WorkQueries';
+import { EDIT_WORK, CREATE_WORK, SEE_WORK_BY_ID, SEE_WORK } from './WorkQueries';
 
 const Container = styled.div`
   width: 60vw;
@@ -19,7 +19,7 @@ const Field = styled.div`
   border: ${props => (props.editor ? '0.2rem solid #231f20' : 0)};
 `;
 
-const Button = styled(Link)`
+const Button = styled.button`
   color: #95bfb4;
   margin-left: 25rem;
   display: inline-block;
@@ -76,76 +76,81 @@ const FileLabel = styled.label`
   text-align: center;
 `;
 
+const QUERY = gql`
+  query seeWork($workid: String!) {
+    seeWork(workid: $workid) {
+      workdesc
+      workname
+      workimage
+    }
+  }
+`;
+
 function WorksEditor({
   match: {
-    params: { userid },
+    params: { userid, workid },
   },
 }) {
-  const { history, location, match } = useReactRouter();
-  console.log(match.params.id);
+  const submitText = workid ? 'Edit' : 'Create';
+  const workdesc = useRef(null);
+  const [workimage, setWorkimage] = useState('');
+  const [worktitle, setWorktitle] = useState('');
+  const { data, loading } = useQuery(SEE_WORK, {
+    variables: { workid },
+  });
 
-  // const { data, loading } = useQuery(SEE_WORK_BY_ID, {
-  //   variables: { id },
-  // });
-  // console.log(data, loading)
-  return null;
-  // const { submit, work } = location.state;
-  // const { addWork, modifyWorkInfo } = useContext(MainContext);
-  // const workdesc = useRef(null);
-  // const [workimage, setWorkimage] = useState('');
-  // const [worktitle, setWorktitle] = useState(work ? work.worktitle : '');
-  // const createWork = useMutation(CREATE_WORK, {
-  //   variables: {
-  //     worktitle,
-  //     workdesc,
-  //     workimage,
-  //     userid,
-  //   },
-  // });
-  // return (
-  //   <Container>
-  //     <Field>
-  //       <InputForm
-  //         Tag={Input}
-  //         cb={setWorktitle}
-  //         placeholder="Name"
-  //         label="Title"
-  //         type="text"
-  //         value={work ? work.worktitle : ''}
-  //       />
-  //     </Field>
-  //     <Field editor="editor">
-  //       <TuiEditor targetRef={workdesc} initialValue={work ? work.workdesc : ''} />
-  //     </Field>
-  //     <FileLabel>
-  //       Image
-  //       <InputFile
-  //         type="file"
-  //         accept=".jpg, .jpeg, .png"
-  //         onChange={e => getBase64(e.target.files[0], setWorkimage)}
-  //       />
-  //     </FileLabel>
-  //     <Button
-  //       to="/user"
-  //       text={submit}
-  //       onClick={() => {
-  //         const body = {
-  //           workdesc: workdesc.current.getInstance().getValue(),
-  //           workimage: workimage || work.workimage,
-  //           worktitle,
-  //         };
-  //         if (submit === 'Edit') {
-  //           body.workid = work._id;
-  //           modifyWorkInfo(body);
-  //         } else {
-  //           addWork(body);
-  //         }
-  //       }}
-  //     >
-  //       {submit}
-  //     </Button>
-  //   </Container>
-  // );
+  const createWork = useMutation(CREATE_WORK, {
+    variables: {
+      worktitle,
+      workdesc: workdesc.current && workdesc.current.getInstance().getValue(),
+      workimage,
+    },
+  });
+  const editWork = useMutation(EDIT_WORK, {
+    variables: {
+      worktitle,
+      workdesc: workdesc.current && workdesc.current.getInstance().getValue(),
+      workimage,
+    },
+  });
+
+  return (
+    <Container>
+      <Field>
+        <InputForm
+          Tag={Input}
+          cb={setWorktitle}
+          placeholder="Name"
+          label="Title"
+          type="text"
+          // value={work ? work.worktitle : ''}
+        />
+      </Field>
+      <Field editor="editor">
+        <TuiEditor targetRef={workdesc} initialValue="cdsa" />
+      </Field>
+      <FileLabel>
+        Image
+        <InputFile
+          type="file"
+          accept=".jpg, .jpeg, .png"
+          onChange={e => getBase64(e.target.files[0], setWorkimage)}
+        />
+      </FileLabel>
+      <Button
+        onClick={async () => {
+          if (submitText === 'Edit') {
+            await editWork();
+          } else if (submitText === 'Create') {
+            await createWork();
+          }
+          window.location.replace(`${process.env.REACT_APP_CLIENT_URL}/${userid}`);
+        }}
+      >
+        {submitText}
+      </Button>
+    </Container>
+  );
 }
 
 export default withRouter(WorksEditor);

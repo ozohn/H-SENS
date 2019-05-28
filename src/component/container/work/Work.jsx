@@ -67,8 +67,8 @@ const Work = ({
         <Icon name="remove circle" onClick={deleteWork} />
         <Link
           to={{
-            pathname: `/${userid}/${work.id}/editor`,
-            state: { submit: 'Edit', work },
+            pathname: `/${userid}/${work.id}/workeditor`,
+            params: { workid: work.id, submit: 'Edit' },
           }}
         >
           <Icon name="eraser" />

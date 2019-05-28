@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import { gql } from 'apollo-boost';
 import { useQuery } from 'react-apollo-hooks';
@@ -33,7 +34,7 @@ const Header = ({ isloggedIn }) => {
   if (!loading) {
     return (
       <HeaderContainer className="header">
-        <MainLogo />
+        <MainLogo as={Link} to="/" />
         <Search />
         <UserLinkBtn
           to={isloggedIn ? '/user' : '/signin'}

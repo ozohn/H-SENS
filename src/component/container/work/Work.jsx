@@ -53,7 +53,7 @@ const Work = ({
   history,
   work,
 }) => {
-  const deleteWork = useMutation(EDIT_WORK, {
+  const deleteWork = useMutation(DELETE_WORK, {
     variables: { workid: work.id },
   });
   return (
@@ -65,7 +65,13 @@ const Work = ({
         size="medium"
       />
       <EditBtnContainer>
-        <Icon name="remove circle" onClick={deleteWork} />
+        <Icon
+          name="remove circle"
+          onClick={() => {
+            deleteWork();
+            window.location.replace(`${process.env.REACT_APP_CLIENT_URL}/${userid}`);
+          }}
+        />
         <Link
           to={{
             pathname: `/${userid}/${work.id}/workeditor`,

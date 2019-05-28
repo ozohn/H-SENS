@@ -52,4 +52,10 @@ const EDIT_WORK = gql`
   }
 `;
 
-export { EDIT_WORK, CREATE_WORK, SEE_WORK_BY_ID, SEE_WORK };
+const DELETE_WORK = gql`
+  mutation deleteWork($workid: String!) {
+    deleteWork(workid: $workid)
+  }
+`;
+
+export { EDIT_WORK, CREATE_WORK, SEE_WORK_BY_ID, SEE_WORK, DELETE_WORK };

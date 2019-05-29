@@ -22,30 +22,6 @@
     "tui-editor": "^1.4.0",
     "use-react-router": "^1.0.7"
   },
-<<<<<<< HEAD
-=======
-  "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject"
-  },
-  "eslintConfig": {
-    "extends": [
-      "airbnb",
-      "prettier"
-    ],
-    "rules": {
-      "react/prefer-stateless-function": 0,
-      "react/jsx-filename-extension": 0,
-      "react/jsx-one-expression-per-line": 0,
-      "react/prop-types": 0
-    },
-    "env": {
-      "browser": true
-    }
-  },
->>>>>>> 876ffcb
   "browserslist": [
     ">0.2%",
     "not dead",

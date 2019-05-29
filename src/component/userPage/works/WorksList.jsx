@@ -2,6 +2,8 @@
 import styled from 'styled-components';
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { gql } from 'apollo-boost';
+import { useQuery } from 'react-apollo-hooks';
 import Work from './Work';
 
 const Works = styled.ul`
@@ -42,13 +44,28 @@ const Button = styled(Link)`
   }
 `;
 
+const QUERY = gql`
+  {
+    currentUser {
+      userid
+      userimage
+    }
+  }
+`;
+
 export default function WorksList({ works, userid }) {
+  const {
+    data: { currentUser },
+  } = useQuery(QUERY);
+
   return (
     <>
-      <Button to={{ pathname: `/${userid}/workeditor` }}>create</Button>
+      {currentUser && currentUser.userid === userid && (
+        <Button to={{ pathname: `/${userid}/workeditor` }}>create</Button>
+      )}
       <Works>
         {works.map(work => (
-          <Work key={work.id} work={work} />
+          <Work key={work.id} work={work} userid={userid} currentUser={currentUser} />
         ))}
       </Works>
     </>

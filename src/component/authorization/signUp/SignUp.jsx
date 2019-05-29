@@ -1,7 +1,7 @@
 import React from 'react';
 
-import SignUpComponent from '../../container/signUp/SignUpComponent';
-import AuthContainer from './AuthContainer';
+import SignUpComponent from './SignUpComponent';
+import AuthContainer from '../AuthContainer';
 
 const SignUp = () => {
   return (

@@ -1,8 +1,8 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-import AuthInput from '../../presenter/forms/AuthInput';
-import SignUpBtn from '../../presenter/buttons/SignUpBtn';
+import AuthInput from '../AuthInput';
+import SignUpBtn from '../SignUpBtn';
 import SignInSubmitBtn from './SignInSubmitBtn';
 
 const SignInForm = ({ Fns, action }) => (

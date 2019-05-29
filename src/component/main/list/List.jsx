@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { gql } from 'apollo-boost';
 import { useQuery } from 'react-apollo-hooks';
 
-import ListContainer from '../../presenter/layouts/ListContainer';
+import ListContainer from './ListContainer';
 import fillArray from './fillArray';
 import Line from './Line';
 

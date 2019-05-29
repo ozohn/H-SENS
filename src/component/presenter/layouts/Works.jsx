@@ -1,8 +1,8 @@
 import styled from 'styled-components';
-import React, { useState } from 'react';
+import React from 'react';
 import { withRouter } from 'react-router-dom';
 import WorksList from '../../container/work/WorksList';
-import WorkDetail from '../../container/work/WorkDetail';
+import WorkDetail from '../../workDetail/WorkDetail';
 
 const WorksContainer = styled.div`
   position: fixed;

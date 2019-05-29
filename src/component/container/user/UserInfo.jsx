@@ -3,8 +3,6 @@ import { Image } from 'semantic-ui-react';
 import styled from 'styled-components';
 import LinkButton from '../../presenter/buttons/LinkBtn';
 
-import PumpLoadingAni from '../../presenter/loaders/PumpLoadingAni';
-
 const Container = styled.div`
   position: relative;
   z-index: 3;

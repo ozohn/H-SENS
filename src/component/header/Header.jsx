@@ -4,9 +4,9 @@ import styled from 'styled-components';
 import { gql } from 'apollo-boost';
 import { useQuery } from 'react-apollo-hooks';
 
-import MainLogo from '../icons/MainLogo';
-import UserLinkBtn from '../buttons/UserLinkBtn';
-import Search from '../../container/search/Search';
+import MainLogo from './MainLogo';
+import UserLinkBtn from './UserLinkBtn';
+import Search from './search/Search';
 
 const HeaderContainer = styled.header`
   display: flex;

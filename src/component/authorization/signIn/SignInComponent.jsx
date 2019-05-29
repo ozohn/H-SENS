@@ -2,8 +2,8 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useMutation } from 'react-apollo-hooks';
 import SignInForm from './SignInForm';
-import SignLogo from '../../presenter/icons/SignLogo';
-import InputContainer from '../../presenter/layouts/InputContainer';
+import SignLogo from '../SignLogo';
+import InputContainer from '../InputContainer';
 import { SIGN_IN, LOCAL_SIGN_IN } from './SignInQueries';
 
 const SignInComponent = () => {

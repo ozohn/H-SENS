@@ -2,9 +2,9 @@ import React from 'react';
 import { withRouter } from 'react-router-dom';
 import { useQuery } from 'react-apollo-hooks';
 import { gql } from 'apollo-boost';
-import Header from './Header';
+import Header from '../../header/Header';
 import SearchList from '../../container/searchList/SearchList';
-import WorkDetail from '../../container/work/WorkDetail';
+// import WorkDetail from '../../workDetail/WorkDetail';
 
 export const SEARCH = gql`
   query search($term: String!) {

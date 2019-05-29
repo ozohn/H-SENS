@@ -1,7 +1,7 @@
 import React from 'react';
 
-import SignInComponent from '../../container/signIn/SignInComponent';
-import AuthContainer from './AuthContainer';
+import SignInComponent from './SignInComponent';
+import AuthContainer from '../AuthContainer';
 
 const SignIn = () => {
   return (

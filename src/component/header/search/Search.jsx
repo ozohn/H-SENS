@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import { withRouter } from 'react-router-dom';
-import SelectBox from '../../presenter/forms/SelectBox';
+import SelectBox from './SelectBox';
 
 const SearchWrapper = styled.div`
   display: flex;

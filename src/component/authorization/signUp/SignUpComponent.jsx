@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useMutation } from 'react-apollo-hooks';
-import InputContainer from '../../presenter/layouts/InputContainer';
-import SignLogo from '../../presenter/icons/SignLogo';
+import InputContainer from '../InputContainer';
+import SignLogo from '../SignLogo';
 import SignUpForm from './SignUpForm';
 import { CREATE_ACCOUNT, CONFIRM_ID } from './SignUpQueries';
 

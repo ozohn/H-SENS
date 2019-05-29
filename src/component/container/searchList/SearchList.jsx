@@ -1,9 +1,9 @@
 /* eslint-disable no-underscore-dangle */
-import React, { useState } from 'react';
-import { Link, withRouter } from 'react-router-dom';
+import React from 'react';
+import { withRouter } from 'react-router-dom';
 import styled from 'styled-components';
 
-import MainLoadingAni from '../../presenter/loaders/MainLoadingAni';
+import MainLoadingAni from '../../main/MainLoadingAni';
 
 const SearchListContainer = styled.div`
   height: 85vh;

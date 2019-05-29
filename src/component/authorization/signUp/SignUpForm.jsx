@@ -1,9 +1,9 @@
 /* eslint-disable no-nested-ternary */
 import React from 'react';
 import errorMessage from './errorMessage';
-import AuthInputContainer from '../../presenter/forms/AuthInput';
-import SubmitBtn from '../../presenter/buttons/SubmitBtn';
-import PumpLoadingAni from '../../presenter/loaders/PumpLoadingAni';
+import AuthInputContainer from '../AuthInput';
+import SubmitBtn from '../SubmitBtn';
+import PumpLoadingAni from '../PumpLoadingAni';
 
 const SignUpForm = ({ state, Fns }) => {
   return (

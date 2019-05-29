@@ -9,19 +9,6 @@ const SelectorContainer = styled.div`
   margin-left: 2.5%;
 `;
 
-const ListContainer = styled.div`
-  position: absolute;
-  top: 100%;
-  width: 100%;
-  height: 10vh;
-  overflow: hidden;
-  z-index: 99;
-  background-color: #efffe9;
-  border-bottom: 1px solid #011627;
-  border-right: 1px solid #011627;
-  border-left: 1px solid #011627;
-`;
-
 const Wrapper = styled.select`
   width: 100%;
   height: 100%;
@@ -39,16 +26,6 @@ const List = styled.option`
   display: flex;
   justify-content: center;
   align-items: center;
-`;
-
-const Header = styled.div`
-  width: 100%;
-  height: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: flex-end;
-  font-size: 1.5rem;
-  border-bottom: 1px solid #011627;
 `;
 
 const SelectBox = ({ selector, setSelector }) => {

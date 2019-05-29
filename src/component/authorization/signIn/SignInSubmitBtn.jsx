@@ -1,7 +1,7 @@
 /* eslint-disable no-nested-ternary */
 import React from 'react';
-import PumpLoadingAni from '../../presenter/loaders/PumpLoadingAni';
-import SubmitBtn from '../../presenter/buttons/SubmitBtn';
+import PumpLoadingAni from '../PumpLoadingAni';
+import SubmitBtn from '../SubmitBtn';
 
 const SignInSubmitBtn = ({ submit, action }) => {
   return (

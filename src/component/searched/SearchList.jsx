@@ -68,7 +68,6 @@ const SearchList = ({ history, loading, searched, filter }) => {
               <DimLayer />
               <UserLink
                 background={user.userimage}
-                // to={{ pathname: '/searchedUser', state: { userid: user.userid } }}
                 onClick={() => clickUser(user.userid)}
               />
             </UserDataContainer>

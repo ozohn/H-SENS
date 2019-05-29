@@ -1,6 +1,9 @@
 import React from 'react';
+import { withRouter } from 'react-router-dom';
 import { Image } from 'semantic-ui-react';
 import styled from 'styled-components';
+import { gql } from 'apollo-boost';
+import { useQuery } from 'react-apollo-hooks';
 import LinkButton from './LinkBtn';
 
 const Container = styled.div`
@@ -33,16 +36,31 @@ const ImageContainer = styled(Image)`
   }
 `;
 
+const QUERY = gql`
+  {
+    currentUser {
+      userid
+      userimage
+    }
+  }
+`;
+
 const UserInfo = ({ userid, username, userdesc, userimage }) => {
+  const {
+    data: { currentUser },
+    loading,
+  } = useQuery(QUERY);
   return (
     <Container>
       <HeadingContainer>
         <Heading2>{username}</Heading2>
-        <LinkButton
-          pathname={`/${userid}/editor`}
-          state={{ submit: 'Edit' }}
-          text="Edit"
-        />
+        {!loading && currentUser.userid === userid && (
+          <LinkButton
+            pathname={`/${userid}/editor`}
+            state={{ submit: 'Edit' }}
+            text="Edit"
+          />
+        )}
       </HeadingContainer>
       <ImageContainer src={userimage} verticalAlign="top" size="small" circular />
       <UserDesc>{userdesc}</UserDesc>
@@ -50,4 +68,4 @@ const UserInfo = ({ userid, username, userdesc, userimage }) => {
   );
 };
 
-export default UserInfo;
+export default withRouter(UserInfo);

@@ -4,7 +4,7 @@ import { Link, withRouter } from 'react-router-dom';
 import { useMutation } from 'react-apollo-hooks';
 import { Image, Icon } from 'semantic-ui-react';
 import styled from 'styled-components';
-import { DELETE_WORK, EDIT_WORK } from '../../workEditor/WorkQueries';
+import { DELETE_WORK } from '../../workEditor/WorkQueries';
 
 const ItemContainer = styled.li`
   position: relative;
@@ -52,6 +52,7 @@ const Work = ({
   },
   history,
   work,
+  currentUser,
 }) => {
   const deleteWork = useMutation(DELETE_WORK, {
     variables: { workid: work.id },
@@ -64,23 +65,25 @@ const Work = ({
         verticalAlign="top"
         size="medium"
       />
-      <EditBtnContainer>
-        <Icon
-          name="remove circle"
-          onClick={() => {
-            deleteWork();
-            window.location.replace(`${process.env.REACT_APP_CLIENT_URL}/${userid}`);
-          }}
-        />
-        <Link
-          to={{
-            pathname: `/${userid}/${work.id}/workeditor`,
-            params: { workid: work.id, submit: 'Edit' },
-          }}
-        >
-          <Icon name="eraser" />
-        </Link>
-      </EditBtnContainer>
+      {currentUser.userid === userid && (
+        <EditBtnContainer>
+          <Icon
+            name="remove circle"
+            onClick={() => {
+              deleteWork();
+              window.location.replace(`${process.env.REACT_APP_CLIENT_URL}/${userid}`);
+            }}
+          />
+          <Link
+            to={{
+              pathname: `/${userid}/${work.id}/workeditor`,
+              params: { workid: work.id, submit: 'Edit' },
+            }}
+          >
+            <Icon name="eraser" />
+          </Link>
+        </EditBtnContainer>
+      )}
     </ItemContainer>
   );
 };

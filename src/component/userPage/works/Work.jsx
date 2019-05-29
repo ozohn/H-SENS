@@ -4,7 +4,7 @@ import { Link, withRouter } from 'react-router-dom';
 import { useMutation } from 'react-apollo-hooks';
 import { Image, Icon } from 'semantic-ui-react';
 import styled from 'styled-components';
-import { DELETE_WORK, EDIT_WORK } from './WorkQueries';
+import { DELETE_WORK, EDIT_WORK } from '../../workEditor/WorkQueries';
 
 const ItemContainer = styled.li`
   position: relative;

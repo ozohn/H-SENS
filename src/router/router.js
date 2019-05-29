@@ -6,7 +6,7 @@ import SignUp from '../component/authorization/signUp/SignUp';
 import UserPage from '../component/userPage/User';
 import Searched from '../component/searched/Searched';
 import UserEditor from '../component/userEditor/UserEditor';
-import WorksEditor from '../component/container/work/WorksEditor';
+import WorksEditor from '../component/workEditor/WorksEditor';
 
 const AppPath = () => (
   <Router>

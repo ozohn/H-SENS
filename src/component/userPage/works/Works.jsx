@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import React from 'react';
 import { withRouter } from 'react-router-dom';
-import WorksList from '../../container/work/WorksList';
+import WorksList from './WorksList';
 import WorkDetail from '../../workDetail/WorkDetail';
 
 const WorksContainer = styled.div`

@@ -28,7 +28,7 @@ const Searched = ({ location: { search } }) => {
     skip: term === undefined,
     variables: { term },
   });
-
+  console.log(data);
   return (
     <>
       <Header />

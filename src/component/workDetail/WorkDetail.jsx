@@ -3,7 +3,7 @@ import { withRouter } from 'react-router-dom';
 import { useQuery } from 'react-apollo-hooks';
 import styled from 'styled-components';
 import { Viewer } from '@toast-ui/react-editor';
-import { SEE_WORK } from '../container/work/WorkQueries';
+import { SEE_WORK } from '../workEditor/WorkQueries';
 
 const WorkCover = styled.div`
   display: ${props => (props.target ? 'block' : 'none')};

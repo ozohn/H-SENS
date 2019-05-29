@@ -3,9 +3,9 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import MainPage from '../component/main/Main';
 import SignIn from '../component/authorization/signIn/SignIn';
 import SignUp from '../component/authorization/signUp/SignUp';
-import UserPage from '../component/presenter/layouts/User';
-import Searched from '../component/presenter/layouts/Searched';
-import UserEditor from '../component/container/user/UserEditor';
+import UserPage from '../component/userPage/User';
+import Searched from '../component/searched/Searched';
+import UserEditor from '../component/userEditor/UserEditor';
 import WorksEditor from '../component/container/work/WorksEditor';
 
 const AppPath = () => (

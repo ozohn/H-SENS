@@ -5,7 +5,7 @@ import { gql } from 'apollo-boost';
 import styled from 'styled-components';
 
 import EDIT_USER from './UserQueries';
-import getBase64 from '../../../util/getBase64';
+import getBase64 from '../../util/getBase64';
 
 const FormContainer = styled.div`
   position: absolute;

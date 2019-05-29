@@ -2,7 +2,7 @@
 import React, { useEffect, useRef } from 'react';
 import { withRouter } from 'react-router-dom';
 import styled from 'styled-components';
-import ItemContainer from '../../presenter/layouts/ItemContainer';
+import ItemContainer from './ItemContainer';
 
 const StyledImage = styled.div`
   display: block;

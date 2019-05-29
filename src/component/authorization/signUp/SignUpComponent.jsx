@@ -39,7 +39,7 @@ const SignUpComponent = () => {
         } = await checkOverlap();
         setId({ ...userid, error: confirmId });
       } catch (error) {
-        console.error(error);
+        return error.message;
       }
     }
   };

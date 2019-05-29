@@ -1,10 +1,10 @@
 import styled from 'styled-components';
-import React, { useContext } from 'react';
+import React from 'react';
 import { withRouter } from 'react-router-dom';
 import { useQuery } from 'react-apollo-hooks';
 import { gql } from 'apollo-boost';
-import UserInfo from '../../container/user/UserInfo';
-import Works from './Works';
+import UserInfo from './UserInfo';
+import Works from './works/Works';
 
 const User = styled.div`
   position: relative;

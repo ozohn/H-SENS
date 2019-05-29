@@ -1,7 +1,7 @@
 /* eslint-disable no-underscore-dangle */
 import React from 'react';
 import { Link, withRouter } from 'react-router-dom';
-import { useQuery, useMutation } from 'react-apollo-hooks';
+import { useMutation } from 'react-apollo-hooks';
 import { Image, Icon } from 'semantic-ui-react';
 import styled from 'styled-components';
 import { DELETE_WORK, EDIT_WORK } from './WorkQueries';

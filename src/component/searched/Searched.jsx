@@ -2,8 +2,8 @@ import React from 'react';
 import { withRouter } from 'react-router-dom';
 import { useQuery } from 'react-apollo-hooks';
 import { gql } from 'apollo-boost';
-import Header from '../../header/Header';
-import SearchList from '../../container/searchList/SearchList';
+import Header from '../header/Header';
+import SearchList from './SearchList';
 // import WorkDetail from '../../workDetail/WorkDetail';
 
 export const SEARCH = gql`

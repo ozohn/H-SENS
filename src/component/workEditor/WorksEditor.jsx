@@ -1,12 +1,12 @@
 /* eslint-disable no-underscore-dangle */
 import React, { useState, useRef } from 'react';
 import { useMutation, useQuery } from 'react-apollo-hooks';
-import { Link, withRouter } from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 import { gql } from 'apollo-boost';
 import styled from 'styled-components';
-import getBase64 from '../../../util/getBase64';
-import InputForm from '../../presenter/forms/Input';
-import TuiEditor from '../../presenter/editors/Editor';
+import getBase64 from '../../util/getBase64';
+import InputForm from './Input';
+import TuiEditor from './Editor';
 import { EDIT_WORK, CREATE_WORK, SEE_WORK_BY_ID, SEE_WORK } from './WorkQueries';
 
 const Container = styled.div`

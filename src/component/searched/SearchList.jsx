@@ -3,7 +3,7 @@ import React from 'react';
 import { withRouter } from 'react-router-dom';
 import styled from 'styled-components';
 
-import MainLoadingAni from '../../main/MainLoadingAni';
+import MainLoadingAni from '../main/MainLoadingAni';
 
 const SearchListContainer = styled.div`
   height: 85vh;

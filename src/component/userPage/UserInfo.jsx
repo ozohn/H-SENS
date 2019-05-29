@@ -1,7 +1,7 @@
 import React from 'react';
 import { Image } from 'semantic-ui-react';
 import styled from 'styled-components';
-import LinkButton from '../../presenter/buttons/LinkBtn';
+import LinkButton from './LinkBtn';
 
 const Container = styled.div`
   position: relative;

@@ -49,17 +49,9 @@ const WorkDetail = ({
     params: { workid, userid },
   },
   history,
-<<<<<<< HEAD
-  searched,
-}) => {
-  if (searched) {
-    workid = searched.split('/')[1];
-  }
-=======
   searchWork,
   search,
 }) => {
->>>>>>> d861e6fc4a9752683b00bbe44ba87d0e7be8bace
   const { data } = useQuery(SEE_WORK, {
     variables: { workid: workid || searchWork },
   });
@@ -71,15 +63,10 @@ const WorkDetail = ({
         if (e.target === e.currentTarget) {
           document.body.style.overflowY = 'auto';
           if (userid) history.push(`/${userid}`);
-<<<<<<< HEAD
-          else if (searched) history.push(`${searched.split('/')[0]}`);
-          else if (!userid) history.push(`/`);
-=======
           else if (searchWork) {
             const searchedUrl = search.split('/')[0];
             history.push(`/search/${searchedUrl}`);
           } else history.push(`/`);
->>>>>>> d861e6fc4a9752683b00bbe44ba87d0e7be8bace
         }
       }}
       target={data.seeWork}

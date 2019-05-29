@@ -50,6 +50,7 @@ const WorkDetail = ({
   },
   history,
 }) => {
+  console.log(workid);
   const { data } = useQuery(SEE_WORK, {
     variables: { workid },
   });

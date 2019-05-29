@@ -14,6 +14,7 @@ const AppPath = () => (
       <Route path="/" exact component={MainPage} />
       <Route path="/work/:workid" exact component={MainPage} />
       <Route path="/search" component={Searched} />
+      <Route path="/search/:location/:workid" component={Searched} />
       <Route path="/signin" component={SignIn} />
       <Route path="/signup" component={SignUp} />
       <Route path="/:userid" exact component={UserPage} />

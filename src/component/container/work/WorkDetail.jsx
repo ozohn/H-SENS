@@ -60,7 +60,8 @@ const WorkDetail = ({
       onClick={e => {
         if (e.target === e.currentTarget) {
           document.body.style.overflowY = 'auto';
-          history.push(`/${userid}`);
+          if (userid) history.push(`/${userid}`);
+          else if (!userid) history.push(`/`);
         }
       }}
       target={data.seeWork}

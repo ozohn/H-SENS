@@ -12,6 +12,7 @@ const AppPath = ({ isLoggedIn }) => (
   <Router>
     <Switch>
       <Route path="/" exact component={MainPage} />
+      <Route path="/work/:workid" exact component={MainPage} />
       <Route path="/search" component={Searched} />
       <Route path="/signin" component={SignIn} />
       <Route path="/signup" component={SignUp} />

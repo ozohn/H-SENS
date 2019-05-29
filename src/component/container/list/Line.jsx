@@ -1,5 +1,6 @@
 /* eslint-disable no-underscore-dangle */
 import React, { useEffect, useRef } from 'react';
+import { withRouter } from 'react-router-dom';
 import styled from 'styled-components';
 import ItemContainer from '../../presenter/layouts/ItemContainer';
 
@@ -10,7 +11,7 @@ const StyledImage = styled.div`
   background: no-repeat center / 80% url(${props => props.src});
 `;
 
-const Line = ({ works, scroll }) => {
+const Line = ({ history, works, scroll }) => {
   const scrollEl = useRef(null);
   const sourse = 'https://react.semantic-ui.com/images/wireframe/image.png';
 
@@ -24,7 +25,7 @@ const Line = ({ works, scroll }) => {
       {works.map(work => {
         return (
           <StyledImage
-            // onClick={() => showWork(work)}
+            onClick={() => history.push(`/work/${work.id}`)}
             key={work.id}
             src={work.workimage ? work.workimage : sourse}
             size="small"
@@ -35,4 +36,4 @@ const Line = ({ works, scroll }) => {
   );
 };
 
-export default Line;
+export default withRouter(Line);

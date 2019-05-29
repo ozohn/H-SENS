@@ -21,7 +21,7 @@ export const SEARCH = gql`
   }
 `;
 
-const Searched = ({ location: { search }, match }) => {
+const Searched = ({ location: { search } }) => {
   const query = search.split('=');
   const term = query[1].split('&')[0];
   const select = query[2];
@@ -29,11 +29,12 @@ const Searched = ({ location: { search }, match }) => {
     skip: term === undefined,
     variables: { term },
   });
-  console.log(match);
+
+  const workArr = select.split('/');
   return (
     <>
       <Header />
-      {/* {params.workid && <WorkDetail />} */}
+      {workArr[1] && <WorkDetail search={search} searchWork={workArr[1]} />}
       <SearchList searched={data} loading={loading} filter={select} />
     </>
   );

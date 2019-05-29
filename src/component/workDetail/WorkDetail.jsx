@@ -49,10 +49,11 @@ const WorkDetail = ({
     params: { workid, userid },
   },
   history,
+  searchWork,
+  search,
 }) => {
-  console.log(workid);
   const { data } = useQuery(SEE_WORK, {
-    variables: { workid },
+    variables: { workid: workid || searchWork },
   });
   window.scrollTo(0, window.innerHeight);
   document.body.style.overflowY = 'hidden';
@@ -62,7 +63,10 @@ const WorkDetail = ({
         if (e.target === e.currentTarget) {
           document.body.style.overflowY = 'auto';
           if (userid) history.push(`/${userid}`);
-          else if (!userid) history.push(`/`);
+          else if (searchWork) {
+            const searchedUrl = search.split('/')[0];
+            history.push(`/search/${searchedUrl}`);
+          } else history.push(`/`);
         }
       }}
       target={data.seeWork}

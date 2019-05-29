@@ -52,7 +52,7 @@ const WorkImage = styled.div`
   background-color: #fff;
 `;
 
-const SearchList = ({ history, match, location, loading, searched, filter }) => {
+const SearchList = ({ history, location, loading, searched, filter }) => {
   if (loading) return <MainLoadingAni />;
   if (!searched.searchWork.length && !searched.searchUser.length)
     return <div>검색결과없음</div>;
@@ -68,7 +68,6 @@ const SearchList = ({ history, match, location, loading, searched, filter }) => 
               <DimLayer />
               <UserLink
                 background={user.userimage}
-                // to={{ pathname: '/searchedUser', state: { userid: user.userid } }}
                 onClick={() => clickUser(user.userid)}
               />
             </UserDataContainer>

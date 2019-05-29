@@ -39,6 +39,7 @@ function UserPage({
   const { data, loading } = useQuery(QUERY, {
     variables: { userid },
   });
+
   if (loading) return null;
   return (
     <User>

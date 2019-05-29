@@ -57,14 +57,15 @@ export default function WorksList({ works, userid }) {
   const {
     data: { currentUser },
   } = useQuery(QUERY);
+
   return (
     <>
-      {currentUser.userid === userid && (
+      {currentUser && currentUser.userid === userid && (
         <Button to={{ pathname: `/${userid}/workeditor` }}>create</Button>
       )}
       <Works>
         {works.map(work => (
-          <Work key={work.id} work={work} currentUser={currentUser} />
+          <Work key={work.id} work={work} userid={userid} currentUser={currentUser} />
         ))}
       </Works>
     </>

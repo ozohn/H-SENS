@@ -4,7 +4,7 @@ import { useQuery } from 'react-apollo-hooks';
 import { gql } from 'apollo-boost';
 import Header from '../header/Header';
 import SearchList from './SearchList';
-// import WorkDetail from '../../workDetail/WorkDetail';
+import WorkDetail from '../workDetail/WorkDetail';
 
 export const SEARCH = gql`
   query search($term: String!) {
@@ -14,6 +14,7 @@ export const SEARCH = gql`
       userimage
     }
     searchWork(term: $term) {
+      id
       worktitle
       workimage
     }
@@ -28,10 +29,12 @@ const Searched = ({ location: { search } }) => {
     skip: term === undefined,
     variables: { term },
   });
+
+  const workArr = select.split('/');
   return (
     <>
       <Header />
-      {/* <WorkDetail searched /> */}
+      {workArr[1] && <WorkDetail search={search} searchWork={workArr[1]} />}
       <SearchList searched={data} loading={loading} filter={select} />
     </>
   );

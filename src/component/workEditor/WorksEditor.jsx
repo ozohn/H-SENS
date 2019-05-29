@@ -2,12 +2,11 @@
 import React, { useState, useRef } from 'react';
 import { useMutation, useQuery } from 'react-apollo-hooks';
 import { withRouter } from 'react-router-dom';
-import { gql } from 'apollo-boost';
 import styled from 'styled-components';
 import getBase64 from '../../util/getBase64';
 import InputForm from './Input';
 import TuiEditor from './Editor';
-import { EDIT_WORK, CREATE_WORK, SEE_WORK_BY_ID, SEE_WORK } from './WorkQueries';
+import { EDIT_WORK, CREATE_WORK, SEE_WORK } from './WorkQueries';
 
 const Container = styled.div`
   width: 60vw;
@@ -74,16 +73,6 @@ const FileLabel = styled.label`
   transition: border 300ms ease;
   cursor: pointer;
   text-align: center;
-`;
-
-const QUERY = gql`
-  query seeWork($workid: String!) {
-    seeWork(workid: $workid) {
-      workdesc
-      workname
-      workimage
-    }
-  }
 `;
 
 function WorksEditor({

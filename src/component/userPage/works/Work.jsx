@@ -65,7 +65,7 @@ const Work = ({
         verticalAlign="top"
         size="medium"
       />
-      {currentUser.userid === userid && (
+      {currentUser && currentUser.userid === userid && (
         <EditBtnContainer>
           <Icon
             name="remove circle"

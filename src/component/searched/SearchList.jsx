@@ -52,7 +52,7 @@ const WorkImage = styled.div`
   background-color: #fff;
 `;
 
-const SearchList = ({ history, loading, searched, filter }) => {
+const SearchList = ({ history, match, location, loading, searched, filter }) => {
   if (loading) return <MainLoadingAni />;
   if (!searched.searchWork.length && !searched.searchUser.length)
     return <div>검색결과없음</div>;
@@ -84,8 +84,8 @@ const SearchList = ({ history, loading, searched, filter }) => {
           return (
             <UserDataContainer
               work={work}
-              // onClick={() => showWork(work, searched)}
-              key={work.workid}
+              onClick={() => history.push(`/search/${location.search}/${work.id}`)}
+              key={work.id}
               background={work.workimage}
             >
               <DimLayer />

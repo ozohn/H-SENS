@@ -1,7 +1,6 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
-import { MainContext } from '../../../context/mainContext';
 
 const StyledSearchBtn = styled(Link)`
   &&& {
@@ -22,8 +21,7 @@ const StyledSearchBtn = styled(Link)`
 `;
 
 const SearchBtn = () => {
-  const { handleSearchBtn } = useContext(MainContext);
-  return <StyledSearchBtn onClick={handleSearchBtn} to="/searched" />;
+  return <StyledSearchBtn to="/searched" />;
 };
 
 export default SearchBtn;

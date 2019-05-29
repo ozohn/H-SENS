@@ -5,7 +5,6 @@ import { useQuery } from 'react-apollo-hooks';
 import { gql } from 'apollo-boost';
 import UserInfo from '../../container/user/UserInfo';
 import Works from './Works';
-import { MainContext } from '../../../context/mainContext';
 
 const User = styled.div`
   position: relative;

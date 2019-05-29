@@ -49,8 +49,11 @@ const WorkDetail = ({
     params: { workid, userid },
   },
   history,
+  searched,
 }) => {
-  console.log(workid);
+  if (searched) {
+    workid = searched.split('/')[1];
+  }
   const { data } = useQuery(SEE_WORK, {
     variables: { workid },
   });
@@ -62,6 +65,7 @@ const WorkDetail = ({
         if (e.target === e.currentTarget) {
           document.body.style.overflowY = 'auto';
           if (userid) history.push(`/${userid}`);
+          else if (searched) history.push(`${searched.split('/')[0]}`);
           else if (!userid) history.push(`/`);
         }
       }}

@@ -29,11 +29,11 @@ const Searched = ({ location: { search }, match }) => {
     skip: term === undefined,
     variables: { term },
   });
-  console.log(match);
+  
   return (
     <>
       <Header />
-      {/* {params.workid && <WorkDetail />} */}
+      {search.split('/')[1] && <WorkDetail searched={search} />}
       <SearchList searched={data} loading={loading} filter={select} />
     </>
   );

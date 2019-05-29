@@ -1,9 +1,10 @@
 /* eslint-disable no-underscore-dangle */
-import React, { useContext } from 'react';
-import { Link } from 'react-router-dom';
+import React from 'react';
+import { Link, withRouter } from 'react-router-dom';
+import { useQuery, useMutation } from 'react-apollo-hooks';
 import { Image, Icon } from 'semantic-ui-react';
 import styled from 'styled-components';
-import { MainContext } from '../../../context/mainContext';
+import { DELETE_WORK, EDIT_WORK } from './WorkQueries';
 
 const ItemContainer = styled.li`
   position: relative;
@@ -45,21 +46,43 @@ const EditBtnContainer = styled.div`
   );
 `;
 
-export default function Work({ work }) {
+const Work = ({
+  match: {
+    params: { userid },
+  },
+  history,
+  work,
+}) => {
+  const deleteWork = useMutation(DELETE_WORK, {
+    variables: { workid: work.id },
+  });
   return (
     <ItemContainer>
       <CustomImage
-        // onClick={() => showWork(work)}
+        onClick={() => history.push(`/${userid}/${work.id}`)}
         src={work.workimage}
         verticalAlign="top"
         size="medium"
       />
       <EditBtnContainer>
-        <Icon name="remove circle" />
-        <Link to={{ pathname: '/workeditor', state: { submit: 'Edit', work } }}>
+        <Icon
+          name="remove circle"
+          onClick={() => {
+            deleteWork();
+            window.location.replace(`${process.env.REACT_APP_CLIENT_URL}/${userid}`);
+          }}
+        />
+        <Link
+          to={{
+            pathname: `/${userid}/${work.id}/workeditor`,
+            params: { workid: work.id, submit: 'Edit' },
+          }}
+        >
           <Icon name="eraser" />
         </Link>
       </EditBtnContainer>
     </ItemContainer>
   );
-}
+};
+
+export default withRouter(Work);

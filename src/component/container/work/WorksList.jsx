@@ -1,8 +1,7 @@
 /* eslint-disable no-underscore-dangle */
 import styled from 'styled-components';
-import React, { useContext } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
-import { MainContext } from '../../../context/mainContext';
 import Work from './Work';
 
 const Works = styled.ul`

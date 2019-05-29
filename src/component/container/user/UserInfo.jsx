@@ -1,7 +1,5 @@
 import React from 'react';
 import { Image } from 'semantic-ui-react';
-import { useQuery } from 'react-apollo-hooks';
-import { gql } from 'apollo-boost';
 import styled from 'styled-components';
 import LinkButton from '../../presenter/buttons/LinkBtn';
 

@@ -1,4 +1,5 @@
 import React, { useEffect, useContext, useState } from 'react';
+import { withRouter } from 'react-router-dom';
 import { gql } from 'apollo-boost';
 import { useQuery } from 'react-apollo-hooks';
 import List from '../../container/list/List';
@@ -12,17 +13,10 @@ const QUERY = gql`
   }
 `;
 
-const MainPage = () => {
+const MainPage = ({ match: { params } }) => {
   const {
     data: { isLoggedIn },
   } = useQuery(QUERY);
-
-  // const [mainLoading, setMainLoading] = useState();
-  // useEffect(() => {
-  //   fetchWorkData('init', setMainLoading);
-  //   if (localStorage.getItem('token') === null) return;
-  //   fetchUserData();
-  // }, []);
 
   // return isLoggedIn ? (
   //   <MainLoadingAni />
@@ -30,10 +24,10 @@ const MainPage = () => {
   return (
     <>
       <Header isLoggedIn={isLoggedIn} />
-      {/* <WorkDetail /> */}
+      {params.workid && <WorkDetail />}
       <List />
     </>
   );
 };
 
-export default MainPage;
+export default withRouter(MainPage);

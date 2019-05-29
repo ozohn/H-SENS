@@ -1,5 +1,6 @@
 import styled from 'styled-components';
-import React from 'react';
+import React, { useState } from 'react';
+import { withRouter } from 'react-router-dom';
 import WorksList from '../../container/work/WorksList';
 import WorkDetail from '../../container/work/WorkDetail';
 
@@ -23,12 +24,13 @@ const Heading2 = styled.h2`
   font-weight: bold;
 `;
 
-export default function Works({ works, userid }) {
+const Works = ({ match: { params }, works, userid }) => {
   return (
     <WorksContainer>
       <Heading2>works</Heading2>
-      {/* <WorkDetail /> */}
+      {params.workid && <WorkDetail />}
       <WorksList works={works} userid={userid} />
     </WorksContainer>
   );
-}
+};
+export default withRouter(Works);

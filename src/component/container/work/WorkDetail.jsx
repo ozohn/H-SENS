@@ -1,7 +1,9 @@
-import React, { useContext } from 'react';
+import React from 'react';
+import { withRouter } from 'react-router-dom';
+import { useQuery } from 'react-apollo-hooks';
 import styled from 'styled-components';
 import { Viewer } from '@toast-ui/react-editor';
-import { MainContext } from '../../../context/mainContext';
+import { SEE_WORK } from './WorkQueries';
 
 const WorkCover = styled.div`
   display: ${props => (props.target ? 'block' : 'none')};
@@ -42,37 +44,45 @@ const ViewerContainer = styled.div`
   padding: 3rem;
 `;
 
-export default function WorkDetail({ searched }) {
-  const { state, showWork } = useContext(MainContext);
-  if (state.curData === undefined) return null;
-  const target = searched
-    ? state.searchedData && state.searchedData.filter(v => v.workview)[0]
-    : state.curData.works && state.curData.works.filter(v => v.workview)[0];
-  const { worktitle, workimage, workdesc } = target || {};
-  if (target) {
-    window.scrollTo(0, window.innerHeight);
-    document.body.style.overflowY = 'hidden';
-  } else {
-    document.body.style.overflowY = 'auto';
-  }
+const WorkDetail = ({
+  match: {
+    params: { workid, userid },
+  },
+  history,
+}) => {
+  const { data } = useQuery(SEE_WORK, {
+    variables: { workid },
+  });
+  window.scrollTo(0, window.innerHeight);
+  document.body.style.overflowY = 'hidden';
   return (
     <WorkCover
       onClick={e => {
         if (e.target === e.currentTarget) {
-          showWork(target, searched);
+          document.body.style.overflowY = 'auto';
+          if (userid) history.push(`/${userid}`);
+          else if (!userid) history.push(`/`);
         }
       }}
-      target={target}
+      target={data.seeWork}
     >
-      <WorkInformation>
-        <WorkHeader>
-          <WorkTitle>{worktitle}</WorkTitle>
-          <WorkImg src={workimage} alt="this work" />
-        </WorkHeader>
-        <ViewerContainer>
-          <Viewer initialValue={workdesc} previewStyle="vertical" height="600px" />
-        </ViewerContainer>
-      </WorkInformation>
+      {data.seeWork && (
+        <WorkInformation>
+          <WorkHeader>
+            <WorkTitle>{data.seeWork.worktitle}</WorkTitle>
+            <WorkImg src={data.seeWork.workimage} alt="this work" />
+          </WorkHeader>
+          <ViewerContainer>
+            <Viewer
+              initialValue={data.seeWork.workdesc}
+              previewStyle="vertical"
+              height="600px"
+            />
+          </ViewerContainer>
+        </WorkInformation>
+      )}
     </WorkCover>
   );
-}
+};
+
+export default withRouter(WorkDetail);

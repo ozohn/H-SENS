@@ -83,7 +83,7 @@ const SearchList = ({ history, location, loading, searched, filter }) => {
           return (
             <UserDataContainer
               work={work}
-              onClick={() => history.push(`/search/${location.search}/${work.id}`)}
+              onClick={() => history.push(`/search${location.search}/${work.id}`)}
               key={work.id}
               background={work.workimage}
             >

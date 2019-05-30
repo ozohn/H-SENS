@@ -28,7 +28,8 @@ const Line = styled.div`
 const StyledSearchBtn = styled.button`
   display: flex;
   align-items: center;
-  background: center url(./image/searchBtnHover.png) no-repeat;
+  background: center url(${process.env.REACT_APP_CLIENT_URL}/image/searchBtnHover.png)
+    no-repeat;
   width: 10%;
   height: 100%;
   color: #011627;
@@ -37,7 +38,8 @@ const StyledSearchBtn = styled.button`
   margin-right: 2.5%;
 
   &:hover {
-    background: center url(./image/searchBtn.png) no-repeat;
+    background: center url(${process.env.REACT_APP_CLIENT_URL}/image/searchBtn.png)
+      no-repeat;
     transition: background 0.3s;
   }
 `;

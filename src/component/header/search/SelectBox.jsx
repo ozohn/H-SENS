@@ -43,7 +43,7 @@ const Select = styled(Dropdown)`
   }
 `;
 
-const SelectBox = ({ selector, setSelector }) => {
+const Filter = ({ selector, setSelector }) => {
   return (
     <SelectorContainer>
       <Select placeholder="Works" fluid multiple selection options={list} />
@@ -51,4 +51,4 @@ const SelectBox = ({ selector, setSelector }) => {
   );
 };
 
-export default SelectBox;
+export default Filter;

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import { withRouter } from 'react-router-dom';
-import SelectBox from './SelectBox';
+import Filter from './SelectBox';
 
 const SearchWrapper = styled.div`
   display: flex;
@@ -60,7 +60,7 @@ const Search = ({ history }) => {
       />
       <StyledSearchBtn onClick={onSearchSubmit} />
       <Line />
-      <SelectBox selector={selector} setSelector={setSelector} />
+      <Filter selector={selector} setSelector={setSelector} />
     </SearchWrapper>
   );
 };

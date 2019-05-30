@@ -20,7 +20,6 @@ const WorkCover = styled.div`
 
 const WorkInformation = styled.div`
   width: 80vw;
-  height: 100vh;
   margin: 0 auto;
   background-color: #fff;
 `;
@@ -28,7 +27,7 @@ const WorkHeader = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 0 1rem;
+  padding: 0 3rem;
   height: 12rem;
   background-color: #231f20;
   color: #55fe47;

@@ -15,8 +15,7 @@ const FormContainer = styled.div`
   z-index: 2;
   display: inline-block;
   padding: 4rem 4rem 4rem;
-  height: 100vh;
-  width: 100vw;
+  width: 60rem;
   background-color: #fff;
 `;
 
@@ -45,7 +44,6 @@ const TextArea = styled.textarea`
 `;
 const Input = styled.input`
   display: inline-block;
-  margin-left: 4rem;
   padding-left: 1rem;
   width: 22rem;
   border: 0;
@@ -84,13 +82,10 @@ const FileLabel = styled.label`
   text-align: center;
 `;
 
-const Label = styled.label`
-  display: none;
-`;
-
 const Heading3 = styled.h3`
   margin: 0;
   margin-top: 1rem;
+  margin-right: 2rem;
   font-size: 4rem;
   color: #231f20;
   display: inline-block;
@@ -99,9 +94,7 @@ const Heading3 = styled.h3`
 
 const Button = styled.button`
   color: #95bfb4;
-  margin-left: 25rem;
-  display: inline-block;
-  vertical-align: bottom;
+  float: right;
   border: 0;
   outline: none;
   cursor: pointer;

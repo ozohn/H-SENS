@@ -19,26 +19,18 @@ const Wrapper = styled.select`
   position: relative;
   outline: none;
 `;
-
-const List = styled.option`
-  width: 100%;
-  height: 50%;
-  border-bottom: 1px solid #011627;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-`;
 const Select = styled(Dropdown)`
   &&& {
     margin: 0;
     padding: 0;
     border: 1px solid #000;
-    display: inline-block;
-    vertical-align: text-top;
+    display: flex;
+    align-items: center;
     & div.default.text {
       display: inline-block;
       vertical-align: inherit;
       color: #000;
+      padding: 0.5rem 0 0 0.7rem;
     }
   }
 `;
@@ -46,7 +38,7 @@ const Select = styled(Dropdown)`
 const Filter = ({ selector, setSelector }) => {
   return (
     <SelectorContainer>
-      <Select placeholder="Works" fluid multiple selection options={list} />
+      <Select placeholder="Works" fluid selection options={list} />
     </SelectorContainer>
   );
 };

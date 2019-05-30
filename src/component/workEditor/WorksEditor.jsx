@@ -21,9 +21,7 @@ const Field = styled.div`
 
 const Button = styled.button`
   color: #95bfb4;
-  margin-left: 25rem;
-  display: inline-block;
-  vertical-align: bottom;
+  float: right;
   border: 0;
   outline: none;
   cursor: pointer;
@@ -37,7 +35,6 @@ const Button = styled.button`
 `;
 const Input = styled.input`
   display: inline-block;
-  margin-left: 4rem;
   padding-left: 1rem;
   width: 22rem;
   border: 0;

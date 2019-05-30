@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import { withRouter } from 'react-router-dom';
-import SelectBox from './SelectBox';
+import Filter from './SelectBox';
 
 const SearchWrapper = styled.div`
   display: flex;
@@ -36,7 +36,7 @@ const StyledSearchBtn = styled.button`
   border-bottom: 1px solid #011627;
   transition: background 0.3s;
   margin-right: 2.5%;
-
+  border: 0;
   &:hover {
     background: center url(${process.env.REACT_APP_CLIENT_URL}/image/searchBtn.png)
       no-repeat;
@@ -60,7 +60,7 @@ const Search = ({ history }) => {
       />
       <StyledSearchBtn onClick={onSearchSubmit} />
       <Line />
-      <SelectBox selector={selector} setSelector={setSelector} />
+      <Filter selector={selector} setSelector={setSelector} />
     </SearchWrapper>
   );
 };

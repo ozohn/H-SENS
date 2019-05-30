@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import { gql } from 'apollo-boost';
 import { useQuery } from 'react-apollo-hooks';
 
+import Logout from '../logout/Logout';
 import ListContainer from './ListContainer';
 import fillArray from './fillArray';
 import Line from './Line';
@@ -61,6 +62,7 @@ const List = () => {
       <BefButton onClick={handleBefBtn} disabled={pagenation <= 1 ? 'disabled' : null}>
         Before
       </BefButton>
+      <Logout />
       <ListContainer onScroll={multiScroll}>
         {workLists.length &&
           workLists.map((workList, i) => {

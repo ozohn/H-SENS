@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
 import { useMutation } from 'react-apollo-hooks';
 import InputContainer from '../InputContainer';
 import SignLogo from '../SignLogo';
 import SignUpForm from './SignUpForm';
 import { CREATE_ACCOUNT, CONFIRM_ID } from './SignUpQueries';
 
-const SignUpComponent = () => {
+const SignUpComponent = ({ history }) => {
   const initialState = {
     error: false,
     value: '',
@@ -75,7 +75,7 @@ const SignUpComponent = () => {
         throw new Error('중복된 아이디입니다.');
       } else {
         setAction({ loading: false, text: 'Success' });
-        window.location.replace(`${process.env.REACT_APP_CLIENT_URL}`);
+        history.push(`/signin`);
       }
     }
   };
@@ -93,4 +93,4 @@ const SignUpComponent = () => {
   );
 };
 
-export default SignUpComponent;
+export default withRouter(SignUpComponent);

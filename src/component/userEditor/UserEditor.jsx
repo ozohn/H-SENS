@@ -3,6 +3,7 @@ import { withRouter } from 'react-router-dom';
 import { useQuery, useMutation } from 'react-apollo-hooks';
 import { gql } from 'apollo-boost';
 import styled from 'styled-components';
+import UserValiation from './UserValiation';
 
 import EDIT_USER from './UserQueries';
 import getBase64 from '../../util/getBase64';
@@ -132,14 +133,15 @@ function UserEditor({
     variables: { userid },
   });
 
-  const [username, setUserName] = useState();
-  const [userdesc, setUserDesc] = useState();
-  const [userimage, setUserImage] = useState();
+  const [username, setUserName] = useState('');
+  const [userdesc, setUserDesc] = useState('');
+  const [userimage, setUserImage] = useState('');
+  const [error, setError] = useState(false);
 
   const changeUserInfo = useMutation(EDIT_USER, {
     variables: { username, userdesc, userimage },
   });
-
+  console.log(username);
   useEffect(() => {
     if (loading) return;
     setUserDesc(data.seeUser.userdesc);
@@ -157,9 +159,10 @@ function UserEditor({
               type="text"
               placeholder="Name"
               onChange={e => {
+                !e.target.value ? setError(true) : setError(false);
                 setUserName(e.target.value);
               }}
-              defaultValue={username}
+              value={username}
             />
           </Fields>
           <Fields>
@@ -173,6 +176,7 @@ function UserEditor({
               value={userdesc || ''}
             />
           </Fields>
+          <UserValiation error={error} />
           <FileLabel>
             Image
             <InputFile
@@ -183,6 +187,7 @@ function UserEditor({
           </FileLabel>
           <Button
             onClick={() => {
+              if (error) return;
               changeUserInfo();
               window.location.replace(`${process.env.REACT_APP_CLIENT_URL}/${userid}`);
             }}

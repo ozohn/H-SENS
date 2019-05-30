@@ -43,9 +43,9 @@ const List = () => {
   useEffect(() => {
     if (loading) return;
     const works = data.seeWorks;
+    !works[24] ? setBLastPage(true) : setBLastPage(false);
     setList(fillArray({ arr: works, num: 24, targetNum: 6 }));
   }, [data]);
-
   const handleNextBtn = async () => {
     setPaging(pagenation + 1);
   };

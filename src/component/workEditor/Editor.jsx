@@ -4,7 +4,7 @@ import 'tui-editor/dist/tui-editor.min.css';
 import 'tui-editor/dist/tui-editor-contents.min.css';
 import { Editor } from '@toast-ui/react-editor';
 
-export default function TuiEditor({ targetRef, initialValue }) {
+export default function TuiEditor({ targetRef, initialValue, setWorkDesc }) {
   return (
     <Editor
       initialValue={initialValue}
@@ -12,6 +12,7 @@ export default function TuiEditor({ targetRef, initialValue }) {
       height="400px"
       initialEditType="wysiwyg"
       ref={targetRef}
+      onChange={() => setWorkDesc(targetRef.current.getInstance().getValue())}
       exts={[
         {
           name: 'chart',

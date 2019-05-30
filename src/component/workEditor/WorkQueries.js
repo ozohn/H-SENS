@@ -11,7 +11,7 @@ const SEE_WORK_BY_ID = gql`
 `;
 
 const SEE_WORK = gql`
-  query seeWork($workid: String!) {
+  mutation seeWork($workid: String!) {
     seeWork(workid: $workid) {
       worktitle
       workdesc

@@ -1,5 +1,5 @@
 /* eslint-disable no-underscore-dangle */
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { useMutation, useQuery } from 'react-apollo-hooks';
 import { withRouter } from 'react-router-dom';
 import styled from 'styled-components';
@@ -75,32 +75,47 @@ const FileLabel = styled.label`
   text-align: center;
 `;
 
+const EDIT = 'EDIT';
+const CREATE = 'CREATE';
+
 function WorksEditor({
   match: {
     params: { userid, workid },
   },
 }) {
-  const action = workid ? 'EDIT' : 'CREATE';
-  const workdesc = useRef(null);
-  const [workimage, setWorkimage] = useState('');
-  const [worktitle, setWorktitle] = useState('');
-  const { data, loading } = useQuery(SEE_WORK, {
+  const [worktitle, setWorkTitle] = useState();
+  const [workdesc, setWorkDesc] = useState();
+  const [workimage, setWorkImage] = useState();
+  const workdescRef = useRef(null);
+
+  const action = workid ? EDIT : CREATE;
+
+  const getWorkInfo = useMutation(SEE_WORK, {
     variables: { workid },
-    action,
   });
+
+  useEffect(() => {
+    if (!workid) return;
+    getWorkInfo().then(result => {
+      setWorkDesc(result.data.seeWork.workdesc);
+      setWorkTitle(result.data.seeWork.worktitle);
+      setWorkImage(result.data.seeWork.workimage);
+    });
+  }, []);
 
   const createWork = useMutation(CREATE_WORK, {
     variables: {
       worktitle,
-      workdesc: workdesc.current && workdesc.current.getInstance().getValue(),
+      workdesc,
       workimage,
     },
   });
+
   const editWork = useMutation(EDIT_WORK, {
     variables: {
       workid,
       worktitle,
-      workdesc: workdesc.current && workdesc.current.getInstance().getValue(),
+      workdesc,
       workimage,
       action,
     },
@@ -109,31 +124,35 @@ function WorksEditor({
   return (
     <Container>
       <Field>
-        <InputForm
-          Tag={Input}
-          cb={setWorktitle}
-          placeholder="Name"
-          label="Title"
+        <Input
           type="text"
-          // value={work ? work.worktitle : ''}
+          placeholder="Title"
+          onChange={e => setWorkTitle(e.target.value)}
+          defaultValue={worktitle}
         />
       </Field>
       <Field editor="editor">
-        <TuiEditor targetRef={workdesc} initialValue="cdsa" />
+        {worktitle || !workid ? (
+          <TuiEditor
+            targetRef={workdescRef}
+            initialValue={workdesc}
+            setWorkDesc={setWorkDesc}
+          />
+        ) : null}
       </Field>
       <FileLabel>
         Image
         <InputFile
           type="file"
           accept=".jpg, .jpeg, .png"
-          onChange={e => getBase64(e.target.files[0], setWorkimage)}
+          onChange={e => getBase64(e.target.files[0], setWorkImage)}
         />
       </FileLabel>
       <Button
         onClick={async () => {
-          if (action === 'EDIT') {
+          if (action === EDIT) {
             await editWork();
-          } else if (action === 'CREATE') {
+          } else if (action === CREATE) {
             await createWork();
           }
           window.location.replace(`${process.env.REACT_APP_CLIENT_URL}/${userid}`);

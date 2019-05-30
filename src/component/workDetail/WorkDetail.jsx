@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { withRouter } from 'react-router-dom';
-import { useQuery } from 'react-apollo-hooks';
+import { useMutation } from 'react-apollo-hooks';
 import styled from 'styled-components';
 import { Viewer } from '@toast-ui/react-editor';
 import { SEE_WORK } from '../workEditor/WorkQueries';
@@ -52,9 +52,20 @@ const WorkDetail = ({
   searchWork,
   search,
 }) => {
-  const { data } = useQuery(SEE_WORK, {
+  const [work, setWork] = useState(null);
+  const getWorkInfo = useMutation(SEE_WORK, {
     variables: { workid: workid || searchWork },
   });
+
+  useEffect(() => {
+    const getWork = async () => {
+      const {
+        data: { seeWork },
+      } = await getWorkInfo();
+      return setWork(seeWork);
+    };
+    getWork();
+  }, []);
   window.scrollTo(0, window.innerHeight);
   document.body.style.overflowY = 'hidden';
   return (
@@ -69,23 +80,27 @@ const WorkDetail = ({
           } else history.push(`/`);
         }
       }}
-      target={data.seeWork}
+      target={work}
     >
-      {data.seeWork && (
+      {
         <WorkInformation>
-          <WorkHeader>
-            <WorkTitle>{data.seeWork.worktitle}</WorkTitle>
-            <WorkImg src={data.seeWork.workimage} alt="this work" />
-          </WorkHeader>
-          <ViewerContainer>
-            <Viewer
-              initialValue={data.seeWork.workdesc}
-              previewStyle="vertical"
-              height="600px"
-            />
-          </ViewerContainer>
+          {work && (
+            <>
+              <WorkHeader>
+                <WorkTitle>{work.worktitle}</WorkTitle>
+                <WorkImg src={work.workimage} alt="this work" />
+              </WorkHeader>
+              <ViewerContainer>
+                <Viewer
+                  initialValue={work.workdesc}
+                  previewStyle="vertical"
+                  height="600px"
+                />
+              </ViewerContainer>
+            </>
+          )}
         </WorkInformation>
-      )}
+      }
     </WorkCover>
   );
 };

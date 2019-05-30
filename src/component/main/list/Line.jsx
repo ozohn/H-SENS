@@ -3,7 +3,7 @@ import React, { useEffect, useRef } from 'react';
 import { withRouter } from 'react-router-dom';
 import styled from 'styled-components';
 import ItemContainer from './ItemContainer';
-
+import { isString } from '../../../util/checkType';
 const StyledImage = styled.div`
   display: block;
   width: 100%;
@@ -25,7 +25,11 @@ const Line = ({ history, works, scroll }) => {
       {works.map(work => {
         return (
           <StyledImage
-            onClick={() => history.push(`/work/${work.id}`)}
+            onClick={() => {
+              if (!isString(work.id)) return;
+              console.log('played');
+              history.push(`/work/${work.id}`);
+            }}
             key={work.id}
             src={work.workimage ? work.workimage : sourse}
             size="small"

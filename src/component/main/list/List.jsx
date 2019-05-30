@@ -35,11 +35,11 @@ const QUERY = gql`
 const List = () => {
   const [pagenation, setPaging] = useState(1);
   const [workLists, setList] = useState([]);
+  const [bLastPage, setBLastPage] = useState(false);
   const { data, loading } = useQuery(QUERY, {
     variables: { index: pagenation },
   });
   const [scroll, setScroll] = useState('');
-
   useEffect(() => {
     if (loading) return;
     const works = data.seeWorks;
@@ -58,10 +58,12 @@ const List = () => {
 
   return (
     <>
-      <NextButton onClick={handleNextBtn}>Next</NextButton>
       <BefButton onClick={handleBefBtn} disabled={pagenation <= 1 ? 'disabled' : null}>
         Before
       </BefButton>
+      <NextButton onClick={handleNextBtn} disabled={bLastPage ? 'disabled' : null}>
+        Next
+      </NextButton>
       <Logout />
       <ListContainer onScroll={multiScroll}>
         {workLists.length &&

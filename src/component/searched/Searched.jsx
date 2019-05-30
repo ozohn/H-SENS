@@ -23,7 +23,8 @@ export const SEARCH = gql`
 
 const Searched = ({ location: { search } }) => {
   const query = search.split('=');
-  const term = query[1].split('&')[0];
+  const term = decodeURIComponent(query[1].split('&')[0]);
+
   const select = query[2];
   const { data, loading } = useQuery(SEARCH, {
     skip: term === undefined,

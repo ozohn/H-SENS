@@ -7,6 +7,7 @@ import getBase64 from '../../util/getBase64';
 import InputForm from './Input';
 import TuiEditor from './Editor';
 import { EDIT_WORK, CREATE_WORK, SEE_WORK } from './WorkQueries';
+import { WorkTitleValiation, WorkImageValiation } from './WorkValiation';
 
 const Container = styled.div`
   width: 60vw;
@@ -87,6 +88,8 @@ function WorksEditor({
   const [workdesc, setWorkDesc] = useState();
   const [workimage, setWorkImage] = useState();
   const workdescRef = useRef(null);
+  const [titleError, setTitleError] = useState(false);
+  const [imageError, setImageError] = useState(false);
 
   const action = workid ? EDIT : CREATE;
 
@@ -127,7 +130,11 @@ function WorksEditor({
         <Input
           type="text"
           placeholder="Title"
-          onChange={e => setWorkTitle(e.target.value)}
+          onChange={e => {
+            if (!e.target.value) setTitleError(true);
+            else setTitleError(false);
+            setWorkTitle(e.target.value);
+          }}
           defaultValue={worktitle}
         />
       </Field>
@@ -140,16 +147,31 @@ function WorksEditor({
           />
         ) : null}
       </Field>
+      <WorkTitleValiation error={titleError} />
+      <WorkImageValiation error={imageError} />
       <FileLabel>
         Image
         <InputFile
           type="file"
           accept=".jpg, .jpeg, .png"
-          onChange={e => getBase64(e.target.files[0], setWorkImage)}
+          onChange={e => {
+            if (!workimage) setImageError(true);
+            else setImageError(false);
+            getBase64(e.target.files[0], setWorkImage);
+          }}
         />
       </FileLabel>
       <Button
         onClick={async () => {
+          if (titleError && imageError) return;
+          if (!worktitle) {
+            setTitleError(true);
+            return;
+          }
+          if (!workimage) {
+            setImageError(true);
+            return;
+          }
           if (action === EDIT) {
             await editWork();
           } else if (action === CREATE) {

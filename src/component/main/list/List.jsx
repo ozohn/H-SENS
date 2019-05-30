@@ -45,7 +45,6 @@ const List = () => {
     const works = data.seeWorks;
     setList(fillArray({ arr: works, num: 24, targetNum: 6 }));
   }, [data]);
-
   const handleNextBtn = async () => {
     setPaging(pagenation + 1);
   };

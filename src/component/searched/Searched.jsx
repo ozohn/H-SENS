@@ -21,9 +21,20 @@ export const SEARCH = gql`
   }
 `;
 
+const QUERY = gql`
+  {
+    isLoggedIn @client
+  }
+`;
+
 const Searched = ({ location: { search } }) => {
+  const {
+    data: { isLoggedIn },
+  } = useQuery(QUERY);
+
   const query = search.split('=');
-  const term = query[1].split('&')[0];
+  const term = decodeURIComponent(query[1].split('&')[0]);
+
   const select = query[2];
   const { data, loading } = useQuery(SEARCH, {
     skip: term === undefined,
@@ -33,7 +44,7 @@ const Searched = ({ location: { search } }) => {
   const workArr = select.split('/');
   return (
     <>
-      <Header />
+      <Header isLoggedIn={isLoggedIn} />
       {workArr[1] && <WorkDetail search={search} searchWork={workArr[1]} />}
       <SearchList searched={data} loading={loading} filter={select} />
     </>

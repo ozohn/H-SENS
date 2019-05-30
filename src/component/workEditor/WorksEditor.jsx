@@ -155,7 +155,7 @@ function WorksEditor({
           type="file"
           accept=".jpg, .jpeg, .png"
           onChange={e => {
-            if (!workimage) setImageError(true);
+            if (!e.target.value) setImageError(true);
             else setImageError(false);
             getBase64(e.target.files[0], setWorkImage);
           }}

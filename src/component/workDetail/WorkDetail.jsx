@@ -20,6 +20,7 @@ const WorkCover = styled.div`
 
 const WorkInformation = styled.div`
   width: 80vw;
+  min-height: 100vh;
   margin: 0 auto;
   background-color: #fff;
 `;

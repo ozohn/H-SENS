@@ -1,11 +1,13 @@
 const list = [
   {
-    id: 1,
+    key: 'Author',
     value: 'Author',
+    text: 'Author',
   },
   {
-    id: 2,
+    key: 'Works',
     value: 'Works',
+    text: 'Works',
   },
 ];
 

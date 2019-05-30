@@ -18,9 +18,6 @@ const MainPage = ({ match: { params } }) => {
     data: { isLoggedIn },
   } = useQuery(QUERY);
 
-  // return isLoggedIn ? (
-  //   <MainLoadingAni />
-  // ) :
   return (
     <>
       <Header isLoggedIn={isLoggedIn} />

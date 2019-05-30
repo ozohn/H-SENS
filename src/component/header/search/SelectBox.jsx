@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import { Dropdown } from 'semantic-ui-react';
 import list from './SelectBoxList';
 
 const SelectorContainer = styled.div`
@@ -12,7 +13,7 @@ const SelectorContainer = styled.div`
 const Wrapper = styled.select`
   width: 100%;
   height: 100%;
-  background-color: #efffe9;
+  background-color: inherit;
   align-items: center;
   text-align: center;
   position: relative;
@@ -27,17 +28,25 @@ const List = styled.option`
   justify-content: center;
   align-items: center;
 `;
+const Select = styled(Dropdown)`
+  &&& {
+    margin: 0;
+    padding: 0;
+    border: 1px solid #000;
+    display: inline-block;
+    vertical-align: text-top;
+    & div.default.text {
+      display: inline-block;
+      vertical-align: inherit;
+      color: #000;
+    }
+  }
+`;
 
 const SelectBox = ({ selector, setSelector }) => {
   return (
     <SelectorContainer>
-      <Wrapper value={selector} onChange={e => setSelector(e.target.value)}>
-        {list.map(item => (
-          <List key={item.id} value={item.value}>
-            {item.value}
-          </List>
-        ))}
-      </Wrapper>
+      <Select placeholder="Works" fluid multiple selection options={list} />
     </SelectorContainer>
   );
 };

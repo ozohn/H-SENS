@@ -27,11 +27,10 @@ const Line = ({ history, works, scroll }) => {
           <StyledImage
             onClick={() => {
               if (!isString(work.id)) return;
-              console.log('played');
               history.push(`/work/${work.id}`);
             }}
             key={work.id}
-            src={work.workimage ? work.workimage : sourse}
+            src={work.workimage ? work.workimage : null}
             size="small"
           />
         );

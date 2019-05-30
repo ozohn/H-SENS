@@ -36,7 +36,7 @@ const StyledSearchBtn = styled.button`
   border-bottom: 1px solid #011627;
   transition: background 0.3s;
   margin-right: 2.5%;
-
+  border: 0;
   &:hover {
     background: center url(${process.env.REACT_APP_CLIENT_URL}/image/searchBtn.png)
       no-repeat;

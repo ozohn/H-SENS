@@ -47,6 +47,7 @@ const Header = ({ isLoggedIn }) => {
           to={isLoggedIn ? `/${data.currentUser.userid}` : '/signin'}
           userimage={isLoggedIn ? data.currentUser.userimage : null}
         />
+        {/* <Dropdown trigger={trigger} options={options} /> */}
       </HeaderContainer>
     );
   }
